@@ -649,6 +649,11 @@ a {
   );
 }
 
+.session-actions {
+  display: grid;
+  gap: 12px;
+}
+
 .queue-details {
   margin-top: 14px;
 }

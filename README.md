@@ -13,6 +13,7 @@ Podcastアプリで聞いたあとに、`今日のフレーズ / Vocabulary / Ex
 - `選択中の回 / 全エピソード`、`Phrases / Vocabulary / Expressions`、`日英 / 英日 / 両方` での復習設定
 - `Needs Review / Mastered / Shuffle` を含む復習条件の切り替え
 - 復習セッションの `Queue / Seen / Good / Again` 集計
+- セッション完了後に `Again` だったカードだけをそのまま再出題
 - 1セッション完了時のサマリー表示
 - `Space / ← / →` によるキーボード復習ショートカット
 

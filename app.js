@@ -64,6 +64,8 @@
     revealButton: document.getElementById("reveal-button"),
     againButton: document.getElementById("again-button"),
     goodButton: document.getElementById("good-button"),
+    sessionActions: document.getElementById("session-actions"),
+    retryMissedButton: document.getElementById("retry-missed-button"),
     studyQueue: document.getElementById("study-queue")
   };
 
@@ -73,8 +75,10 @@
       currentIndex: 0,
       revealAnswer: false,
       completed: false,
+      modeLabel: "Current setup",
       session: {
         seenIds: {},
+        againIds: {},
         good: 0,
         again: 0
       }
@@ -373,7 +377,27 @@
   function startStudySession() {
     state.study = createStudyState();
     state.study.cards = getCardsForConfig(state.reviewConfig);
+    state.study.modeLabel =
+      state.reviewConfig.scope === "all"
+        ? "All episodes"
+        : "Selected episode";
     state.activeScreen = "study";
+  }
+
+  function restartMissedSession() {
+    const missedIds = Object.keys(state.study.session.againIds);
+    if (!missedIds.length) {
+      return;
+    }
+
+    const missedLookup = new Set(missedIds);
+    const retryCards = state.study.cards.filter((card) => missedLookup.has(card.id));
+
+    state.study = createStudyState();
+    state.study.cards = retryCards;
+    state.study.modeLabel = "Again replay";
+    state.activeScreen = "study";
+    render();
   }
 
   function stripDirectionSuffix(cardId) {
@@ -682,6 +706,7 @@
   function renderStudyScreen() {
     const study = state.study;
     const seenCount = Object.keys(study.session.seenIds).length;
+    const missedCount = Object.keys(study.session.againIds).length;
     const queueCount = study.cards.length;
     const sessionProgress = queueCount ? (seenCount / queueCount) * 100 : 0;
 
@@ -689,7 +714,8 @@
       { label: "Queue", value: queueCount },
       { label: "Seen", value: seenCount },
       { label: "Good", value: study.session.good },
-      { label: "Again", value: study.session.again }
+      { label: "Again", value: study.session.again },
+      { label: "Retry", value: missedCount }
     ]
       .map(
         (item) => `
@@ -714,6 +740,7 @@
       elements.revealButton.disabled = true;
       elements.againButton.disabled = true;
       elements.goodButton.disabled = true;
+      elements.sessionActions.hidden = true;
       elements.studyQueue.innerHTML =
         '<p class="empty-copy">まだ学習セッションが始まっていません。</p>';
       return;
@@ -728,13 +755,17 @@
       elements.cardFront.textContent = "1セッションぶんのカードを最後まで回せました。";
       elements.cardAnswer.hidden = false;
       elements.cardBack.innerHTML = `
+        <p><strong>Mode:</strong> ${escapeHtml(study.modeLabel)}</p>
         <p><strong>Good:</strong> ${escapeHtml(study.session.good)}</p>
         <p><strong>Again:</strong> ${escapeHtml(study.session.again)}</p>
+        <p><strong>Retry cards:</strong> ${escapeHtml(missedCount)}</p>
         <p><strong>Seen:</strong> ${escapeHtml(seenCount)} / ${escapeHtml(queueCount)}</p>
       `;
       elements.revealButton.disabled = true;
       elements.againButton.disabled = true;
       elements.goodButton.disabled = true;
+      elements.sessionActions.hidden = missedCount === 0;
+      elements.retryMissedButton.disabled = missedCount === 0;
       elements.studyQueue.innerHTML = study.cards
         .map(
           (queueCard) => `
@@ -762,6 +793,8 @@
     elements.revealButton.disabled = false;
     elements.againButton.disabled = !study.revealAnswer;
     elements.goodButton.disabled = !study.revealAnswer;
+    elements.sessionActions.hidden = true;
+    elements.retryMissedButton.disabled = true;
 
     elements.studyQueue.innerHTML = study.cards
       .map((queueCard, index) => {
@@ -803,6 +836,7 @@
       updateCardProgress(currentCard.id, 1);
     } else {
       state.study.session.again += 1;
+      state.study.session.againIds[currentCard.id] = true;
       updateCardProgress(currentCard.id, -1);
     }
 
@@ -914,6 +948,10 @@
 
     elements.goodButton.addEventListener("click", () => {
       handleStudyOutcome("good");
+    });
+
+    elements.retryMissedButton.addEventListener("click", () => {
+      restartMissedSession();
     });
 
     document.addEventListener("keydown", (event) => {
