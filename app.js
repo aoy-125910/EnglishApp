@@ -1,29 +1,38 @@
 (function () {
-  const episodes = window.HAPA_EPISODES || [];
+  const rawEpisodes = window.HAPA_EPISODES || [];
   const template = window.HAPA_TEMPLATE || {};
   const STORAGE_KEY = "hapa-study-progress";
+  const catalog = buildCatalog(rawEpisodes);
 
   const state = {
-    selectedEpisodeId: episodes[0]?.id || null,
-    currentView: "organize",
-    episodeSearch: "",
-    reviewEpisodeFilter: "all",
-    reviewTypeFilter: "all",
-    reviewDirectionFilter: "both",
-    reviewStatusFilter: "all",
-    reviewOrder: "weak-first",
-    revealAnswer: false,
-    currentCardIndex: 0,
-    reviewCards: [],
+    activeScreen: "library",
+    selectedEpisodeId:
+      catalog.episodes[catalog.episodes.length - 1]?.id || null,
+    searchQuery: "",
     progress: loadProgress(),
-    session: createSessionState()
+    reviewConfig: {
+      scope: "current",
+      type: "all",
+      direction: "both",
+      status: "all",
+      order: "weak-first"
+    },
+    study: createStudyState()
   };
 
   const elements = {
     summaryStats: document.getElementById("summary-stats"),
+    screens: {
+      library: document.getElementById("screen-library"),
+      episode: document.getElementById("screen-episode"),
+      setup: document.getElementById("screen-setup"),
+      study: document.getElementById("screen-study")
+    },
+    navButtons: Array.from(document.querySelectorAll("[data-screen]")),
     episodeSearch: document.getElementById("episode-search"),
-    episodeCount: document.getElementById("episode-count"),
-    episodeList: document.getElementById("episode-list"),
+    libraryCount: document.getElementById("library-count"),
+    libraryList: document.getElementById("library-list"),
+    templateBlock: document.getElementById("template-block"),
     episodeTitle: document.getElementById("episode-title"),
     episodeSubtitle: document.getElementById("episode-subtitle"),
     episodeMeta: document.getElementById("episode-meta"),
@@ -32,19 +41,17 @@
     phrasesSection: document.getElementById("phrases-section"),
     vocabularySection: document.getElementById("vocabulary-section"),
     expressionsSection: document.getElementById("expressions-section"),
-    reviewCurrentButton: document.getElementById("review-current-button"),
-    focusCurrentButton: document.getElementById("focus-current-button"),
-    resetSessionButton: document.getElementById("reset-session-button"),
-    tabButtons: Array.from(document.querySelectorAll(".tabbar__button")),
-    views: {
-      organize: document.getElementById("organize-view"),
-      review: document.getElementById("review-view")
-    },
-    reviewEpisodeFilters: document.getElementById("review-episode-filters"),
-    reviewTypeFilters: document.getElementById("review-type-filters"),
-    reviewDirectionFilters: document.getElementById("review-direction-filters"),
-    reviewStatusFilters: document.getElementById("review-status-filters"),
-    reviewOrderFilters: document.getElementById("review-order-filters"),
+    goSetupButton: document.getElementById("go-setup-button"),
+    useCurrentButton: document.getElementById("use-current-button"),
+    scopeFilters: document.getElementById("scope-filters"),
+    typeFilters: document.getElementById("type-filters"),
+    directionFilters: document.getElementById("direction-filters"),
+    statusFilters: document.getElementById("status-filters"),
+    orderFilters: document.getElementById("order-filters"),
+    setupSummary: document.getElementById("setup-summary"),
+    setupPreview: document.getElementById("setup-preview"),
+    startStudyButton: document.getElementById("start-study-button"),
+    backToSetupButton: document.getElementById("back-to-setup-button"),
     sessionStats: document.getElementById("session-stats"),
     sessionProgressBar: document.getElementById("session-progress-bar"),
     cardBadge: document.getElementById("card-badge"),
@@ -57,16 +64,159 @@
     revealButton: document.getElementById("reveal-button"),
     againButton: document.getElementById("again-button"),
     goodButton: document.getElementById("good-button"),
-    reviewQueue: document.getElementById("review-queue"),
-    templateBlock: document.getElementById("template-block")
+    studyQueue: document.getElementById("study-queue")
   };
 
-  function createSessionState() {
+  function createStudyState() {
     return {
-      seenIds: {},
-      good: 0,
-      again: 0
+      cards: [],
+      currentIndex: 0,
+      revealAnswer: false,
+      completed: false,
+      session: {
+        seenIds: {},
+        good: 0,
+        again: 0
+      }
     };
+  }
+
+  function buildCatalog(episodes) {
+    const sortedEpisodes = [...episodes].sort(
+      (left, right) =>
+        extractEpisodeNumber(left.number) - extractEpisodeNumber(right.number)
+    );
+    const episodeMap = new Map();
+    const itemsByEpisode = new Map();
+    const cardsByEpisode = new Map();
+    const allItems = [];
+    const allCards = [];
+
+    sortedEpisodes.forEach((episode) => {
+      const items = buildEpisodeItems(episode);
+      const cards = items.flatMap((item) => buildCardsForItem(item));
+      episodeMap.set(episode.id, episode);
+      itemsByEpisode.set(episode.id, items);
+      cardsByEpisode.set(episode.id, cards);
+      allItems.push(...items);
+      allCards.push(...cards);
+    });
+
+    return {
+      episodes: sortedEpisodes,
+      episodeMap,
+      itemsByEpisode,
+      cardsByEpisode,
+      allItems,
+      allCards
+    };
+  }
+
+  function buildEpisodeItems(episode) {
+    const phraseItems = (episode.phrases || []).map((item) => ({
+      baseId: `${episode.id}-${item.id}`,
+      episodeId: episode.id,
+      episodeNumber: episode.number,
+      episodeTitle: episode.title,
+      type: "phrase",
+      typeLabel: "Today's Phrase",
+      english: item.expression,
+      japanese: item.meaning,
+      japanesePrompt: item.reviewPrompt || `日本語: 『${item.meaning}』`,
+      sortLabel: item.expression,
+      organizeHtml: `
+        <article class="stack-item">
+          <p class="stack-item__title">${escapeHtml(item.expression)}</p>
+          <p class="stack-item__meta">${escapeHtml(item.meaning)}</p>
+          <div class="stack-item__body">
+            <p><strong>Nuance:</strong> ${escapeHtml(item.nuance)}</p>
+            <p><strong>Example:</strong> ${escapeHtml(item.example)}</p>
+            <p><strong>Review Prompt:</strong> ${escapeHtml(item.reviewPrompt || `日本語: 『${item.meaning}』`)}</p>
+          </div>
+        </article>
+      `,
+      answerHtml: `
+        <p><strong>${escapeHtml(item.expression)}</strong></p>
+        <p>${escapeHtml(item.meaning)}</p>
+        <ul>
+          <li>${escapeHtml(item.nuance)}</li>
+          <li>${escapeHtml(item.example)}</li>
+        </ul>
+      `
+    }));
+
+    const vocabularyItems = (episode.vocabulary || []).map((item) => {
+      const type = item.kind === "Expression" ? "expression" : "vocabulary";
+      const typeLabel = type === "expression" ? "Expression" : "Vocabulary";
+
+      return {
+        baseId: `${episode.id}-${item.id}`,
+        episodeId: episode.id,
+        episodeNumber: episode.number,
+        episodeTitle: episode.title,
+        type,
+        typeLabel,
+        english: item.term,
+        japanese: item.meaning,
+        japanesePrompt: `日本語: 『${item.meaning}』`,
+        sortLabel: item.term,
+        organizeHtml: `
+          <article class="stack-item">
+            <p class="stack-item__title">${escapeHtml(item.term)}</p>
+            <p class="stack-item__meta"><span class="inline-tag">${escapeHtml(typeLabel)}</span> ${escapeHtml(item.meaning)}</p>
+            <div class="stack-item__body">
+              <p><strong>Usage:</strong> ${escapeHtml(item.usage)}</p>
+              <p><strong>Example:</strong> ${escapeHtml(item.example)}</p>
+              <p><strong>Note:</strong> ${escapeHtml(item.note)}</p>
+            </div>
+          </article>
+        `,
+        answerHtml: `
+          <p><strong>${escapeHtml(item.term)}</strong> <span class="inline-tag">${escapeHtml(typeLabel)}</span></p>
+          <p>${escapeHtml(item.meaning)}</p>
+          <ul>
+            <li>${escapeHtml(item.usage)}</li>
+            <li>${escapeHtml(item.example)}</li>
+            <li>${escapeHtml(item.note)}</li>
+          </ul>
+        `
+      };
+    });
+
+    return [...phraseItems, ...vocabularyItems];
+  }
+
+  function buildCardsForItem(item) {
+    return [
+      {
+        id: `${item.baseId}-ja-to-en`,
+        episodeId: item.episodeId,
+        episodeNumber: item.episodeNumber,
+        episodeTitle: item.episodeTitle,
+        type: item.type,
+        typeLabel: item.typeLabel,
+        direction: "ja-to-en",
+        directionLabel: "日英",
+        prompt: item.japanesePrompt,
+        queueLabel: item.english,
+        context: `${item.episodeTitle} / ${item.typeLabel} / 日英`,
+        answerHtml: item.answerHtml
+      },
+      {
+        id: `${item.baseId}-en-to-ja`,
+        episodeId: item.episodeId,
+        episodeNumber: item.episodeNumber,
+        episodeTitle: item.episodeTitle,
+        type: item.type,
+        typeLabel: item.typeLabel,
+        direction: "en-to-ja",
+        directionLabel: "英日",
+        prompt: item.english,
+        queueLabel: item.english,
+        context: `${item.episodeTitle} / ${item.typeLabel} / 英日`,
+        answerHtml: item.answerHtml
+      }
+    ];
   }
 
   function loadProgress() {
@@ -81,128 +231,21 @@
     window.localStorage.setItem(STORAGE_KEY, JSON.stringify(state.progress));
   }
 
+  function extractEpisodeNumber(label) {
+    const match = String(label).match(/\d+/);
+    return match ? Number(match[0]) : Number.MAX_SAFE_INTEGER;
+  }
+
   function getSelectedEpisode() {
-    return episodes.find((episode) => episode.id === state.selectedEpisodeId) || null;
+    return catalog.episodeMap.get(state.selectedEpisodeId) || null;
   }
 
-  function getPhraseItems(episode) {
-    return (episode.phrases || []).map((item) => ({
-      baseId: `${episode.id}-${item.id}`,
-      episodeId: episode.id,
-      episodeNumber: episode.number,
-      episodeTitle: episode.title,
-      type: "phrase",
-      categoryLabel: "Today's Phrase",
-      english: item.expression,
-      japanese: item.meaning,
-      japanesePrompt: item.reviewPrompt || `日本語: 『${item.meaning}』`,
-      sortLabel: item.expression,
-      detailsHtml: `
-        <p><strong>${escapeHtml(item.expression)}</strong></p>
-        <p>${escapeHtml(item.meaning)}</p>
-        <ul>
-          <li>${escapeHtml(item.nuance)}</li>
-          <li>${escapeHtml(item.example)}</li>
-        </ul>
-      `,
-      organizeHtml: `
-        <article class="stack-item">
-          <p class="stack-item__title">${escapeHtml(item.expression)}</p>
-          <p class="stack-item__meta">${escapeHtml(item.meaning)}</p>
-          <div class="stack-item__body">
-            <p><strong>Nuance:</strong> ${escapeHtml(item.nuance)}</p>
-            <p><strong>Example:</strong> ${escapeHtml(item.example)}</p>
-            <p><strong>Review Prompt:</strong> ${escapeHtml(item.reviewPrompt || `日本語: 『${item.meaning}』`)}</p>
-          </div>
-        </article>
-      `
-    }));
+  function getItemsForEpisode(episodeId) {
+    return catalog.itemsByEpisode.get(episodeId) || [];
   }
 
-  function getVocabularyAndExpressionItems(episode) {
-    return (episode.vocabulary || []).map((item) => {
-      const isExpression = item.kind === "Expression";
-      const categoryLabel = isExpression ? "Expression" : "Vocabulary";
-      const type = isExpression ? "expression" : "vocabulary";
-
-      return {
-        baseId: `${episode.id}-${item.id}`,
-        episodeId: episode.id,
-        episodeNumber: episode.number,
-        episodeTitle: episode.title,
-        type,
-        categoryLabel,
-        english: item.term,
-        japanese: item.meaning,
-        japanesePrompt: `日本語: 『${item.meaning}』`,
-        sortLabel: item.term,
-        detailsHtml: `
-          <p><strong>${escapeHtml(item.term)}</strong> <span class="inline-tag">${escapeHtml(categoryLabel)}</span></p>
-          <p>${escapeHtml(item.meaning)}</p>
-          <ul>
-            <li>${escapeHtml(item.usage)}</li>
-            <li>${escapeHtml(item.example)}</li>
-            <li>${escapeHtml(item.note)}</li>
-          </ul>
-        `,
-        organizeHtml: `
-          <article class="stack-item">
-            <p class="stack-item__title">${escapeHtml(item.term)}</p>
-            <p class="stack-item__meta"><span class="inline-tag">${escapeHtml(categoryLabel)}</span> ${escapeHtml(item.meaning)}</p>
-            <div class="stack-item__body">
-              <p><strong>Usage:</strong> ${escapeHtml(item.usage)}</p>
-              <p><strong>Example:</strong> ${escapeHtml(item.example)}</p>
-              <p><strong>Note:</strong> ${escapeHtml(item.note)}</p>
-            </div>
-          </article>
-        `
-      };
-    });
-  }
-
-  function getEpisodeItems(episode) {
-    return [...getPhraseItems(episode), ...getVocabularyAndExpressionItems(episode)];
-  }
-
-  function toReviewCards(item) {
-    return [
-      {
-        id: `${item.baseId}-ja-to-en`,
-        episodeId: item.episodeId,
-        episodeNumber: item.episodeNumber,
-        episodeTitle: item.episodeTitle,
-        type: item.type,
-        categoryLabel: item.categoryLabel,
-        direction: "ja-to-en",
-        directionLabel: "日英",
-        prompt: item.japanesePrompt,
-        queueLabel: item.english,
-        context: `${item.episodeTitle} / ${item.categoryLabel} / 日英`,
-        answer: item.detailsHtml
-      },
-      {
-        id: `${item.baseId}-en-to-ja`,
-        episodeId: item.episodeId,
-        episodeNumber: item.episodeNumber,
-        episodeTitle: item.episodeTitle,
-        type: item.type,
-        categoryLabel: item.categoryLabel,
-        direction: "en-to-ja",
-        directionLabel: "英日",
-        prompt: item.english,
-        queueLabel: item.english,
-        context: `${item.episodeTitle} / ${item.categoryLabel} / 英日`,
-        answer: item.detailsHtml
-      }
-    ];
-  }
-
-  function getAllItems() {
-    return episodes.flatMap((episode) => getEpisodeItems(episode));
-  }
-
-  function getAllCards() {
-    return getAllItems().flatMap((item) => toReviewCards(item));
+  function getCardsForEpisode(episodeId) {
+    return catalog.cardsByEpisode.get(episodeId) || [];
   }
 
   function getCardScore(cardId) {
@@ -218,63 +261,74 @@
     };
   }
 
-  function getEpisodeStats(episode) {
-    const items = getEpisodeItems(episode);
-    const cards = items.flatMap((item) => toReviewCards(item));
-    const phraseCount = items.filter((item) => item.type === "phrase").length;
-    const vocabularyCount = items.filter((item) => item.type === "vocabulary").length;
-    const expressionCount = items.filter((item) => item.type === "expression").length;
-    const masteredCards = cards.filter((card) => getCardState(card.id).mastered).length;
-    const weakCards = cards.filter((card) => getCardState(card.id).weak).length;
+  function getEpisodeStats(episodeId) {
+    const items = getItemsForEpisode(episodeId);
+    const cards = getCardsForEpisode(episodeId);
 
     return {
-      phraseCount,
-      vocabularyCount,
-      expressionCount,
+      phraseCount: items.filter((item) => item.type === "phrase").length,
+      vocabularyCount: items.filter((item) => item.type === "vocabulary").length,
+      expressionCount: items.filter((item) => item.type === "expression").length,
       itemCount: items.length,
-      reviewCardCount: cards.length,
-      masteredCards,
-      weakCards
+      cardCount: cards.length,
+      masteredCount: cards.filter((card) => getCardState(card.id).mastered).length,
+      weakCount: cards.filter((card) => getCardState(card.id).weak).length
     };
   }
 
-  function getFilteredEpisodes() {
-    const search = state.episodeSearch.trim().toLowerCase();
-    if (!search) {
-      return episodes;
-    }
+  function getCatalogStats() {
+    const mastered = catalog.allCards.filter((card) => getCardState(card.id).mastered).length;
 
-    return episodes.filter((episode) =>
-      [episode.number, episode.title, episode.theme]
-        .join(" ")
-        .toLowerCase()
-        .includes(search)
-    );
+    return {
+      episodeCount: catalog.episodes.length,
+      itemCount: catalog.allItems.length,
+      cardCount: catalog.allCards.length,
+      masteredCount: mastered
+    };
   }
 
-  function buildReviewCards() {
-    let cards = getAllCards().filter((card) => {
-      const cardState = getCardState(card.id);
-      const matchesEpisode =
-        state.reviewEpisodeFilter === "all" ||
-        card.episodeId === state.reviewEpisodeFilter;
-      const matchesType =
-        state.reviewTypeFilter === "all" || card.type === state.reviewTypeFilter;
-      const matchesDirection =
-        state.reviewDirectionFilter === "both" ||
-        card.direction === state.reviewDirectionFilter;
-      const matchesStatus =
-        state.reviewStatusFilter === "all" ||
-        (state.reviewStatusFilter === "weak" && cardState.weak) ||
-        (state.reviewStatusFilter === "mastered" && cardState.mastered);
+  function getLibraryEpisodes() {
+    const query = state.searchQuery.trim().toLowerCase();
+    if (!query) {
+      return [...catalog.episodes].reverse();
+    }
 
-      return matchesEpisode && matchesType && matchesDirection && matchesStatus;
+    return [...catalog.episodes]
+      .filter((episode) =>
+        [episode.number, episode.title, episode.theme]
+          .join(" ")
+          .toLowerCase()
+          .includes(query)
+      )
+      .sort(
+        (left, right) =>
+          extractEpisodeNumber(right.number) - extractEpisodeNumber(left.number)
+      );
+  }
+
+  function getCardsForConfig(config) {
+    let cards =
+      config.scope === "all"
+        ? catalog.allCards
+        : getCardsForEpisode(state.selectedEpisodeId);
+
+    cards = cards.filter((card) => {
+      const cardState = getCardState(card.id);
+      const matchesType = config.type === "all" || card.type === config.type;
+      const matchesDirection =
+        config.direction === "both" || card.direction === config.direction;
+      const matchesStatus =
+        config.status === "all" ||
+        (config.status === "weak" && cardState.weak) ||
+        (config.status === "mastered" && cardState.mastered);
+
+      return matchesType && matchesDirection && matchesStatus;
     });
 
-    if (state.reviewOrder === "shuffle") {
+    if (config.order === "shuffle") {
       cards = shuffleArray(cards);
     } else {
-      cards.sort((left, right) => {
+      cards = [...cards].sort((left, right) => {
         const scoreDifference = getCardScore(left.id) - getCardScore(right.id);
         if (scoreDifference !== 0) {
           return scoreDifference;
@@ -292,26 +346,11 @@
           return typeDifference;
         }
 
-        const queueDifference = left.queueLabel.localeCompare(right.queueLabel);
-        if (queueDifference !== 0) {
-          return queueDifference;
-        }
-
-        return left.direction.localeCompare(right.direction);
+        return left.queueLabel.localeCompare(right.queueLabel);
       });
     }
 
-    state.reviewCards = cards;
-    state.currentCardIndex = Math.min(
-      state.currentCardIndex,
-      Math.max(cards.length - 1, 0)
-    );
-    state.revealAnswer = false;
-  }
-
-  function extractEpisodeNumber(label) {
-    const match = label.match(/\d+/);
-    return match ? Number(match[0]) : Number.MAX_SAFE_INTEGER;
+    return cards;
   }
 
   function shuffleArray(items) {
@@ -331,35 +370,42 @@
     saveProgress();
   }
 
-  function resetSession() {
-    state.session = createSessionState();
+  function startStudySession() {
+    state.study = createStudyState();
+    state.study.cards = getCardsForConfig(state.reviewConfig);
+    state.activeScreen = "study";
   }
 
-  function applyReviewSelection(changes) {
-    Object.assign(state, changes);
-    state.currentCardIndex = 0;
-    state.revealAnswer = false;
-    resetSession();
-    buildReviewCards();
-    renderStats();
-    renderEpisodeList();
-    renderEpisodeDetail();
-    renderReview();
+  function stripDirectionSuffix(cardId) {
+    return cardId.replace(/-(ja-to-en|en-to-ja)$/, "");
   }
 
-  function renderStats() {
-    const items = getAllItems();
-    const cards = getAllCards();
-    const mastered = cards.filter((card) => getCardState(card.id).mastered).length;
+  function setScreen(screenName) {
+    state.activeScreen = screenName;
+    render();
+  }
 
-    const stats = [
-      { label: "Episodes", value: episodes.length },
-      { label: "Study Items", value: items.length },
-      { label: "Review Cards", value: cards.length },
-      { label: "Mastered", value: mastered }
+  function render() {
+    renderSummaryStats();
+    renderNavigation();
+    renderScreens();
+    renderLibraryScreen();
+    renderEpisodeScreen();
+    renderSetupScreen();
+    renderStudyScreen();
+    renderTemplate();
+  }
+
+  function renderSummaryStats() {
+    const stats = getCatalogStats();
+    const statItems = [
+      { label: "Episodes", value: stats.episodeCount },
+      { label: "Study Items", value: stats.itemCount },
+      { label: "Review Cards", value: stats.cardCount },
+      { label: "Mastered", value: stats.masteredCount }
     ];
 
-    elements.summaryStats.innerHTML = stats
+    elements.summaryStats.innerHTML = statItems
       .map(
         (item) => `
           <article class="stat-card">
@@ -371,33 +417,51 @@
       .join("");
   }
 
-  function renderEpisodeList() {
-    const filteredEpisodes = getFilteredEpisodes();
-    elements.episodeCount.textContent = `${filteredEpisodes.length} / ${episodes.length} episodes`;
+  function renderNavigation() {
+    elements.navButtons.forEach((button) => {
+      button.classList.toggle(
+        "is-active",
+        button.dataset.screen === state.activeScreen
+      );
+    });
+  }
 
-    if (!filteredEpisodes.length) {
-      elements.episodeList.innerHTML =
+  function renderScreens() {
+    Object.entries(elements.screens).forEach(([name, element]) => {
+      element.classList.toggle("is-active", name === state.activeScreen);
+    });
+  }
+
+  function renderLibraryScreen() {
+    const episodes = getLibraryEpisodes();
+    elements.libraryCount.textContent = state.searchQuery.trim()
+      ? `${episodes.length} / ${catalog.episodes.length} episodes`
+      : `${episodes.length} episodes · 最新回から表示`;
+    elements.episodeSearch.value = state.searchQuery;
+
+    if (!episodes.length) {
+      elements.libraryList.innerHTML =
         '<p class="empty-copy">該当するエピソードがありません。</p>';
       return;
     }
 
-    elements.episodeList.innerHTML = filteredEpisodes
+    elements.libraryList.innerHTML = episodes
       .map((episode) => {
+        const stats = getEpisodeStats(episode.id);
         const isActive = episode.id === state.selectedEpisodeId;
-        const stats = getEpisodeStats(episode);
-        const progressWidth = stats.reviewCardCount
-          ? (stats.masteredCards / stats.reviewCardCount) * 100
+        const progressWidth = stats.cardCount
+          ? (stats.masteredCount / stats.cardCount) * 100
           : 0;
 
         return `
-          <button class="episode-button ${isActive ? "is-active" : ""}" type="button" data-episode-id="${episode.id}">
-            <div class="episode-button__title">${escapeHtml(episode.number)} · ${escapeHtml(episode.title)}</div>
-            <div class="episode-button__meta">${escapeHtml(episode.theme)} / ${escapeHtml(episode.releaseDate || episode.level)}</div>
-            <div class="episode-button__stats">
+          <button class="episode-card ${isActive ? "is-active" : ""}" type="button" data-episode-id="${episode.id}">
+            <div class="episode-card__title">${escapeHtml(episode.number)} · ${escapeHtml(episode.title)}</div>
+            <div class="episode-card__meta">${escapeHtml(episode.theme)} / ${escapeHtml(episode.releaseDate || episode.level)}</div>
+            <div class="episode-card__stats">
               <span>${stats.phraseCount} phrases · ${stats.vocabularyCount} vocab · ${stats.expressionCount} expr</span>
-              <span>${stats.masteredCards} / ${stats.reviewCardCount} mastered</span>
+              <span>${stats.masteredCount} / ${stats.cardCount} mastered</span>
             </div>
-            <div class="episode-button__progress">
+            <div class="episode-card__progress">
               <span style="width: ${progressWidth}%"></span>
             </div>
           </button>
@@ -405,37 +469,37 @@
       })
       .join("");
 
-    Array.from(elements.episodeList.querySelectorAll("[data-episode-id]")).forEach(
+    Array.from(elements.libraryList.querySelectorAll("[data-episode-id]")).forEach(
       (button) => {
         button.addEventListener("click", () => {
           state.selectedEpisodeId = button.dataset.episodeId;
-          renderEpisodeList();
-          renderEpisodeDetail();
+          state.reviewConfig.scope = "current";
+          setScreen("episode");
         });
       }
     );
   }
 
-  function renderEpisodeDetail() {
+  function renderEpisodeScreen() {
     const episode = getSelectedEpisode();
     if (!episode) {
       return;
     }
 
-    const stats = getEpisodeStats(episode);
-    const items = getEpisodeItems(episode);
-    const phraseItems = items.filter((item) => item.type === "phrase");
-    const vocabularyItems = items.filter((item) => item.type === "vocabulary");
-    const expressionItems = items.filter((item) => item.type === "expression");
+    const stats = getEpisodeStats(episode.id);
+    const items = getItemsForEpisode(episode.id);
+    const phrases = items.filter((item) => item.type === "phrase");
+    const vocabularies = items.filter((item) => item.type === "vocabulary");
+    const expressions = items.filter((item) => item.type === "expression");
 
     elements.episodeTitle.textContent = `${episode.number} · ${episode.title}`;
     elements.episodeSubtitle.textContent =
-      "今日のフレーズ、Vocabulary、Expressions に絞って整理";
+      "この画面では内容確認だけに集中します。";
     elements.episodeMeta.innerHTML = [
       `Released: ${episode.releaseDate}`,
       episode.theme,
       `Level: ${episode.level}`,
-      `Cards: ${stats.masteredCards}/${stats.reviewCardCount} mastered`
+      `${stats.cardCount} cards`
     ]
       .map((item) => `<span class="meta-pill">${escapeHtml(item)}</span>`)
       .join("");
@@ -455,7 +519,7 @@
       { label: "Phrases", value: stats.phraseCount },
       { label: "Vocabulary", value: stats.vocabularyCount },
       { label: "Expressions", value: stats.expressionCount },
-      { label: "Review Cards", value: stats.reviewCardCount }
+      { label: "Needs Review", value: stats.weakCount }
     ]
       .map(
         (item) => `
@@ -467,21 +531,21 @@
       )
       .join("");
 
-    elements.phrasesSection.innerHTML = renderOrganizeSection(
-      phraseItems,
+    elements.phrasesSection.innerHTML = renderItemSection(
+      phrases,
       "今日のフレーズはまだ入っていません。"
     );
-    elements.vocabularySection.innerHTML = renderOrganizeSection(
-      vocabularyItems,
+    elements.vocabularySection.innerHTML = renderItemSection(
+      vocabularies,
       "Vocabulary はまだ入っていません。"
     );
-    elements.expressionsSection.innerHTML = renderOrganizeSection(
-      expressionItems,
+    elements.expressionsSection.innerHTML = renderItemSection(
+      expressions,
       "Expressions はまだ入っていません。"
     );
   }
 
-  function renderOrganizeSection(items, emptyText) {
+  function renderItemSection(items, emptyText) {
     if (!items.length) {
       return `<p class="empty-copy">${escapeHtml(emptyText)}</p>`;
     }
@@ -489,94 +553,125 @@
     return items.map((item) => item.organizeHtml).join("");
   }
 
-  function renderTabs() {
-    elements.tabButtons.forEach((button) => {
-      const isActive = button.dataset.view === state.currentView;
-      button.classList.toggle("is-active", isActive);
+  function renderSetupScreen() {
+    const currentEpisode = getSelectedEpisode();
+    const previewCards = getCardsForConfig(state.reviewConfig);
+    const uniqueItemIds = new Set();
+    const typeCounts = {
+      phrase: 0,
+      vocabulary: 0,
+      expression: 0
+    };
+
+    previewCards.forEach((card) => {
+      const baseId = stripDirectionSuffix(card.id);
+      if (uniqueItemIds.has(baseId)) {
+        return;
+      }
+
+      uniqueItemIds.add(baseId);
+      typeCounts[card.type] += 1;
     });
 
-    Object.entries(elements.views).forEach(([name, view]) => {
-      view.classList.toggle("is-visible", name === state.currentView);
-    });
+    elements.setupSummary.innerHTML = `
+      <article class="summary-card">
+        <span class="summary-card__label">Current Episode</span>
+        <strong class="summary-card__value">${escapeHtml(
+          currentEpisode ? `${currentEpisode.number} · ${currentEpisode.title}` : "Not selected"
+        )}</strong>
+      </article>
+      <article class="summary-card">
+        <span class="summary-card__label">Scope</span>
+        <strong class="summary-card__value">${escapeHtml(
+          state.reviewConfig.scope === "all" ? "All Episodes" : "Selected Episode"
+        )}</strong>
+      </article>
+    `;
+
+    renderFilterGroup(
+      elements.scopeFilters,
+      [
+        { id: "current", label: "選択中の回" },
+        { id: "all", label: "全エピソード" }
+      ],
+      state.reviewConfig.scope,
+      "scope"
+    );
+    renderFilterGroup(
+      elements.typeFilters,
+      [
+        { id: "all", label: "すべて" },
+        { id: "phrase", label: "Phrases" },
+        { id: "vocabulary", label: "Vocabulary" },
+        { id: "expression", label: "Expressions" }
+      ],
+      state.reviewConfig.type,
+      "type"
+    );
+    renderFilterGroup(
+      elements.directionFilters,
+      [
+        { id: "both", label: "両方" },
+        { id: "ja-to-en", label: "日英" },
+        { id: "en-to-ja", label: "英日" }
+      ],
+      state.reviewConfig.direction,
+      "direction"
+    );
+    renderFilterGroup(
+      elements.statusFilters,
+      [
+        { id: "all", label: "すべて" },
+        { id: "weak", label: "Needs Review" },
+        { id: "mastered", label: "Mastered" }
+      ],
+      state.reviewConfig.status,
+      "status"
+    );
+    renderFilterGroup(
+      elements.orderFilters,
+      [
+        { id: "weak-first", label: "Weak First" },
+        { id: "shuffle", label: "Shuffle" }
+      ],
+      state.reviewConfig.order,
+      "order"
+    );
+
+    elements.setupPreview.innerHTML = [
+      { label: "Matched Items", value: uniqueItemIds.size },
+      { label: "Matched Cards", value: previewCards.length },
+      { label: "Phrases", value: typeCounts.phrase },
+      { label: "Vocabulary", value: typeCounts.vocabulary },
+      { label: "Expressions", value: typeCounts.expression },
+      {
+        label: "Mode",
+        value:
+          state.reviewConfig.direction === "both"
+            ? "日英 + 英日"
+            : state.reviewConfig.direction === "ja-to-en"
+              ? "日英"
+              : "英日"
+      }
+    ]
+      .map(
+        (item) => `
+          <article class="preview-card">
+            <span class="preview-card__label">${escapeHtml(item.label)}</span>
+            <strong class="preview-card__value">${escapeHtml(item.value)}</strong>
+          </article>
+        `
+      )
+      .join("");
+
+    elements.startStudyButton.disabled = previewCards.length === 0;
   }
 
-  function renderReviewFilters() {
-    const episodeOptions = [
-      { id: "all", label: "All Episodes" },
-      ...episodes.map((episode) => ({
-        id: episode.id,
-        label: episode.number
-      }))
-    ];
-    const typeOptions = [
-      { id: "all", label: "All Types" },
-      { id: "phrase", label: "Phrases" },
-      { id: "vocabulary", label: "Vocabulary" },
-      { id: "expression", label: "Expressions" }
-    ];
-    const directionOptions = [
-      { id: "both", label: "両方" },
-      { id: "ja-to-en", label: "日英" },
-      { id: "en-to-ja", label: "英日" }
-    ];
-    const statusOptions = [
-      { id: "all", label: "All" },
-      { id: "weak", label: "Needs Review" },
-      { id: "mastered", label: "Mastered" }
-    ];
-    const orderOptions = [
-      { id: "weak-first", label: "Weak First" },
-      { id: "shuffle", label: "Shuffle" }
-    ];
-
-    elements.reviewEpisodeFilters.innerHTML = renderChips(
-      episodeOptions,
-      state.reviewEpisodeFilter,
-      "episode-filter"
-    );
-    elements.reviewTypeFilters.innerHTML = renderChips(
-      typeOptions,
-      state.reviewTypeFilter,
-      "type-filter"
-    );
-    elements.reviewDirectionFilters.innerHTML = renderChips(
-      directionOptions,
-      state.reviewDirectionFilter,
-      "direction-filter"
-    );
-    elements.reviewStatusFilters.innerHTML = renderChips(
-      statusOptions,
-      state.reviewStatusFilter,
-      "status-filter"
-    );
-    elements.reviewOrderFilters.innerHTML = renderChips(
-      orderOptions,
-      state.reviewOrder,
-      "order-filter"
-    );
-
-    bindChipGroup(elements.reviewEpisodeFilters, "episodeFilter", (value) => {
-      applyReviewSelection({ reviewEpisodeFilter: value });
-    });
-    bindChipGroup(elements.reviewTypeFilters, "typeFilter", (value) => {
-      applyReviewSelection({ reviewTypeFilter: value });
-    });
-    bindChipGroup(elements.reviewDirectionFilters, "directionFilter", (value) => {
-      applyReviewSelection({ reviewDirectionFilter: value });
-    });
-    bindChipGroup(elements.reviewStatusFilters, "statusFilter", (value) => {
-      applyReviewSelection({ reviewStatusFilter: value });
-    });
-    bindChipGroup(elements.reviewOrderFilters, "orderFilter", (value) => {
-      applyReviewSelection({ reviewOrder: value });
-    });
-  }
-
-  function renderChips(options, activeId, dataName) {
-    return options
+  function renderFilterGroup(container, options, activeId, dataKey) {
+    container.innerHTML = options
       .map(
         (option) => `
-          <button class="chip ${option.id === activeId ? "is-active" : ""}" type="button" data-${dataName}="${option.id}">
+          <button class="chip ${option.id === activeId ? "is-active" : ""}" type="button" data-${dataKey}="${option.id}">
             ${escapeHtml(option.label)}
           </button>
         `
@@ -584,24 +679,17 @@
       .join("");
   }
 
-  function bindChipGroup(container, datasetKey, onSelect) {
-    Array.from(container.children).forEach((button) => {
-      button.addEventListener("click", () => {
-        onSelect(button.dataset[datasetKey]);
-      });
-    });
-  }
-
-  function renderSessionStats() {
-    const seenCount = Object.keys(state.session.seenIds).length;
-    const queueCount = state.reviewCards.length;
-    const progressWidth = queueCount ? (seenCount / queueCount) * 100 : 0;
+  function renderStudyScreen() {
+    const study = state.study;
+    const seenCount = Object.keys(study.session.seenIds).length;
+    const queueCount = study.cards.length;
+    const sessionProgress = queueCount ? (seenCount / queueCount) * 100 : 0;
 
     elements.sessionStats.innerHTML = [
       { label: "Queue", value: queueCount },
       { label: "Seen", value: seenCount },
-      { label: "Good", value: state.session.good },
-      { label: "Again", value: state.session.again }
+      { label: "Good", value: study.session.good },
+      { label: "Again", value: study.session.again }
     ]
       .map(
         (item) => `
@@ -612,67 +700,87 @@
         `
       )
       .join("");
+    elements.sessionProgressBar.style.width = `${sessionProgress}%`;
 
-    elements.sessionProgressBar.style.width = `${progressWidth}%`;
-  }
-
-  function renderReview() {
-    renderReviewFilters();
-    renderSessionStats();
-
-    if (!state.reviewCards.length) {
-      elements.cardBadge.textContent = "No cards";
+    if (!study.cards.length) {
+      elements.cardBadge.textContent = "No session";
       elements.cardProgress.textContent = "0 / 0";
       elements.cardProgressBar.style.width = "0%";
-      elements.cardContext.textContent = "この条件では復習カードがありません。";
+      elements.cardContext.textContent = "先に復習設定画面で条件を決めてください。";
       elements.cardFront.textContent =
-        "フィルターを変えると、日英と英日の出題範囲を切り替えられます。";
-      elements.cardBack.innerHTML = "";
+        "この画面ではカード学習だけに集中できるようにしています。";
       elements.cardAnswer.hidden = true;
+      elements.cardBack.innerHTML = "";
       elements.revealButton.disabled = true;
       elements.againButton.disabled = true;
       elements.goodButton.disabled = true;
-      elements.reviewQueue.innerHTML =
-        '<p class="empty-copy">選択中の条件に合うカードがありません。</p>';
+      elements.studyQueue.innerHTML =
+        '<p class="empty-copy">まだ学習セッションが始まっていません。</p>';
       return;
     }
 
-    const card = state.reviewCards[state.currentCardIndex];
-    const cardState = getCardState(card.id);
-    const progressWidth =
-      ((state.currentCardIndex + 1) / state.reviewCards.length) * 100;
+    if (study.completed) {
+      elements.cardBadge.textContent = "Session complete";
+      elements.cardProgress.textContent = `${study.cards.length} / ${study.cards.length}`;
+      elements.cardProgressBar.style.width = "100%";
+      elements.cardContext.textContent =
+        "今回の復習は1周完了です。設定画面へ戻って、範囲や方向を変えて続けられます。";
+      elements.cardFront.textContent = "1セッションぶんのカードを最後まで回せました。";
+      elements.cardAnswer.hidden = false;
+      elements.cardBack.innerHTML = `
+        <p><strong>Good:</strong> ${escapeHtml(study.session.good)}</p>
+        <p><strong>Again:</strong> ${escapeHtml(study.session.again)}</p>
+        <p><strong>Seen:</strong> ${escapeHtml(seenCount)} / ${escapeHtml(queueCount)}</p>
+      `;
+      elements.revealButton.disabled = true;
+      elements.againButton.disabled = true;
+      elements.goodButton.disabled = true;
+      elements.studyQueue.innerHTML = study.cards
+        .map(
+          (queueCard) => `
+            <div class="queue-item queue-item--static">
+              <div class="queue-item__title">${escapeHtml(queueCard.queueLabel)}</div>
+              <div class="queue-item__meta">${escapeHtml(queueCard.episodeNumber)} / ${escapeHtml(queueCard.typeLabel)} / ${escapeHtml(queueCard.directionLabel)}</div>
+            </div>
+          `
+        )
+        .join("");
+      return;
+    }
 
-    elements.cardBadge.textContent = `${card.episodeNumber} · ${card.categoryLabel} · ${card.directionLabel} · score ${cardState.score}`;
-    elements.cardProgress.textContent = `${state.currentCardIndex + 1} / ${state.reviewCards.length}`;
+    const card = study.cards[study.currentIndex];
+    const cardState = getCardState(card.id);
+    const progressWidth = ((study.currentIndex + 1) / study.cards.length) * 100;
+
+    elements.cardBadge.textContent = `${card.episodeNumber} · ${card.typeLabel} · ${card.directionLabel} · score ${cardState.score}`;
+    elements.cardProgress.textContent = `${study.currentIndex + 1} / ${study.cards.length}`;
     elements.cardProgressBar.style.width = `${progressWidth}%`;
     elements.cardContext.textContent = card.context;
     elements.cardFront.textContent = card.prompt;
-    elements.cardBack.innerHTML = card.answer;
-    elements.cardAnswer.hidden = !state.revealAnswer;
+    elements.cardBack.innerHTML = card.answerHtml;
+    elements.cardAnswer.hidden = !study.revealAnswer;
     elements.revealButton.disabled = false;
-    elements.againButton.disabled = !state.revealAnswer;
-    elements.goodButton.disabled = !state.revealAnswer;
+    elements.againButton.disabled = !study.revealAnswer;
+    elements.goodButton.disabled = !study.revealAnswer;
 
-    elements.reviewQueue.innerHTML = state.reviewCards
+    elements.studyQueue.innerHTML = study.cards
       .map((queueCard, index) => {
-        const isActive = index === state.currentCardIndex;
-        const score = getCardScore(queueCard.id);
+        const isActive = index === study.currentIndex;
         return `
           <button class="queue-item ${isActive ? "is-active" : ""}" type="button" data-queue-index="${index}">
             <div class="queue-item__title">${escapeHtml(queueCard.queueLabel)}</div>
-            <div class="queue-item__meta">${escapeHtml(queueCard.episodeNumber)} / ${escapeHtml(queueCard.categoryLabel)} / ${escapeHtml(queueCard.directionLabel)}</div>
-            <div class="queue-item__score">score ${escapeHtml(score)}</div>
+            <div class="queue-item__meta">${escapeHtml(queueCard.episodeNumber)} / ${escapeHtml(queueCard.typeLabel)} / ${escapeHtml(queueCard.directionLabel)}</div>
           </button>
         `;
       })
       .join("");
 
-    Array.from(elements.reviewQueue.querySelectorAll("[data-queue-index]")).forEach(
+    Array.from(elements.studyQueue.querySelectorAll("[data-queue-index]")).forEach(
       (button) => {
         button.addEventListener("click", () => {
-          state.currentCardIndex = Number(button.dataset.queueIndex);
-          state.revealAnswer = false;
-          renderReview();
+          state.study.currentIndex = Number(button.dataset.queueIndex);
+          state.study.revealAnswer = false;
+          renderStudyScreen();
         });
       }
     );
@@ -682,90 +790,130 @@
     elements.templateBlock.textContent = JSON.stringify(template, null, 2);
   }
 
-  function moveToNextCard() {
-    if (!state.reviewCards.length) {
+  function handleStudyOutcome(kind) {
+    if (!state.study.cards.length || !state.study.revealAnswer) {
       return;
     }
 
-    state.currentCardIndex =
-      state.currentCardIndex + 1 < state.reviewCards.length
-        ? state.currentCardIndex + 1
-        : 0;
-    state.revealAnswer = false;
-  }
-
-  function handleCardOutcome(kind) {
-    if (!state.reviewCards.length || !state.revealAnswer) {
-      return;
-    }
-
-    const card = state.reviewCards[state.currentCardIndex];
-    state.session.seenIds[card.id] = true;
+    const currentCard = state.study.cards[state.study.currentIndex];
+    state.study.session.seenIds[currentCard.id] = true;
 
     if (kind === "good") {
-      state.session.good += 1;
-      updateCardProgress(card.id, 1);
+      state.study.session.good += 1;
+      updateCardProgress(currentCard.id, 1);
     } else {
-      state.session.again += 1;
-      updateCardProgress(card.id, -1);
+      state.study.session.again += 1;
+      updateCardProgress(currentCard.id, -1);
     }
 
-    moveToNextCard();
-    renderStats();
-    renderEpisodeList();
-    renderEpisodeDetail();
-    renderReview();
+    if (state.study.currentIndex + 1 >= state.study.cards.length) {
+      state.study.completed = true;
+      state.study.revealAnswer = false;
+      render();
+      return;
+    }
+
+    state.study.currentIndex += 1;
+    state.study.revealAnswer = false;
+    render();
   }
 
   function bindEvents() {
-    elements.tabButtons.forEach((button) => {
+    elements.navButtons.forEach((button) => {
       button.addEventListener("click", () => {
-        state.currentView = button.dataset.view;
-        renderTabs();
+        setScreen(button.dataset.screen);
       });
     });
 
     elements.episodeSearch.addEventListener("input", (event) => {
-      state.episodeSearch = event.target.value;
-      renderEpisodeList();
+      state.searchQuery = event.target.value;
+      renderLibraryScreen();
     });
 
-    elements.reviewCurrentButton.addEventListener("click", () => {
-      const episode = getSelectedEpisode();
-      if (!episode) {
+    elements.goSetupButton.addEventListener("click", () => {
+      state.reviewConfig.scope = "current";
+      setScreen("setup");
+    });
+
+    elements.useCurrentButton.addEventListener("click", () => {
+      state.reviewConfig.scope = "current";
+      renderSetupScreen();
+    });
+
+    elements.startStudyButton.addEventListener("click", () => {
+      startStudySession();
+      render();
+    });
+
+    elements.backToSetupButton.addEventListener("click", () => {
+      setScreen("setup");
+    });
+
+    elements.scopeFilters.addEventListener("click", (event) => {
+      const button = event.target.closest("[data-scope]");
+      if (!button) {
         return;
       }
 
-      state.currentView = "review";
-      renderTabs();
-      applyReviewSelection({ reviewEpisodeFilter: episode.id });
+      state.reviewConfig.scope = button.dataset.scope;
+      renderSetupScreen();
     });
 
-    elements.focusCurrentButton.addEventListener("click", () => {
-      const episode = getSelectedEpisode();
-      if (!episode) {
+    elements.typeFilters.addEventListener("click", (event) => {
+      const button = event.target.closest("[data-type]");
+      if (!button) {
         return;
       }
 
-      applyReviewSelection({ reviewEpisodeFilter: episode.id });
+      state.reviewConfig.type = button.dataset.type;
+      renderSetupScreen();
     });
 
-    elements.resetSessionButton.addEventListener("click", () => {
-      resetSession();
-      renderReview();
+    elements.directionFilters.addEventListener("click", (event) => {
+      const button = event.target.closest("[data-direction]");
+      if (!button) {
+        return;
+      }
+
+      state.reviewConfig.direction = button.dataset.direction;
+      renderSetupScreen();
+    });
+
+    elements.statusFilters.addEventListener("click", (event) => {
+      const button = event.target.closest("[data-status]");
+      if (!button) {
+        return;
+      }
+
+      state.reviewConfig.status = button.dataset.status;
+      renderSetupScreen();
+    });
+
+    elements.orderFilters.addEventListener("click", (event) => {
+      const button = event.target.closest("[data-order]");
+      if (!button) {
+        return;
+      }
+
+      state.reviewConfig.order = button.dataset.order;
+      renderSetupScreen();
     });
 
     elements.revealButton.addEventListener("click", () => {
-      state.revealAnswer = true;
-      renderReview();
+      if (!state.study.cards.length) {
+        return;
+      }
+
+      state.study.revealAnswer = true;
+      renderStudyScreen();
     });
 
     elements.againButton.addEventListener("click", () => {
-      handleCardOutcome("again");
+      handleStudyOutcome("again");
     });
 
     elements.goodButton.addEventListener("click", () => {
-      handleCardOutcome("good");
+      handleStudyOutcome("good");
     });
 
     document.addEventListener("keydown", (event) => {
@@ -775,38 +923,28 @@
         activeTag === "TEXTAREA" ||
         document.activeElement?.isContentEditable;
 
-      if (state.currentView !== "review" || isTyping) {
+      if (state.activeScreen !== "study" || isTyping) {
         return;
       }
 
       if (event.code === "Space") {
         event.preventDefault();
-        if (!state.revealAnswer && !elements.revealButton.disabled) {
-          state.revealAnswer = true;
-          renderReview();
+        if (!state.study.revealAnswer && state.study.cards.length) {
+          state.study.revealAnswer = true;
+          renderStudyScreen();
         }
       }
 
       if (event.code === "ArrowLeft") {
         event.preventDefault();
-        handleCardOutcome("again");
+        handleStudyOutcome("again");
       }
 
       if (event.code === "ArrowRight") {
         event.preventDefault();
-        handleCardOutcome("good");
+        handleStudyOutcome("good");
       }
     });
-  }
-
-  function render() {
-    buildReviewCards();
-    renderStats();
-    renderEpisodeList();
-    renderEpisodeDetail();
-    renderTabs();
-    renderReview();
-    renderTemplate();
   }
 
   function escapeHtml(value) {
