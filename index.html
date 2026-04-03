@@ -17,9 +17,9 @@
           <p class="eyebrow">Hapa English Listening Companion</p>
           <h1>聞いたあとに、ちゃんと残る学習へ。</h1>
           <p class="hero__text">
-            Hapa英会話の通常回を、Scriptの要点整理と
-            Phrase・Vocabulary・Expression の復習に繋げる補助アプリです。
-            Podcastアプリで聞いたあとに、この画面で整理と反復を回せます。
+            Hapa英会話の通常回から、今日のフレーズ、Vocabulary、Expressions
+            の3要素だけを抜き出して、整理と反復に繋げる補助アプリです。
+            Podcastアプリで聞いたあとに、この画面でそのまま復習へ入れます。
           </p>
         </div>
         <div class="hero__stats" id="summary-stats"></div>
@@ -80,14 +80,6 @@
             <div class="overview-grid" id="episode-overview"></div>
 
             <div class="section-grid">
-              <article class="section-card section-card--wide">
-                <div class="section-card__header">
-                  <h3>Script Snapshot</h3>
-                  <span>聞いた内容の要点を先に整理</span>
-                </div>
-                <div id="script-section"></div>
-              </article>
-
               <article class="section-card">
                 <div class="section-card__header">
                   <h3>Today's Phrases</h3>
@@ -98,10 +90,18 @@
 
               <article class="section-card">
                 <div class="section-card__header">
-                  <h3>Vocabulary & Expressions</h3>
-                  <span>意味だけでなく使い方も確認</span>
+                  <h3>Vocabulary</h3>
+                  <span>意味と使い方を固める</span>
                 </div>
                 <div class="stack-list" id="vocabulary-section"></div>
+              </article>
+
+              <article class="section-card">
+                <div class="section-card__header">
+                  <h3>Expressions</h3>
+                  <span>まとまり表現を定着させる</span>
+                </div>
+                <div class="stack-list" id="expressions-section"></div>
               </article>
             </div>
           </section>
@@ -110,7 +110,7 @@
             <div class="panel__header panel__header--split">
               <div>
                 <h2>Flashcard Review</h2>
-                <p>Phrase / Vocabulary / Checkpoint を1セッションで回します。</p>
+                <p>3要素を、日英と英日の両方向で1セッションにまとめて回します。</p>
               </div>
               <div class="action-row">
                 <button class="button button--ghost" type="button" id="focus-current-button">
@@ -138,6 +138,10 @@
               <div class="filter-group">
                 <span>カード種別</span>
                 <div class="chip-group" id="review-type-filters"></div>
+              </div>
+              <div class="filter-group">
+                <span>出題方向</span>
+                <div class="chip-group" id="review-direction-filters"></div>
               </div>
               <div class="filter-group">
                 <span>理解度</span>

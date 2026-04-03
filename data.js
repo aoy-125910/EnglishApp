@@ -1140,17 +1140,6 @@ window.HAPA_TEMPLATE = {
   releaseDate: "2026-04-04",
   sourceUrl: "https://example.com",
   sourceNote: "必要な時だけ補足を書きます",
-  script: {
-    situation: "どんな会話シーンか",
-    summary: "スクリプト全文ではなく要点を2-3文で整理",
-    takeaways: ["聞き取りの要点1", "聞き取りの要点2"],
-    checkpoints: [
-      {
-        question: "内容理解の確認質問",
-        answer: "短い日本語または英語の答え"
-      }
-    ]
-  },
   phrases: [
     {
       id: "phrase-001",
@@ -1165,7 +1154,16 @@ window.HAPA_TEMPLATE = {
     {
       id: "vocab-001",
       kind: "Vocabulary",
-      term: "vocabulary / expression",
+      term: "vocabulary",
+      meaning: "意味",
+      usage: "使い方やニュアンス",
+      example: "Example sentence that you wrote yourself",
+      note: "補足メモ"
+    },
+    {
+      id: "expr-001",
+      kind: "Expression",
+      term: "expression",
       meaning: "意味",
       usage: "使い方やニュアンス",
       example: "Example sentence that you wrote yourself",

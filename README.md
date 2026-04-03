@@ -1,6 +1,6 @@
 # Hapa Study Companion
 
-Podcastアプリで聞いたあとに、`Script / 今日のフレーズ / Vocabulary & Expressions` を整理し、そのまま復習カードとして回せるシンプルな静的Webアプリです。
+Podcastアプリで聞いたあとに、`今日のフレーズ / Vocabulary / Expressions` を整理し、そのまま復習カードとして回せるシンプルな静的Webアプリです。
 
 現状は、Hapa英会話の通常回のうち、公式ページで `今日のフレーズ / Vocabulary & Expressions` を確認できた `Episode 401-409` をベースにデータ化しています。
 
@@ -9,9 +9,9 @@ Podcastアプリで聞いたあとに、`Script / 今日のフレーズ / Vocabu
 ## 主な機能
 
 - Episode検索
-- 各エピソードの `Script / 今日のフレーズ / Vocabulary & Expressions` 整理
-- エピソードごとの Phrase数、Vocab数、Checkpoint数、習熟度の可視化
-- `All / Episode単位 / Type単位 / Needs Review / Mastered / Shuffle` での復習フィルター
+- 各エピソードの `今日のフレーズ / Vocabulary / Expressions` 整理
+- エピソードごとの Phrase数、Vocabulary数、Expression数、習熟度の可視化
+- `All / Episode単位 / Type単位 / 日英 / 英日 / Needs Review / Mastered / Shuffle` での復習フィルター
 - 復習セッションの `Seen / Good / Again` 集計
 - `Space / ← / →` によるキーボード復習ショートカット
 
@@ -26,8 +26,8 @@ Podcastアプリで聞いたあとに、`Script / 今日のフレーズ / Vocabu
 
 1. `index.html` をブラウザで開く
 2. 左のEpisode一覧から学習した回を選ぶ
-3. `整理する` タブで Script / Phrase / Vocabulary を確認する
-4. `復習する` タブでカードをめくって進める
+3. `整理する` タブで `今日のフレーズ / Vocabulary / Expressions` を確認する
+4. `復習する` タブで `日英 / 英日` を切り替えながらカードを進める
 
 ## 実データの入れ方
 
@@ -35,8 +35,8 @@ Podcastアプリで聞いたあとに、`Script / 今日のフレーズ / Vocabu
 
 ポイント:
 
-- `script.summary` はスクリプト全文ではなく、まずは要点整理に寄せる
 - `phrases` は `reviewPrompt` を日本語ベースにすると英作文復習しやすい
+- `vocabulary` は `kind: "Vocabulary"` または `kind: "Expression"` を付けて区別する
 - `vocabulary` は意味だけでなく `usage` と `note` を入れると定着しやすい
 - `sourceUrl` を入れておくと、あとから元ページへ戻りやすい
 - 公開ページに十分な情報がない回は `sourceNote` で補足しておくと混乱しにくい

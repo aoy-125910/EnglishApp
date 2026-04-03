@@ -9,6 +9,7 @@
     episodeSearch: "",
     reviewEpisodeFilter: "all",
     reviewTypeFilter: "all",
+    reviewDirectionFilter: "both",
     reviewStatusFilter: "all",
     reviewOrder: "weak-first",
     revealAnswer: false,
@@ -28,9 +29,9 @@
     episodeMeta: document.getElementById("episode-meta"),
     episodeSource: document.getElementById("episode-source"),
     episodeOverview: document.getElementById("episode-overview"),
-    scriptSection: document.getElementById("script-section"),
     phrasesSection: document.getElementById("phrases-section"),
     vocabularySection: document.getElementById("vocabulary-section"),
+    expressionsSection: document.getElementById("expressions-section"),
     reviewCurrentButton: document.getElementById("review-current-button"),
     focusCurrentButton: document.getElementById("focus-current-button"),
     resetSessionButton: document.getElementById("reset-session-button"),
@@ -41,6 +42,7 @@
     },
     reviewEpisodeFilters: document.getElementById("review-episode-filters"),
     reviewTypeFilters: document.getElementById("review-type-filters"),
+    reviewDirectionFilters: document.getElementById("review-direction-filters"),
     reviewStatusFilters: document.getElementById("review-status-filters"),
     reviewOrderFilters: document.getElementById("review-order-filters"),
     sessionStats: document.getElementById("session-stats"),
@@ -83,66 +85,124 @@
     return episodes.find((episode) => episode.id === state.selectedEpisodeId) || null;
   }
 
-  function getEpisodeCards(episode) {
-    const scriptCards = (episode.script.checkpoints || []).map((item, index) => ({
-      id: `${episode.id}-script-${index}`,
-      episodeId: episode.id,
-      episodeNumber: episode.number,
-      episodeTitle: episode.title,
-      type: "script",
-      label: "Script",
-      prompt: item.question,
-      queueLabel: item.question,
-      answer: `
-        <p>${escapeHtml(item.answer)}</p>
-        <p><strong>Summary:</strong> ${escapeHtml(episode.script.summary)}</p>
-      `
-    }));
-
-    const phraseCards = (episode.phrases || []).map((item) => ({
-      id: `${episode.id}-${item.id}`,
+  function getPhraseItems(episode) {
+    return (episode.phrases || []).map((item) => ({
+      baseId: `${episode.id}-${item.id}`,
       episodeId: episode.id,
       episodeNumber: episode.number,
       episodeTitle: episode.title,
       type: "phrase",
-      label: "Phrase",
-      prompt: item.reviewPrompt || item.meaning,
-      queueLabel: item.expression,
-      answer: `
+      categoryLabel: "Today's Phrase",
+      english: item.expression,
+      japanese: item.meaning,
+      japanesePrompt: item.reviewPrompt || `日本語: 『${item.meaning}』`,
+      sortLabel: item.expression,
+      detailsHtml: `
         <p><strong>${escapeHtml(item.expression)}</strong></p>
         <p>${escapeHtml(item.meaning)}</p>
         <ul>
           <li>${escapeHtml(item.nuance)}</li>
           <li>${escapeHtml(item.example)}</li>
         </ul>
+      `,
+      organizeHtml: `
+        <article class="stack-item">
+          <p class="stack-item__title">${escapeHtml(item.expression)}</p>
+          <p class="stack-item__meta">${escapeHtml(item.meaning)}</p>
+          <div class="stack-item__body">
+            <p><strong>Nuance:</strong> ${escapeHtml(item.nuance)}</p>
+            <p><strong>Example:</strong> ${escapeHtml(item.example)}</p>
+            <p><strong>Review Prompt:</strong> ${escapeHtml(item.reviewPrompt || `日本語: 『${item.meaning}』`)}</p>
+          </div>
+        </article>
       `
     }));
+  }
 
-    const vocabularyCards = (episode.vocabulary || []).map((item) => ({
-      id: `${episode.id}-${item.id}`,
-      episodeId: episode.id,
-      episodeNumber: episode.number,
-      episodeTitle: episode.title,
-      type: "vocabulary",
-      label: item.kind || "Vocabulary",
-      prompt: `意味を答える: ${item.term}`,
-      queueLabel: item.term,
-      answer: `
-        <p><strong>${escapeHtml(item.term)}</strong>${item.kind ? ` <span class="inline-tag">${escapeHtml(item.kind)}</span>` : ""}</p>
-        <p>${escapeHtml(item.meaning)}</p>
-        <ul>
-          <li>${escapeHtml(item.usage)}</li>
-          <li>${escapeHtml(item.example)}</li>
-          <li>${escapeHtml(item.note)}</li>
-        </ul>
-      `
-    }));
+  function getVocabularyAndExpressionItems(episode) {
+    return (episode.vocabulary || []).map((item) => {
+      const isExpression = item.kind === "Expression";
+      const categoryLabel = isExpression ? "Expression" : "Vocabulary";
+      const type = isExpression ? "expression" : "vocabulary";
 
-    return [...scriptCards, ...phraseCards, ...vocabularyCards];
+      return {
+        baseId: `${episode.id}-${item.id}`,
+        episodeId: episode.id,
+        episodeNumber: episode.number,
+        episodeTitle: episode.title,
+        type,
+        categoryLabel,
+        english: item.term,
+        japanese: item.meaning,
+        japanesePrompt: `日本語: 『${item.meaning}』`,
+        sortLabel: item.term,
+        detailsHtml: `
+          <p><strong>${escapeHtml(item.term)}</strong> <span class="inline-tag">${escapeHtml(categoryLabel)}</span></p>
+          <p>${escapeHtml(item.meaning)}</p>
+          <ul>
+            <li>${escapeHtml(item.usage)}</li>
+            <li>${escapeHtml(item.example)}</li>
+            <li>${escapeHtml(item.note)}</li>
+          </ul>
+        `,
+        organizeHtml: `
+          <article class="stack-item">
+            <p class="stack-item__title">${escapeHtml(item.term)}</p>
+            <p class="stack-item__meta"><span class="inline-tag">${escapeHtml(categoryLabel)}</span> ${escapeHtml(item.meaning)}</p>
+            <div class="stack-item__body">
+              <p><strong>Usage:</strong> ${escapeHtml(item.usage)}</p>
+              <p><strong>Example:</strong> ${escapeHtml(item.example)}</p>
+              <p><strong>Note:</strong> ${escapeHtml(item.note)}</p>
+            </div>
+          </article>
+        `
+      };
+    });
+  }
+
+  function getEpisodeItems(episode) {
+    return [...getPhraseItems(episode), ...getVocabularyAndExpressionItems(episode)];
+  }
+
+  function toReviewCards(item) {
+    return [
+      {
+        id: `${item.baseId}-ja-to-en`,
+        episodeId: item.episodeId,
+        episodeNumber: item.episodeNumber,
+        episodeTitle: item.episodeTitle,
+        type: item.type,
+        categoryLabel: item.categoryLabel,
+        direction: "ja-to-en",
+        directionLabel: "日英",
+        prompt: item.japanesePrompt,
+        queueLabel: item.english,
+        context: `${item.episodeTitle} / ${item.categoryLabel} / 日英`,
+        answer: item.detailsHtml
+      },
+      {
+        id: `${item.baseId}-en-to-ja`,
+        episodeId: item.episodeId,
+        episodeNumber: item.episodeNumber,
+        episodeTitle: item.episodeTitle,
+        type: item.type,
+        categoryLabel: item.categoryLabel,
+        direction: "en-to-ja",
+        directionLabel: "英日",
+        prompt: item.english,
+        queueLabel: item.english,
+        context: `${item.episodeTitle} / ${item.categoryLabel} / 英日`,
+        answer: item.detailsHtml
+      }
+    ];
+  }
+
+  function getAllItems() {
+    return episodes.flatMap((episode) => getEpisodeItems(episode));
   }
 
   function getAllCards() {
-    return episodes.flatMap((episode) => getEpisodeCards(episode));
+    return getAllItems().flatMap((item) => toReviewCards(item));
   }
 
   function getCardScore(cardId) {
@@ -159,17 +219,22 @@
   }
 
   function getEpisodeStats(episode) {
-    const cards = getEpisodeCards(episode);
-    const mastered = cards.filter((card) => getCardState(card.id).mastered).length;
-    const weak = cards.filter((card) => getCardState(card.id).weak).length;
+    const items = getEpisodeItems(episode);
+    const cards = items.flatMap((item) => toReviewCards(item));
+    const phraseCount = items.filter((item) => item.type === "phrase").length;
+    const vocabularyCount = items.filter((item) => item.type === "vocabulary").length;
+    const expressionCount = items.filter((item) => item.type === "expression").length;
+    const masteredCards = cards.filter((card) => getCardState(card.id).mastered).length;
+    const weakCards = cards.filter((card) => getCardState(card.id).weak).length;
 
     return {
-      totalCards: cards.length,
-      phraseCount: episode.phrases.length,
-      vocabularyCount: episode.vocabulary.length,
-      checkpointCount: episode.script.checkpoints.length,
-      mastered,
-      weak
+      phraseCount,
+      vocabularyCount,
+      expressionCount,
+      itemCount: items.length,
+      reviewCardCount: cards.length,
+      masteredCards,
+      weakCards
     };
   }
 
@@ -195,12 +260,15 @@
         card.episodeId === state.reviewEpisodeFilter;
       const matchesType =
         state.reviewTypeFilter === "all" || card.type === state.reviewTypeFilter;
+      const matchesDirection =
+        state.reviewDirectionFilter === "both" ||
+        card.direction === state.reviewDirectionFilter;
       const matchesStatus =
         state.reviewStatusFilter === "all" ||
         (state.reviewStatusFilter === "weak" && cardState.weak) ||
         (state.reviewStatusFilter === "mastered" && cardState.mastered);
 
-      return matchesEpisode && matchesType && matchesStatus;
+      return matchesEpisode && matchesType && matchesDirection && matchesStatus;
     });
 
     if (state.reviewOrder === "shuffle") {
@@ -215,12 +283,21 @@
         const episodeDifference =
           extractEpisodeNumber(left.episodeNumber) -
           extractEpisodeNumber(right.episodeNumber);
-
         if (episodeDifference !== 0) {
           return episodeDifference;
         }
 
-        return left.queueLabel.localeCompare(right.queueLabel);
+        const typeDifference = left.type.localeCompare(right.type);
+        if (typeDifference !== 0) {
+          return typeDifference;
+        }
+
+        const queueDifference = left.queueLabel.localeCompare(right.queueLabel);
+        if (queueDifference !== 0) {
+          return queueDifference;
+        }
+
+        return left.direction.localeCompare(right.direction);
       });
     }
 
@@ -271,14 +348,14 @@
   }
 
   function renderStats() {
-    const allCards = getAllCards();
-    const mastered = allCards.filter((card) => getCardState(card.id).mastered).length;
-    const weak = allCards.filter((card) => getCardState(card.id).weak).length;
+    const items = getAllItems();
+    const cards = getAllCards();
+    const mastered = cards.filter((card) => getCardState(card.id).mastered).length;
 
     const stats = [
       { label: "Episodes", value: episodes.length },
-      { label: "Cards", value: allCards.length },
-      { label: "Needs Review", value: weak },
+      { label: "Study Items", value: items.length },
+      { label: "Review Cards", value: cards.length },
       { label: "Mastered", value: mastered }
     ];
 
@@ -299,9 +376,8 @@
     elements.episodeCount.textContent = `${filteredEpisodes.length} / ${episodes.length} episodes`;
 
     if (!filteredEpisodes.length) {
-      elements.episodeList.innerHTML = `
-        <p class="empty-copy">該当するエピソードがありません。</p>
-      `;
+      elements.episodeList.innerHTML =
+        '<p class="empty-copy">該当するエピソードがありません。</p>';
       return;
     }
 
@@ -309,8 +385,8 @@
       .map((episode) => {
         const isActive = episode.id === state.selectedEpisodeId;
         const stats = getEpisodeStats(episode);
-        const progressWidth = stats.totalCards
-          ? (stats.mastered / stats.totalCards) * 100
+        const progressWidth = stats.reviewCardCount
+          ? (stats.masteredCards / stats.reviewCardCount) * 100
           : 0;
 
         return `
@@ -318,8 +394,8 @@
             <div class="episode-button__title">${escapeHtml(episode.number)} · ${escapeHtml(episode.title)}</div>
             <div class="episode-button__meta">${escapeHtml(episode.theme)} / ${escapeHtml(episode.releaseDate || episode.level)}</div>
             <div class="episode-button__stats">
-              <span>${stats.phraseCount} phrases · ${stats.vocabularyCount} vocab</span>
-              <span>${stats.mastered} / ${stats.totalCards} mastered</span>
+              <span>${stats.phraseCount} phrases · ${stats.vocabularyCount} vocab · ${stats.expressionCount} expr</span>
+              <span>${stats.masteredCards} / ${stats.reviewCardCount} mastered</span>
             </div>
             <div class="episode-button__progress">
               <span style="width: ${progressWidth}%"></span>
@@ -347,13 +423,19 @@
     }
 
     const stats = getEpisodeStats(episode);
+    const items = getEpisodeItems(episode);
+    const phraseItems = items.filter((item) => item.type === "phrase");
+    const vocabularyItems = items.filter((item) => item.type === "vocabulary");
+    const expressionItems = items.filter((item) => item.type === "expression");
+
     elements.episodeTitle.textContent = `${episode.number} · ${episode.title}`;
-    elements.episodeSubtitle.textContent = `${episode.theme}を、要点整理とカード復習に繋げる`;
+    elements.episodeSubtitle.textContent =
+      "今日のフレーズ、Vocabulary、Expressions に絞って整理";
     elements.episodeMeta.innerHTML = [
       `Released: ${episode.releaseDate}`,
       episode.theme,
       `Level: ${episode.level}`,
-      `Mastered: ${stats.mastered}/${stats.totalCards}`
+      `Cards: ${stats.masteredCards}/${stats.reviewCardCount} mastered`
     ]
       .map((item) => `<span class="meta-pill">${escapeHtml(item)}</span>`)
       .join("");
@@ -370,10 +452,10 @@
       : "";
 
     elements.episodeOverview.innerHTML = [
-      { label: "Today's Phrases", value: stats.phraseCount },
-      { label: "Vocab / Expr", value: stats.vocabularyCount },
-      { label: "Checkpoints", value: stats.checkpointCount },
-      { label: "Needs Review", value: stats.weak }
+      { label: "Phrases", value: stats.phraseCount },
+      { label: "Vocabulary", value: stats.vocabularyCount },
+      { label: "Expressions", value: stats.expressionCount },
+      { label: "Review Cards", value: stats.reviewCardCount }
     ]
       .map(
         (item) => `
@@ -385,65 +467,26 @@
       )
       .join("");
 
-    elements.scriptSection.innerHTML = `
-      <div class="script-summary">
-        <div class="script-summary__block">
-          <h4>Situation</h4>
-          <p>${escapeHtml(episode.script.situation)}</p>
-        </div>
-        <div class="script-summary__block">
-          <h4>Summary</h4>
-          <p>${escapeHtml(episode.script.summary)}</p>
-        </div>
-        <div class="script-summary__block">
-          <h4>Listening Takeaways</h4>
-          <ul>${episode.script.takeaways
-            .map((item) => `<li>${escapeHtml(item)}</li>`)
-            .join("")}</ul>
-        </div>
-        <div class="script-summary__block">
-          <h4>Comprehension Check</h4>
-          <ul>${episode.script.checkpoints
-            .map(
-              (item) =>
-                `<li><strong>${escapeHtml(item.question)}</strong><br />${escapeHtml(item.answer)}</li>`
-            )
-            .join("")}</ul>
-        </div>
-      </div>
-    `;
+    elements.phrasesSection.innerHTML = renderOrganizeSection(
+      phraseItems,
+      "今日のフレーズはまだ入っていません。"
+    );
+    elements.vocabularySection.innerHTML = renderOrganizeSection(
+      vocabularyItems,
+      "Vocabulary はまだ入っていません。"
+    );
+    elements.expressionsSection.innerHTML = renderOrganizeSection(
+      expressionItems,
+      "Expressions はまだ入っていません。"
+    );
+  }
 
-    elements.phrasesSection.innerHTML = episode.phrases
-      .map(
-        (item) => `
-          <article class="stack-item">
-            <p class="stack-item__title">${escapeHtml(item.expression)}</p>
-            <p class="stack-item__meta">${escapeHtml(item.meaning)}</p>
-            <div class="stack-item__body">
-              <p><strong>Nuance:</strong> ${escapeHtml(item.nuance)}</p>
-              <p><strong>Example:</strong> ${escapeHtml(item.example)}</p>
-              <p><strong>Review Prompt:</strong> ${escapeHtml(item.reviewPrompt)}</p>
-            </div>
-          </article>
-        `
-      )
-      .join("");
+  function renderOrganizeSection(items, emptyText) {
+    if (!items.length) {
+      return `<p class="empty-copy">${escapeHtml(emptyText)}</p>`;
+    }
 
-    elements.vocabularySection.innerHTML = episode.vocabulary
-      .map(
-        (item) => `
-          <article class="stack-item">
-            <p class="stack-item__title">${escapeHtml(item.term)}</p>
-            <p class="stack-item__meta">${item.kind ? `<span class="inline-tag">${escapeHtml(item.kind)}</span> ` : ""}${escapeHtml(item.meaning)}</p>
-            <div class="stack-item__body">
-              <p><strong>Usage:</strong> ${escapeHtml(item.usage)}</p>
-              <p><strong>Example:</strong> ${escapeHtml(item.example)}</p>
-              <p><strong>Note:</strong> ${escapeHtml(item.note)}</p>
-            </div>
-          </article>
-        `
-      )
-      .join("");
+    return items.map((item) => item.organizeHtml).join("");
   }
 
   function renderTabs() {
@@ -467,9 +510,14 @@
     ];
     const typeOptions = [
       { id: "all", label: "All Types" },
-      { id: "script", label: "Script" },
       { id: "phrase", label: "Phrases" },
-      { id: "vocabulary", label: "Vocabulary" }
+      { id: "vocabulary", label: "Vocabulary" },
+      { id: "expression", label: "Expressions" }
+    ];
+    const directionOptions = [
+      { id: "both", label: "両方" },
+      { id: "ja-to-en", label: "日英" },
+      { id: "en-to-ja", label: "英日" }
     ];
     const statusOptions = [
       { id: "all", label: "All" },
@@ -491,6 +539,11 @@
       state.reviewTypeFilter,
       "type-filter"
     );
+    elements.reviewDirectionFilters.innerHTML = renderChips(
+      directionOptions,
+      state.reviewDirectionFilter,
+      "direction-filter"
+    );
     elements.reviewStatusFilters.innerHTML = renderChips(
       statusOptions,
       state.reviewStatusFilter,
@@ -507,6 +560,9 @@
     });
     bindChipGroup(elements.reviewTypeFilters, "typeFilter", (value) => {
       applyReviewSelection({ reviewTypeFilter: value });
+    });
+    bindChipGroup(elements.reviewDirectionFilters, "directionFilter", (value) => {
+      applyReviewSelection({ reviewDirectionFilter: value });
     });
     bindChipGroup(elements.reviewStatusFilters, "statusFilter", (value) => {
       applyReviewSelection({ reviewStatusFilter: value });
@@ -569,24 +625,27 @@
       elements.cardProgress.textContent = "0 / 0";
       elements.cardProgressBar.style.width = "0%";
       elements.cardContext.textContent = "この条件では復習カードがありません。";
-      elements.cardFront.textContent = "フィルターを変えると、対象カードを切り替えられます。";
+      elements.cardFront.textContent =
+        "フィルターを変えると、日英と英日の出題範囲を切り替えられます。";
       elements.cardBack.innerHTML = "";
       elements.cardAnswer.hidden = true;
       elements.revealButton.disabled = true;
       elements.againButton.disabled = true;
       elements.goodButton.disabled = true;
-      elements.reviewQueue.innerHTML = `<p class="empty-copy">選択中の条件に合うカードがありません。</p>`;
+      elements.reviewQueue.innerHTML =
+        '<p class="empty-copy">選択中の条件に合うカードがありません。</p>';
       return;
     }
 
     const card = state.reviewCards[state.currentCardIndex];
     const cardState = getCardState(card.id);
-    const progressWidth = ((state.currentCardIndex + 1) / state.reviewCards.length) * 100;
+    const progressWidth =
+      ((state.currentCardIndex + 1) / state.reviewCards.length) * 100;
 
-    elements.cardBadge.textContent = `${card.episodeNumber} · ${card.label} · score ${cardState.score}`;
+    elements.cardBadge.textContent = `${card.episodeNumber} · ${card.categoryLabel} · ${card.directionLabel} · score ${cardState.score}`;
     elements.cardProgress.textContent = `${state.currentCardIndex + 1} / ${state.reviewCards.length}`;
     elements.cardProgressBar.style.width = `${progressWidth}%`;
-    elements.cardContext.textContent = `${card.episodeTitle} / ${card.queueLabel}`;
+    elements.cardContext.textContent = card.context;
     elements.cardFront.textContent = card.prompt;
     elements.cardBack.innerHTML = card.answer;
     elements.cardAnswer.hidden = !state.revealAnswer;
@@ -601,7 +660,7 @@
         return `
           <button class="queue-item ${isActive ? "is-active" : ""}" type="button" data-queue-index="${index}">
             <div class="queue-item__title">${escapeHtml(queueCard.queueLabel)}</div>
-            <div class="queue-item__meta">${escapeHtml(queueCard.episodeNumber)} / ${escapeHtml(queueCard.label)}</div>
+            <div class="queue-item__meta">${escapeHtml(queueCard.episodeNumber)} / ${escapeHtml(queueCard.categoryLabel)} / ${escapeHtml(queueCard.directionLabel)}</div>
             <div class="queue-item__score">score ${escapeHtml(score)}</div>
           </button>
         `;
@@ -629,7 +688,9 @@
     }
 
     state.currentCardIndex =
-      state.currentCardIndex + 1 < state.reviewCards.length ? state.currentCardIndex + 1 : 0;
+      state.currentCardIndex + 1 < state.reviewCards.length
+        ? state.currentCardIndex + 1
+        : 0;
     state.revealAnswer = false;
   }
 
@@ -707,7 +768,6 @@
       handleCardOutcome("good");
     });
 
-    // Keyboard shortcuts keep review sessions faster when the user is focused on recall.
     document.addEventListener("keydown", (event) => {
       const activeTag = document.activeElement?.tagName;
       const isTyping =
