@@ -1,0 +1,26 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512">
+  <defs>
+    <linearGradient id="bg" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#d4753f"/>
+      <stop offset="100%" stop-color="#6e2e0e"/>
+    </linearGradient>
+  </defs>
+
+  <!-- Background rounded square -->
+  <rect width="512" height="512" rx="112" fill="url(#bg)"/>
+
+  <!-- Subtle inner glow top-left -->
+  <ellipse cx="100" cy="90" rx="200" ry="170" fill="rgba(255,210,160,0.1)"/>
+
+  <!-- Waveform bars — 7 bars, center-aligned, symmetric -->
+  <!-- x positions: 68, 124, 180, 236, 292, 348, 404 (bar width 40, gap 16) -->
+  <!-- heights:      80, 140, 200, 240, 200, 140,  80 -->
+
+  <rect x="68"  y="216" width="40" height="80"  rx="20" fill="white" opacity="0.55"/>
+  <rect x="124" y="186" width="40" height="140" rx="20" fill="white" opacity="0.72"/>
+  <rect x="180" y="156" width="40" height="200" rx="20" fill="white" opacity="0.88"/>
+  <rect x="236" y="136" width="40" height="240" rx="20" fill="white" opacity="1"/>
+  <rect x="292" y="156" width="40" height="200" rx="20" fill="white" opacity="0.88"/>
+  <rect x="348" y="186" width="40" height="140" rx="20" fill="white" opacity="0.72"/>
+  <rect x="404" y="216" width="40" height="80"  rx="20" fill="white" opacity="0.55"/>
+</svg>
