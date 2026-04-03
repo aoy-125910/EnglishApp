@@ -1,0 +1,211 @@
+<!DOCTYPE html>
+<html lang="ja">
+  <head>
+    <meta charset="UTF-8" />
+    <meta
+      name="viewport"
+      content="width=device-width, initial-scale=1.0, viewport-fit=cover"
+    />
+    <meta name="theme-color" content="#efe6d6" />
+    <title>Hapa Study Companion</title>
+    <link rel="stylesheet" href="./styles.css" />
+  </head>
+  <body>
+    <div class="app-shell">
+      <header class="hero">
+        <div class="hero__copy">
+          <p class="eyebrow">Hapa English Listening Companion</p>
+          <h1>聞いたあとに、ちゃんと残る学習へ。</h1>
+          <p class="hero__text">
+            Hapa英会話の通常回を、Scriptの要点整理と
+            Phrase・Vocabulary・Expression の復習に繋げる補助アプリです。
+            Podcastアプリで聞いたあとに、この画面で整理と反復を回せます。
+          </p>
+        </div>
+        <div class="hero__stats" id="summary-stats"></div>
+      </header>
+
+      <main class="layout">
+        <aside class="sidebar">
+          <section class="panel panel--sticky">
+            <div class="panel__header">
+              <h2>Episode Library</h2>
+              <p>通常回だけを一覧で管理します。</p>
+            </div>
+
+            <label class="search-field" for="episode-search">
+              <span class="visually-hidden">Episode search</span>
+              <input
+                id="episode-search"
+                type="search"
+                placeholder="Episode番号・タイトル・テーマで検索"
+                autocomplete="off"
+              />
+            </label>
+
+            <p class="sidebar__summary" id="episode-count"></p>
+            <div class="episode-list" id="episode-list"></div>
+          </section>
+        </aside>
+
+        <section class="content">
+          <div class="tabbar" role="tablist" aria-label="Main views">
+            <button
+              class="tabbar__button is-active"
+              type="button"
+              data-view="organize"
+            >
+              整理する
+            </button>
+            <button class="tabbar__button" type="button" data-view="review">
+              復習する
+            </button>
+          </div>
+
+          <section class="panel view is-visible" id="organize-view">
+            <div class="panel__header panel__header--split">
+              <div>
+                <h2 id="episode-title">Episode</h2>
+                <p id="episode-subtitle"></p>
+              </div>
+              <div class="action-row">
+                <button class="button" type="button" id="review-current-button">
+                  この回を復習
+                </button>
+              </div>
+            </div>
+
+            <div class="episode-meta" id="episode-meta"></div>
+            <div class="episode-source" id="episode-source"></div>
+            <div class="overview-grid" id="episode-overview"></div>
+
+            <div class="section-grid">
+              <article class="section-card section-card--wide">
+                <div class="section-card__header">
+                  <h3>Script Snapshot</h3>
+                  <span>聞いた内容の要点を先に整理</span>
+                </div>
+                <div id="script-section"></div>
+              </article>
+
+              <article class="section-card">
+                <div class="section-card__header">
+                  <h3>Today's Phrases</h3>
+                  <span>英作文復習に使う5フレーズ</span>
+                </div>
+                <div class="stack-list" id="phrases-section"></div>
+              </article>
+
+              <article class="section-card">
+                <div class="section-card__header">
+                  <h3>Vocabulary & Expressions</h3>
+                  <span>意味だけでなく使い方も確認</span>
+                </div>
+                <div class="stack-list" id="vocabulary-section"></div>
+              </article>
+            </div>
+          </section>
+
+          <section class="panel view" id="review-view">
+            <div class="panel__header panel__header--split">
+              <div>
+                <h2>Flashcard Review</h2>
+                <p>Phrase / Vocabulary / Checkpoint を1セッションで回します。</p>
+              </div>
+              <div class="action-row">
+                <button class="button button--ghost" type="button" id="focus-current-button">
+                  選択中の回だけ
+                </button>
+                <button class="button button--ghost" type="button" id="reset-session-button">
+                  セッションをリセット
+                </button>
+              </div>
+            </div>
+
+            <section class="session-strip">
+              <div class="session-grid" id="session-stats"></div>
+              <div class="session-progress">
+                <span id="session-progress-bar"></span>
+              </div>
+              <p class="shortcut-hint">Space: 答えを見る / ←: もう一度 / →: できた</p>
+            </section>
+
+            <div class="review-toolbar">
+              <div class="filter-group">
+                <span>学習範囲</span>
+                <div class="chip-group" id="review-episode-filters"></div>
+              </div>
+              <div class="filter-group">
+                <span>カード種別</span>
+                <div class="chip-group" id="review-type-filters"></div>
+              </div>
+              <div class="filter-group">
+                <span>理解度</span>
+                <div class="chip-group" id="review-status-filters"></div>
+              </div>
+              <div class="filter-group">
+                <span>並び順</span>
+                <div class="chip-group" id="review-order-filters"></div>
+              </div>
+            </div>
+
+            <div class="review-layout">
+              <div class="flashcard">
+                <div class="flashcard__meta">
+                  <span id="card-badge">Ready</span>
+                  <span id="card-progress">0 / 0</span>
+                </div>
+                <div class="flashcard__progress">
+                  <span id="card-progress-bar"></span>
+                </div>
+                <p class="flashcard__label">Context</p>
+                <p class="flashcard__context" id="card-context">
+                  右のフィルターから復習範囲を選んでください。
+                </p>
+                <p class="flashcard__label">Question</p>
+                <h3 class="flashcard__front" id="card-front">
+                  まずは範囲を選んで、答えを思い出してみましょう。
+                </h3>
+                <div class="flashcard__answer" id="card-answer" hidden>
+                  <p class="flashcard__label">Answer</p>
+                  <div id="card-back"></div>
+                </div>
+                <div class="flashcard__controls">
+                  <button class="button button--ghost" type="button" id="reveal-button">
+                    答えを見る
+                  </button>
+                  <button class="button button--danger" type="button" id="again-button">
+                    もう一度
+                  </button>
+                  <button class="button" type="button" id="good-button">できた</button>
+                </div>
+              </div>
+
+              <div class="panel panel--subtle">
+                <div class="panel__header">
+                  <h3>Review Queue</h3>
+                  <p>クリックするとそのカードへ移動できます。</p>
+                </div>
+                <div class="queue-list" id="review-queue"></div>
+              </div>
+            </div>
+          </section>
+
+          <section class="panel panel--subtle">
+            <details class="template-details">
+              <summary>Data Template</summary>
+              <p class="template-note">
+                新しいエピソードを追加するときは、このテンプレートに沿って
+                `data.js` へ追記します。
+              </p>
+              <pre class="code-block" id="template-block"></pre>
+            </details>
+          </section>
+        </section>
+      </main>
+    </div>
+
+    <script src="./data.js"></script>
+    <script src="./app.js"></script>
+  </body>
+</html>
