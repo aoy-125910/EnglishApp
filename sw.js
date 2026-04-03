@@ -1,4 +1,4 @@
-const CACHE_NAME = "hapa-study-v1";
+const CACHE_NAME = "hapa-study-v2";
 
 const ASSETS = [
   "./",
@@ -34,11 +34,64 @@ self.addEventListener("activate", (event) => {
   self.clients.claim();
 });
 
-// Fetch: Cache-First (all assets are local, no network needed)
+function isNetworkFirstRequest(requestUrl) {
+  const url = new URL(requestUrl);
+  if (url.origin !== self.location.origin) {
+    return false;
+  }
+
+  const pathname = url.pathname;
+  return (
+    pathname === "/" ||
+    pathname.endsWith("/index.html") ||
+    pathname.endsWith("/app.js") ||
+    pathname.endsWith("/data.js") ||
+    pathname.endsWith("/styles.css") ||
+    pathname.endsWith("/manifest.json")
+  );
+}
+
+async function networkFirst(request) {
+  const cache = await caches.open(CACHE_NAME);
+
+  try {
+    const response = await fetch(request);
+    if (response.ok) {
+      cache.put(request, response.clone());
+    }
+    return response;
+  } catch (error) {
+    const cached = await caches.match(request);
+    if (cached) {
+      return cached;
+    }
+    throw error;
+  }
+}
+
+async function cacheFirst(request) {
+  const cached = await caches.match(request);
+  if (cached) {
+    return cached;
+  }
+
+  const response = await fetch(request);
+  if (response.ok) {
+    const cache = await caches.open(CACHE_NAME);
+    cache.put(request, response.clone());
+  }
+  return response;
+}
+
+// Fetch: keep offline support, but refresh app/data files from the network first.
 self.addEventListener("fetch", (event) => {
+  if (event.request.method !== "GET") {
+    return;
+  }
+
   event.respondWith(
-    caches.match(event.request).then(
-      (cached) => cached || fetch(event.request)
-    )
+    isNetworkFirstRequest(event.request.url)
+      ? networkFirst(event.request)
+      : cacheFirst(event.request)
   );
 });
