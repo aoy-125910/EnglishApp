@@ -129,7 +129,7 @@
       japanesePrompt: item.reviewPrompt || `日本語: 『${item.meaning}』`,
       sortLabel: item.expression,
       organizeHtml: `
-        <article class="stack-item">
+        <article class="stack-item stack-item--phrase">
           <p class="stack-item__title">${escapeHtml(item.expression)}</p>
           <p class="stack-item__meta">${escapeHtml(item.meaning)}</p>
           <div class="stack-item__body">
@@ -165,7 +165,7 @@
         japanesePrompt: `日本語: 『${item.meaning}』`,
         sortLabel: item.term,
         organizeHtml: `
-          <article class="stack-item">
+          <article class="stack-item stack-item--${type}">
             <p class="stack-item__title">${escapeHtml(item.term)}</p>
             <p class="stack-item__meta"><span class="inline-tag">${escapeHtml(typeLabel)}</span> ${escapeHtml(item.meaning)}</p>
             <div class="stack-item__body">
@@ -482,7 +482,11 @@
             <div class="episode-card__title">${escapeHtml(episode.number)} · ${escapeHtml(episode.title)}</div>
             <div class="episode-card__meta">${escapeHtml(episode.theme)} / ${escapeHtml(episode.releaseDate || episode.level)}</div>
             <div class="episode-card__stats">
-              <span>${stats.phraseCount} phrases · ${stats.vocabularyCount} vocab · ${stats.expressionCount} expr</span>
+              <span>
+                <span class="ep-stat--phrase">${stats.phraseCount} phrases</span>
+                · <span class="ep-stat--vocab">${stats.vocabularyCount} vocab</span>
+                · <span class="ep-stat--expr">${stats.expressionCount} expr</span>
+              </span>
               <span>${stats.masteredCount} / ${stats.cardCount} mastered</span>
             </div>
             <div class="episode-card__progress">
@@ -625,9 +629,9 @@
       elements.typeFilters,
       [
         { id: "all", label: "すべて" },
-        { id: "phrase", label: "Phrases" },
-        { id: "vocabulary", label: "Vocabulary" },
-        { id: "expression", label: "Expressions" }
+        { id: "phrase", label: "Phrases", chipClass: "chip--phrase" },
+        { id: "vocabulary", label: "Vocabulary", chipClass: "chip--vocabulary" },
+        { id: "expression", label: "Expressions", chipClass: "chip--expression" }
       ],
       state.reviewConfig.type,
       "type"
@@ -694,11 +698,14 @@
   function renderFilterGroup(container, options, activeId, dataKey) {
     container.innerHTML = options
       .map(
-        (option) => `
-          <button class="chip ${option.id === activeId ? "is-active" : ""}" type="button" data-${dataKey}="${option.id}">
-            ${escapeHtml(option.label)}
-          </button>
-        `
+        (option) => {
+          const extraClass = option.chipClass ? ` ${option.chipClass}` : "";
+          return `
+            <button class="chip${extraClass} ${option.id === activeId ? "is-active" : ""}" type="button" data-${dataKey}="${option.id}">
+              ${escapeHtml(option.label)}
+            </button>
+          `;
+        }
       )
       .join("");
   }
@@ -784,6 +791,7 @@
     const progressWidth = ((study.currentIndex + 1) / study.cards.length) * 100;
 
     elements.cardBadge.textContent = `${card.episodeNumber} · ${card.typeLabel} · ${card.directionLabel} · score ${cardState.score}`;
+    elements.cardBadge.className = `card-badge--${card.type}`;
     elements.cardProgress.textContent = `${study.currentIndex + 1} / ${study.cards.length}`;
     elements.cardProgressBar.style.width = `${progressWidth}%`;
     elements.cardContext.textContent = card.context;
@@ -953,6 +961,33 @@
     elements.retryMissedButton.addEventListener("click", () => {
       restartMissedSession();
     });
+
+    // Swipe gestures on flashcard (improvement 4)
+    const flashcardEl = document.querySelector(".flashcard");
+    let swipeTouchStartX = 0;
+    let swipeTouchStartY = 0;
+
+    flashcardEl.addEventListener("touchstart", (event) => {
+      swipeTouchStartX = event.touches[0].clientX;
+      swipeTouchStartY = event.touches[0].clientY;
+    }, { passive: true });
+
+    flashcardEl.addEventListener("touchend", (event) => {
+      if (!state.study.revealAnswer || !state.study.cards.length) {
+        return;
+      }
+      const deltaX = event.changedTouches[0].clientX - swipeTouchStartX;
+      const deltaY = event.changedTouches[0].clientY - swipeTouchStartY;
+      // Only trigger if mostly horizontal (not a scroll attempt)
+      if (Math.abs(deltaX) < 50 || Math.abs(deltaX) < Math.abs(deltaY) * 1.5) {
+        return;
+      }
+      if (deltaX < 0) {
+        handleStudyOutcome("again");
+      } else {
+        handleStudyOutcome("good");
+      }
+    }, { passive: true });
 
     document.addEventListener("keydown", (event) => {
       const activeTag = document.activeElement?.tagName;

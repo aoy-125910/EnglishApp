@@ -197,13 +197,19 @@
                 <div id="card-back"></div>
               </div>
               <div class="flashcard__controls">
-                <button class="button button--ghost" type="button" id="reveal-button">
+                <button class="button button--ghost button--reveal" type="button" id="reveal-button">
                   答えを見る
                 </button>
-                <button class="button button--danger" type="button" id="again-button">
-                  もう一度
-                </button>
-                <button class="button" type="button" id="good-button">できた</button>
+                <div class="flashcard__action-row">
+                  <button class="button button--again" type="button" id="again-button">
+                    もう一度
+                  </button>
+                  <button class="button button--good" type="button" id="good-button">できた</button>
+                </div>
+                <div class="flashcard__swipe-hint">
+                  <span>← もう一度</span>
+                  <span>できた →</span>
+                </div>
               </div>
               <div class="session-actions" id="session-actions" hidden>
                 <button class="button" type="button" id="retry-missed-button">
@@ -222,15 +228,41 @@
 
       <nav class="bottom-nav" aria-label="Primary navigation">
         <button class="bottom-nav__button is-active" type="button" data-screen="library">
+          <svg viewBox="0 0 24 24" aria-hidden="true">
+            <rect x="3" y="3" width="7" height="7" rx="1.5"/>
+            <rect x="14" y="3" width="7" height="7" rx="1.5"/>
+            <rect x="3" y="14" width="7" height="7" rx="1.5"/>
+            <rect x="14" y="14" width="7" height="7" rx="1.5"/>
+          </svg>
           一覧
         </button>
         <button class="bottom-nav__button" type="button" data-screen="episode">
+          <svg viewBox="0 0 24 24" aria-hidden="true">
+            <path d="M4 19.5A2.5 2.5 0 0 1 6.5 17H20"/>
+            <path d="M6.5 2H20v20H6.5A2.5 2.5 0 0 1 4 19.5v-15A2.5 2.5 0 0 1 6.5 2z"/>
+            <line x1="9" y1="8" x2="15" y2="8"/>
+            <line x1="9" y1="12" x2="15" y2="12"/>
+          </svg>
           内容
         </button>
         <button class="bottom-nav__button" type="button" data-screen="setup">
+          <svg viewBox="0 0 24 24" aria-hidden="true">
+            <line x1="4" y1="6" x2="20" y2="6"/>
+            <line x1="4" y1="12" x2="20" y2="12"/>
+            <line x1="4" y1="18" x2="20" y2="18"/>
+            <circle cx="9" cy="6" r="2.5" fill="currentColor" stroke="none"/>
+            <circle cx="15" cy="12" r="2.5" fill="currentColor" stroke="none"/>
+            <circle cx="9" cy="18" r="2.5" fill="currentColor" stroke="none"/>
+          </svg>
           設定
         </button>
         <button class="bottom-nav__button" type="button" data-screen="study">
+          <svg viewBox="0 0 24 24" aria-hidden="true">
+            <rect x="2" y="5" width="20" height="14" rx="3"/>
+            <line x1="2" y1="10" x2="22" y2="10"/>
+            <line x1="7" y1="15" x2="10" y2="15"/>
+            <line x1="13" y1="15" x2="17" y2="15"/>
+          </svg>
           学習
         </button>
       </nav>
