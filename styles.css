@@ -104,8 +104,8 @@ button {
 
 .hero {
   display: grid;
-  gap: 16px;
-  padding: 18px;
+  gap: 12px;
+  padding: 16px 18px;
   border: 1px solid rgba(194, 101, 53, 0.14);
   border-radius: var(--radius-xl);
   background: linear-gradient(
@@ -117,12 +117,18 @@ button {
   animation: fadeSlide 420ms cubic-bezier(0.22, 1, 0.36, 1) both;
 }
 
+.hero__copy {
+  display: flex;
+  align-items: center;
+  min-height: 100%;
+}
+
 .hero__copy h1 {
-  margin: 6px 0 8px;
+  margin: 0;
   font-family: var(--font-display);
-  font-size: clamp(2rem, 7vw, 3rem);
+  font-size: clamp(1.85rem, 6vw, 2.65rem);
   font-weight: 600;
-  line-height: 0.98;
+  line-height: 1;
   letter-spacing: -0.02em;
 }
 
