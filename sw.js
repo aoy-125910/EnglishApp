@@ -1,4 +1,4 @@
-const CACHE_NAME = "hapa-study-v3";
+const CACHE_NAME = "hapa-study-v4";
 
 const ASSETS = [
   "./",
