@@ -34,7 +34,6 @@
     libraryList: document.getElementById("library-list"),
     templateBlock: document.getElementById("template-block"),
     episodeTitle: document.getElementById("episode-title"),
-    episodeSubtitle: document.getElementById("episode-subtitle"),
     episodeMeta: document.getElementById("episode-meta"),
     episodeSource: document.getElementById("episode-source"),
     episodeOverview: document.getElementById("episode-overview"),
@@ -521,8 +520,6 @@
     const expressions = items.filter((item) => item.type === "expression");
 
     elements.episodeTitle.textContent = `${episode.number} · ${episode.title}`;
-    elements.episodeSubtitle.textContent =
-      "この画面では内容確認だけに集中します。";
     elements.episodeMeta.innerHTML = [
       `Released: ${episode.releaseDate}`,
       episode.theme,
