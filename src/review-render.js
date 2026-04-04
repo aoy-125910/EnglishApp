@@ -175,23 +175,24 @@ export function renderStudyScreen({ elements, study, getCardState }) {
   const progressWidth = ((study.currentIndex + 1) / study.cards.length) * 100;
 
   elements.studyMobileBar.hidden = false;
-  elements.studyMobileMeta.textContent = `Episode ${card.episode} · ${
-    study.currentIndex + 1
-  } / ${study.cards.length}`;
+  elements.studyMobileMeta.textContent = study.revealAnswer
+    ? `Episode ${card.episode} · ${study.currentIndex + 1} / ${study.cards.length}`
+    : `Episode ${card.episode} · ${study.currentIndex + 1} / ${study.cards.length} ・ タップして答えを見る`;
   elements.cardBadge.className = `card-badge card-badge--${card.type}`;
   elements.cardBadge.textContent = `${card.typeLabel} / ${card.directionLabel} / 定着度 ${cardState.score}`;
   elements.cardProgress.textContent = `${study.currentIndex + 1} / ${study.cards.length}`;
   elements.cardProgressBar.style.width = `${progressWidth}%`;
   elements.cardEpisode.textContent = `Episode ${card.episode}`;
   elements.cardFront.textContent = card.prompt;
+  elements.cardTapHint.hidden = study.revealAnswer;
   elements.cardBack.innerHTML = renderCardAnswer(card);
   elements.cardAnswer.hidden = !study.revealAnswer;
+  elements.flashcardActionRow.hidden = !study.revealAnswer;
+  elements.flashcardSwipeHint.hidden = !study.revealAnswer;
+  elements.flashcard.classList.toggle("is-revealable", !study.revealAnswer);
 
-  elements.revealButton.disabled = false;
   elements.againButton.disabled = !study.revealAnswer;
   elements.goodButton.disabled = !study.revealAnswer;
-  elements.stickyRevealButton.hidden = study.revealAnswer;
-  elements.stickyRevealButton.disabled = false;
   elements.studyMobileActions.hidden = !study.revealAnswer;
   elements.stickyAgainButton.disabled = !study.revealAnswer;
   elements.stickyGoodButton.disabled = !study.revealAnswer;
@@ -210,13 +211,14 @@ function renderStudyEmptyState(elements) {
   elements.cardEpisode.textContent = "Episode -";
   elements.cardFront.textContent =
     "設定タブで復習条件を決めると、ここに Question が表示されます。";
+  elements.cardTapHint.hidden = true;
   elements.cardAnswer.hidden = true;
   elements.cardBack.innerHTML = "";
-  elements.revealButton.disabled = true;
+  elements.flashcardActionRow.hidden = true;
+  elements.flashcardSwipeHint.hidden = true;
+  elements.flashcard.classList.remove("is-revealable");
   elements.againButton.disabled = true;
   elements.goodButton.disabled = true;
-  elements.stickyRevealButton.hidden = false;
-  elements.stickyRevealButton.disabled = true;
   elements.studyMobileActions.hidden = true;
   elements.stickyAgainButton.disabled = true;
   elements.stickyGoodButton.disabled = true;
@@ -240,6 +242,7 @@ function renderStudyCompletedState({
   elements.cardProgressBar.style.width = "100%";
   elements.cardEpisode.textContent = "今回の条件";
   elements.cardFront.textContent = "今回の復習はここまでです。";
+  elements.cardTapHint.hidden = true;
   elements.cardAnswer.hidden = false;
   elements.cardBack.innerHTML = `
     <article class="answer-block">
@@ -254,10 +257,11 @@ function renderStudyCompletedState({
     </article>
   `;
 
-  elements.revealButton.disabled = true;
+  elements.flashcardActionRow.hidden = true;
+  elements.flashcardSwipeHint.hidden = true;
+  elements.flashcard.classList.remove("is-revealable");
   elements.againButton.disabled = true;
   elements.goodButton.disabled = true;
-  elements.stickyRevealButton.hidden = true;
   elements.studyMobileActions.hidden = true;
   elements.stickyAgainButton.disabled = true;
   elements.stickyGoodButton.disabled = true;

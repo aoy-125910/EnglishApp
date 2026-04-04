@@ -25,7 +25,7 @@ Return or write only `HAPA_CARDS` item objects shaped like this:
   "en": "Follow through",
   "ja": "最後までやり切る",
   "example": "He always follows through on what he promises.",
-  "promptJa": "日本語: 『最後までやり切る』",
+  "promptJa": "『最後までやり切る』",
   "nuance": "言ったことを実際にやり切る時に使う。"
 }
 ```
@@ -54,6 +54,7 @@ Return or write only `HAPA_CARDS` item objects shaped like this:
 - Do not keep entries missing any required field.
 - Do not guess when the source is ambiguous. Exclude the item and report it as pending.
 - Do not convert `usage`, `note`, or similar fields into `nuance` unless the source explicitly says it is nuance-level guidance that should be preserved as `nuance`.
+- Do not add `promptJa` just to prepend `日本語:` or to restate `ja` with no meaningful change.
 
 ## Allowed Types
 
@@ -138,9 +139,21 @@ Rules:
 
 ### `promptJa`
 
-Add only when the default prompt `日本語: 『${ja}』` would be awkward or too broad.
+Treat `promptJa` as opt-in and uncommon.
+
+Add only when the default prompt `『${ja}』` would be awkward, too broad, or materially less natural as a review prompt.
 
 Omit when the plain generated prompt is good enough.
+
+Preferred default:
+
+- omit `promptJa`
+- let the app generate `『${ja}』`
+
+Do not include prefixes such as:
+
+- `日本語:`
+- `日本語：`
 
 ### `nuance`
 

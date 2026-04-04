@@ -71,14 +71,15 @@ const elements = {
   cardProgressBar: document.getElementById("card-progress-bar"),
   cardEpisode: document.getElementById("card-episode"),
   cardFront: document.getElementById("card-front"),
+  cardTapHint: document.getElementById("card-tap-hint"),
   cardAnswer: document.getElementById("card-answer"),
   cardBack: document.getElementById("card-back"),
-  revealButton: document.getElementById("reveal-button"),
+  flashcardActionRow: document.getElementById("flashcard-action-row"),
+  flashcardSwipeHint: document.getElementById("flashcard-swipe-hint"),
   againButton: document.getElementById("again-button"),
   goodButton: document.getElementById("good-button"),
   studyMobileBar: document.getElementById("study-mobile-bar"),
   studyMobileMeta: document.getElementById("study-mobile-meta"),
-  stickyRevealButton: document.getElementById("sticky-reveal-button"),
   studyMobileActions: document.getElementById("study-mobile-actions"),
   stickyAgainButton: document.getElementById("sticky-again-button"),
   stickyGoodButton: document.getElementById("sticky-good-button"),
@@ -201,6 +202,18 @@ function bindButtonGroup(buttons, handler) {
   });
 }
 
+function revealStudyAnswer() {
+  if (!state.study.cards.length || state.study.revealAnswer || state.study.completed) {
+    return;
+  }
+
+  state.study = {
+    ...state.study,
+    revealAnswer: true
+  };
+  render();
+}
+
 function bindEvents() {
   elements.navButtons.forEach((button) => {
     button.addEventListener("click", () => {
@@ -289,21 +302,6 @@ function bindEvents() {
     setScreen("setup");
   });
 
-  bindButtonGroup(
-    [elements.revealButton, elements.stickyRevealButton],
-    () => {
-      if (!state.study.cards.length) {
-        return;
-      }
-
-      state.study = {
-        ...state.study,
-        revealAnswer: true
-      };
-      render();
-    }
-  );
-
   bindButtonGroup([elements.againButton, elements.stickyAgainButton], () => {
     handleStudyOutcome("again");
   });
@@ -319,6 +317,18 @@ function bindEvents() {
   if (elements.flashcard) {
     let swipeTouchStartX = 0;
     let swipeTouchStartY = 0;
+
+    elements.flashcard.addEventListener("click", (event) => {
+      if (event.target.closest("button")) {
+        return;
+      }
+
+      if (state.activeScreen !== "study") {
+        return;
+      }
+
+      revealStudyAnswer();
+    });
 
     elements.flashcard.addEventListener(
       "touchstart",
@@ -366,13 +376,7 @@ function bindEvents() {
 
     if (event.code === "Space") {
       event.preventDefault();
-      if (!state.study.revealAnswer && state.study.cards.length) {
-        state.study = {
-          ...state.study,
-          revealAnswer: true
-        };
-        render();
-      }
+      revealStudyAnswer();
     }
 
     if (event.code === "ArrowLeft") {

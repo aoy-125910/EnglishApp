@@ -417,10 +417,6 @@ button {
   background: linear-gradient(135deg, #52886a, var(--success));
 }
 
-.button--reveal {
-  width: 100%;
-}
-
 .session-strip {
   display: grid;
   gap: 12px;
@@ -453,6 +449,10 @@ button {
 
 .flashcard {
   padding: 20px 18px 18px;
+}
+
+.flashcard.is-revealable {
+  cursor: pointer;
 }
 
 .flashcard__meta {
@@ -507,6 +507,13 @@ button {
   font-size: clamp(2rem, 9vw, 3.45rem);
   line-height: 1.04;
   letter-spacing: -0.02em;
+}
+
+.flashcard__tap-hint {
+  margin: 16px 0 0;
+  color: var(--accent-deep);
+  font-size: 0.92rem;
+  font-weight: 700;
 }
 
 .flashcard__answer {

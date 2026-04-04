@@ -7,7 +7,7 @@
 ## 主な機能
 
 - `Episode範囲 / カード種別 / 出題方向 / 理解度 / 並び順` での復習設定
-- `Question -> Answer -> できた / もう一度` のシンプルな学習フロー
+- `Question -> カードをタップして回答表示 -> できた / もう一度` のシンプルな学習フロー
 - 回答面での `example` 表示
 - `nuance` があるカードだけ追加表示
 - セッションの `Queue / Seen / Good / Again` 集計
@@ -64,7 +64,7 @@ window.HAPA_CARDS = [
     en: "Move in/out",
     ja: "引っ越す、入居する / 退去する",
     example: "We’re moving out at the end of the month and moving in next weekend.",
-    promptJa: "日本語: 『入居する / 退去する』",
+    promptJa: "『入居する / 退去する』",
     nuance: "新居へ入るのか今の場所を出るのかをはっきり言い分けられる。"
   }
 ];
@@ -85,9 +85,11 @@ window.HAPA_CARDS = [
 - `nuance`
 
 `type` は `phrase / vocabulary / expression` のいずれかを使います。
+`promptJa` は原則不要で、日英の出題文を `ja` そのままより自然に調整したいときだけ使います。
 
 ## 補足
 
-- `promptJa` がないカードは `ja` をもとに日英の問題文を自動生成します
+- `promptJa` は原則省略し、必要なカードにだけ持たせます
+- `promptJa` がないカードは `『${ja}』` 形式で日英の問題文を自動生成します
 - `nuance` は元データにあるカードだけ表示されます
 - 学習進捗は `localStorage` に保存されます

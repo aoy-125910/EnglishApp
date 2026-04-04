@@ -91,7 +91,7 @@ export function sortItems(left, right) {
 }
 
 export function buildCardsForItem(item) {
-  const japanesePrompt = item.promptJa || `日本語: 『${item.ja}』`;
+  const japanesePrompt = buildJapanesePrompt(item);
 
   return [
     {
@@ -117,6 +117,11 @@ export function buildCardsForItem(item) {
       answer: item
     }
   ];
+}
+
+export function buildJapanesePrompt(item) {
+  const rawPrompt = item.promptJa || `『${item.ja}』`;
+  return rawPrompt.replace(/^日本語\s*[:：]\s*/, "").trim();
 }
 
 export function extractEpisodeNumber(value) {

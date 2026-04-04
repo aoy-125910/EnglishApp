@@ -6,7 +6,7 @@ window.HAPA_CARDS = [
     "en": "Move in/out",
     "ja": "引っ越す、入居する / 退去する",
     "example": "We’re moving out at the end of the month and moving in next weekend.",
-    "promptJa": "日本語: 『入居する / 退去する』",
+    "promptJa": "『入居する / 退去する』",
     "nuance": "新居へ入るのか今の場所を出るのかをはっきり言い分けられる。"
   },
   {
@@ -16,7 +16,7 @@ window.HAPA_CARDS = [
     "en": "Go full circle",
     "ja": "一周して元の場所に戻る",
     "example": "My career went full circle and brought me back to my hometown.",
-    "promptJa": "日本語: 『一周して元の場所に戻る』",
+    "promptJa": "『一周して元の場所に戻る』",
     "nuance": "いろいろ経験したあとに出発点へ戻る流れを表す。"
   },
   {
@@ -26,7 +26,7 @@ window.HAPA_CARDS = [
     "en": "Hit",
     "ja": "〜歳になる、〜に達する",
     "example": "Once I hit 30, I started thinking differently about money.",
-    "promptJa": "日本語: 『〜歳になる、〜に達する』",
+    "promptJa": "『〜歳になる、〜に達する』",
     "nuance": "年齢や数字に届く感じをカジュアルに言う。"
   },
   {
@@ -36,7 +36,7 @@ window.HAPA_CARDS = [
     "en": "Break down",
     "ja": "細かく分けて分析する",
     "example": "I broke down my monthly expenses before moving out.",
-    "promptJa": "日本語: 『細かく分けて分析する』",
+    "promptJa": "『細かく分けて分析する』",
     "nuance": "予算や計画を見える形に整理する時に使いやすい。"
   },
   {
@@ -46,7 +46,7 @@ window.HAPA_CARDS = [
     "en": "Sketch out",
     "ja": "大まかに書き出す、概要を描く",
     "example": "Let’s sketch out a roommate plan before we sign anything.",
-    "promptJa": "日本語: 『大まかに書き出す』",
+    "promptJa": "『大まかに書き出す』",
     "nuance": "細部ではなく骨組みだけを先に整理する時の表現。"
   },
   {
@@ -96,7 +96,7 @@ window.HAPA_CARDS = [
     "en": "Stance on",
     "ja": "〜に対する立場、考え",
     "example": "What’s your stance on remote learning for kids?",
-    "promptJa": "日本語: 『〜に対する立場、考え』",
+    "promptJa": "『〜に対する立場、考え』",
     "nuance": "賛否が分かれる話題で、相手の立ち位置をたずねる時に使う。"
   },
   {
@@ -106,7 +106,7 @@ window.HAPA_CARDS = [
     "en": "Pro / Con",
     "ja": "賛成 / 反対",
     "example": "I’m pro reusable bottles, but my brother is against them.",
-    "promptJa": "日本語: 『賛成 / 反対』",
+    "promptJa": "『賛成 / 反対』",
     "nuance": "立場をコンパクトに示す時に便利。"
   },
   {
@@ -116,7 +116,7 @@ window.HAPA_CARDS = [
     "en": "Stock up",
     "ja": "まとめ買いする",
     "example": "We stocked up on coffee before the busy season started.",
-    "promptJa": "日本語: 『まとめ買いする』",
+    "promptJa": "『まとめ買いする』",
     "nuance": "セールや品薄に備えて多めに買う時に使う。"
   },
   {
@@ -126,7 +126,7 @@ window.HAPA_CARDS = [
     "en": "Keep someone up at night",
     "ja": "夜眠れなくさせる",
     "example": "Money worries kept him up at night for weeks.",
-    "promptJa": "日本語: 『夜眠れなくさせる』",
+    "promptJa": "『夜眠れなくさせる』",
     "nuance": "不安・興奮・刺激のせいで眠れない時に使える。"
   },
   {
@@ -136,7 +136,7 @@ window.HAPA_CARDS = [
     "en": "Craze",
     "ja": "大流行、ブーム",
     "example": "There’s a new craze for vintage cameras among students.",
-    "promptJa": "日本語: 『大流行、ブーム』",
+    "promptJa": "『大流行、ブーム』",
     "nuance": "一時的に一気に人気が高まるものに使う。"
   },
   {
@@ -186,7 +186,7 @@ window.HAPA_CARDS = [
     "en": "Take place",
     "ja": "起こる、行われる",
     "example": "The school festival takes place every fall.",
-    "promptJa": "日本語: 『起こる、行われる』",
+    "promptJa": "『起こる、行われる』",
     "nuance": "イベントや予定された出来事が実施される時に使う。"
   },
   {
@@ -196,7 +196,7 @@ window.HAPA_CARDS = [
     "en": "For one’s liking",
     "ja": "〜の好みには",
     "example": "That cafe is too noisy for my liking.",
-    "promptJa": "日本語: 『〜の好みには』",
+    "promptJa": "『〜の好みには』",
     "nuance": "too 〜 for my liking の形で『私には〜すぎる』を柔らかく言える。"
   },
   {
@@ -206,7 +206,7 @@ window.HAPA_CARDS = [
     "en": "Be done with ~",
     "ja": "〜にはうんざりだ",
     "example": "I’m done with crowded buses in the morning.",
-    "promptJa": "日本語: 『〜にはうんざりだ』",
+    "promptJa": "『〜にはうんざりだ』",
     "nuance": "もう十分、もう関わりたくないという感情を表す。"
   },
   {
@@ -216,7 +216,7 @@ window.HAPA_CARDS = [
     "en": "Do something in one’s sleep",
     "ja": "寝ながらでもできる、楽勝だ",
     "example": "She’s practiced that presentation so much she could do it in her sleep.",
-    "promptJa": "日本語: 『寝ながらでもできる、楽勝だ』",
+    "promptJa": "『寝ながらでもできる、楽勝だ』",
     "nuance": "慣れすぎていて考えなくてもできることを表す。"
   },
   {
@@ -226,7 +226,7 @@ window.HAPA_CARDS = [
     "en": "Gigantic",
     "ja": "巨大な",
     "example": "They found a gigantic spider near the classroom window.",
-    "promptJa": "日本語: 『巨大な』",
+    "promptJa": "『巨大な』",
     "nuance": "big よりかなり大きい感じを強調する。"
   },
   {
@@ -276,7 +276,7 @@ window.HAPA_CARDS = [
     "en": "Significant other",
     "ja": "恋人、配偶者",
     "example": "You can bring your significant other to the dinner if you want.",
-    "promptJa": "日本語: 『恋人、配偶者』",
+    "promptJa": "『恋人、配偶者』",
     "nuance": "性別を限定せずパートナーを言いたい時に便利。"
   },
   {
@@ -286,7 +286,7 @@ window.HAPA_CARDS = [
     "en": "Serious",
     "ja": "真剣な交際の",
     "example": "They’ve been dating for months and things are getting serious.",
-    "promptJa": "日本語: 『真剣な交際の』",
+    "promptJa": "『真剣な交際の』",
     "nuance": "casual ではなく将来を見据えた関係を表す。"
   },
   {
@@ -296,7 +296,7 @@ window.HAPA_CARDS = [
     "en": "In most cases",
     "ja": "たいていの場合",
     "example": "In most cases, people wait until the relationship feels stable.",
-    "promptJa": "日本語: 『たいていの場合』",
+    "promptJa": "『たいていの場合』",
     "nuance": "一般論をやわらかく言う時にちょうどいい。"
   },
   {
@@ -306,7 +306,7 @@ window.HAPA_CARDS = [
     "en": "Rattle off",
     "ja": "スラスラ言う、並べ立てる",
     "example": "He rattled off facts about New Zealand without looking anything up.",
-    "promptJa": "日本語: 『スラスラ言う、並べ立てる』",
+    "promptJa": "『スラスラ言う、並べ立てる』",
     "nuance": "暗記した情報を勢いよく言う感じがある。"
   },
   {
@@ -316,7 +316,7 @@ window.HAPA_CARDS = [
     "en": "Paranoid",
     "ja": "考えすぎて心配している",
     "example": "I get paranoid before family dinners because I overthink everything.",
-    "promptJa": "日本語: 『考えすぎて心配している』",
+    "promptJa": "『考えすぎて心配している』",
     "nuance": "悪い方向に想像が膨らむ時に使う。"
   },
   {
@@ -366,7 +366,7 @@ window.HAPA_CARDS = [
     "en": "Shoot back",
     "ja": "すぐ返す、問い返す",
     "example": "I answered first and then shot the same question back to her.",
-    "promptJa": "日本語: 『すぐ返す、問い返す』",
+    "promptJa": "『すぐ返す、問い返す』",
     "nuance": "反応の速さが出るカジュアル表現。"
   },
   {
@@ -376,7 +376,7 @@ window.HAPA_CARDS = [
     "en": "Go with",
     "ja": "〜にする、〜を選ぶ",
     "example": "If I had to choose one dessert, I’d go with pumpkin pie.",
-    "promptJa": "日本語: 『〜にする、〜を選ぶ』",
+    "promptJa": "『〜にする、〜を選ぶ』",
     "nuance": "複数の候補から口語的に選ぶ感じ。"
   },
   {
@@ -386,7 +386,7 @@ window.HAPA_CARDS = [
     "en": "I’m not huge on",
     "ja": "〜はそこまで好きじゃない",
     "example": "I’m not huge on turkey, but I love the side dishes.",
-    "promptJa": "日本語: 『〜はそこまで好きじゃない』",
+    "promptJa": "『〜はそこまで好きじゃない』",
     "nuance": "I don’t like より柔らかく好みを伝えられる。"
   },
   {
@@ -396,7 +396,7 @@ window.HAPA_CARDS = [
     "en": "Dress up",
     "ja": "仮装する、きちんとした格好をする",
     "example": "Adults love dressing up as characters from pop culture.",
-    "promptJa": "日本語: 『仮装する』",
+    "promptJa": "『仮装する』",
     "nuance": "ハロウィンでもフォーマルでも使える。"
   },
   {
@@ -406,7 +406,7 @@ window.HAPA_CARDS = [
     "en": "Nana",
     "ja": "おばあちゃん",
     "example": "My nana always makes extra pie for the holidays.",
-    "promptJa": "日本語: 『おばあちゃん』",
+    "promptJa": "『おばあちゃん』",
     "nuance": "grandma より子どもっぽく親しみのある呼び方。"
   },
   {
@@ -456,7 +456,7 @@ window.HAPA_CARDS = [
     "en": "Fit",
     "ja": "ぴったり合う",
     "example": "The costume didn’t fit him as well as he expected.",
-    "promptJa": "日本語: 『ぴったり合う』",
+    "promptJa": "『ぴったり合う』",
     "nuance": "服やサイズの話で頻出。似合うの意味になることもある。"
   },
   {
@@ -466,7 +466,7 @@ window.HAPA_CARDS = [
     "en": "Go door-to-door",
     "ja": "一軒一軒回る",
     "example": "Kids go door-to-door for candy when the sun goes down.",
-    "promptJa": "日本語: 『一軒一軒回る』",
+    "promptJa": "『一軒一軒回る』",
     "nuance": "訪問販売にも使えるが、ハロウィン文脈では定番。"
   },
   {
@@ -476,7 +476,7 @@ window.HAPA_CARDS = [
     "en": "Psych someone out",
     "ja": "びっくりさせる、冗談でだます",
     "example": "They said 'trick' first just to psych the kids out.",
-    "promptJa": "日本語: 『びっくりさせる、冗談でだます』",
+    "promptJa": "『びっくりさせる、冗談でだます』",
     "nuance": "子どもの軽い prank 的なニュアンスでも使われる。"
   },
   {
@@ -486,7 +486,7 @@ window.HAPA_CARDS = [
     "en": "Go all out",
     "ja": "全力を尽くす、盛大にやる",
     "example": "Some houses go all out with lights and giant decorations.",
-    "promptJa": "日本語: 『全力を尽くす、盛大にやる』",
+    "promptJa": "『全力を尽くす、盛大にやる』",
     "nuance": "特に飾り付けやイベント準備でよく合う。"
   },
   {
@@ -496,7 +496,7 @@ window.HAPA_CARDS = [
     "en": "Pull up",
     "ja": "車を止める",
     "example": "Parents pull up to the parking lot for trunk-or-treat.",
-    "promptJa": "日本語: 『車を止める』",
+    "promptJa": "『車を止める』",
     "nuance": "park より一時的に止まる感じが強い。"
   },
   {
@@ -546,7 +546,7 @@ window.HAPA_CARDS = [
     "en": "School-appropriate",
     "ja": "学校にふさわしい",
     "example": "She wanted a costume that was fun but still school-appropriate.",
-    "promptJa": "日本語: 『学校にふさわしい』",
+    "promptJa": "『学校にふさわしい』",
     "nuance": "場に合った内容かどうかを判断する言い方。"
   },
   {
@@ -556,7 +556,7 @@ window.HAPA_CARDS = [
     "en": "Have nothing to do with",
     "ja": "〜とは関係がない",
     "example": "That tradition has nothing to do with religion in their school.",
-    "promptJa": "日本語: 『〜とは関係がない』",
+    "promptJa": "『〜とは関係がない』",
     "nuance": "話題や責任の切り離しに広く使える。"
   },
   {
@@ -566,7 +566,7 @@ window.HAPA_CARDS = [
     "en": "(Be) down",
     "ja": "乗り気だ、やる気がある",
     "example": "I’m down to go to a costume party this weekend.",
-    "promptJa": "日本語: 『乗り気だ、やる気がある』",
+    "promptJa": "『乗り気だ、やる気がある』",
     "nuance": "友達同士の誘いに前向きに答えるインフォーマル表現。"
   },
   {
@@ -576,7 +576,7 @@ window.HAPA_CARDS = [
     "en": "Not one’s thing",
     "ja": "その人の好みではない、苦手だ",
     "example": "Parties are fun for me, but dressing up isn’t really my thing.",
-    "promptJa": "日本語: 『その人の好みではない、苦手だ』",
+    "promptJa": "『その人の好みではない、苦手だ』",
     "nuance": "嫌いと言い切らずに合わない感じを出せる。"
   },
   {
@@ -586,7 +586,7 @@ window.HAPA_CARDS = [
     "en": "I don’t mind",
     "ja": "気にならない、構わない",
     "example": "I don’t mind crowded parties if the vibe is good.",
-    "promptJa": "日本語: 『気にならない、構わない』",
+    "promptJa": "『気にならない、構わない』",
     "nuance": "許容できる・抵抗がないという柔らかい返答。"
   },
   {
@@ -636,7 +636,7 @@ window.HAPA_CARDS = [
     "en": "I’m no expert",
     "ja": "専門家ではないけど",
     "example": "I’m no expert, but money seems to affect a lot of life decisions.",
-    "promptJa": "日本語: 『専門家ではないけど』",
+    "promptJa": "『専門家ではないけど』",
     "nuance": "断言を避けつつ意見を言う前置きに便利。"
   },
   {
@@ -646,7 +646,7 @@ window.HAPA_CARDS = [
     "en": "Play the field",
     "ja": "いろいろな人とデートする",
     "example": "He’s not ready to settle down and still wants to play the field.",
-    "promptJa": "日本語: 『いろいろな人とデートする』",
+    "promptJa": "『いろいろな人とデートする』",
     "nuance": "一人に決めず軽く付き合うイメージ。"
   },
   {
@@ -656,7 +656,7 @@ window.HAPA_CARDS = [
     "en": "Willing to",
     "ja": "進んで〜する、〜しても構わない",
     "example": "She’s willing to move if the job is worth it.",
-    "promptJa": "日本語: 『進んで〜する、〜しても構わない』",
+    "promptJa": "『進んで〜する、〜しても構わない』",
     "nuance": "積極的にも消極的にも使える柔らかい意思表示。"
   },
   {
@@ -666,7 +666,7 @@ window.HAPA_CARDS = [
     "en": "Settle down",
     "ja": "身を固める、落ち着く",
     "example": "A lot of people don’t want to settle down in their early twenties anymore.",
-    "promptJa": "日本語: 『身を固める、落ち着く』",
+    "promptJa": "『身を固める、落ち着く』",
     "nuance": "結婚・定住・生活の安定の文脈で広く使う。"
   },
   {
@@ -676,7 +676,7 @@ window.HAPA_CARDS = [
     "en": "Tie down",
     "ja": "縛りつける、束縛する",
     "example": "He doesn’t want a relationship that makes him feel tied down.",
-    "promptJa": "日本語: 『縛りつける、束縛する』",
+    "promptJa": "『縛りつける、束縛する』",
     "nuance": "時間・場所・恋愛に縛られる感覚を表せる。"
   },
   {
@@ -726,7 +726,7 @@ window.HAPA_CARDS = [
     "en": "Straightforward",
     "ja": "率直な、分かりやすい",
     "example": "She’s honest and straightforward with her coworkers.",
-    "promptJa": "日本語: 『率直な、分かりやすい』",
+    "promptJa": "『率直な、分かりやすい』",
     "nuance": "人柄にも説明書にも使える便利語。"
   },
   {
@@ -736,7 +736,7 @@ window.HAPA_CARDS = [
     "en": "Imposter syndrome",
     "ja": "インポスター症候群",
     "example": "Even experienced people can suffer from imposter syndrome.",
-    "promptJa": "日本語: 『インポスター症候群』",
+    "promptJa": "『インポスター症候群』",
     "nuance": "実力があるのに自分を過小評価してしまう状態。"
   },
   {
@@ -746,7 +746,7 @@ window.HAPA_CARDS = [
     "en": "Unpackage",
     "ja": "紐解く、細かく分析する",
     "example": "Let’s unpackage why that situation felt so stressful.",
-    "promptJa": "日本語: 『紐解く、細かく分析する』",
+    "promptJa": "『紐解く、細かく分析する』",
     "nuance": "発言や感情を一段深く掘る時の会話表現。"
   },
   {
@@ -756,7 +756,7 @@ window.HAPA_CARDS = [
     "en": "Fake it till you make it",
     "ja": "できるようになるまで、できるふりで進む",
     "example": "Sometimes new professionals feel they have to fake it till they make it.",
-    "promptJa": "日本語: 『できるようになるまで、できるふりで進む』",
+    "promptJa": "『できるようになるまで、できるふりで進む』",
     "nuance": "自信が十分でなくてもまず動く、という発想。"
   },
   {
@@ -766,7 +766,7 @@ window.HAPA_CARDS = [
     "en": "Clean slate",
     "ja": "白紙の状態、新しい出発点",
     "example": "Every clean slate can feel daunting when you’re still learning.",
-    "promptJa": "日本語: 『白紙の状態、新しい出発点』",
+    "promptJa": "『白紙の状態、新しい出発点』",
     "nuance": "未知の案件やゼロから始まる不安と相性が良い。"
   },
   {
@@ -816,7 +816,7 @@ window.HAPA_CARDS = [
     "en": "Distinguish",
     "ja": "区別する",
     "example": "Can you distinguish the difference between Asahi and Sapporo?",
-    "promptJa": "日本語: 『区別する』",
+    "promptJa": "『区別する』",
     "nuance": "distinguishは二つの異なるものの違いが分かったり、区別することを意味します。"
   },
   {
@@ -826,7 +826,7 @@ window.HAPA_CARDS = [
     "en": "Boast",
     "ja": "自慢する",
     "example": "She boasts about her kids all the time. She’s very proud of them.",
-    "promptJa": "日本語: 『自慢する』",
+    "promptJa": "『自慢する』",
     "nuance": "boastは「自慢する」を意味する単語です。"
   },
   {
@@ -836,7 +836,7 @@ window.HAPA_CARDS = [
     "en": "A-hole",
     "ja": "嫌なやつ",
     "example": "Don’t be such an a-hole. Apologize to her.",
-    "promptJa": "日本語: 『嫌なやつ』",
+    "promptJa": "『嫌なやつ』",
     "nuance": "a-holeはassholeの略で、「嫌な奴」や「最低な人」を意味する口語表現です。"
   },
   {
@@ -846,7 +846,7 @@ window.HAPA_CARDS = [
     "en": "Strong point",
     "ja": "長所",
     "example": "I’d say my strong points are patience and persistence.",
-    "promptJa": "日本語: 『長所』",
+    "promptJa": "『長所』",
     "nuance": "直訳で「強い点」となるこの表現は、人の長所や強みを意味します。"
   },
   {
@@ -856,7 +856,7 @@ window.HAPA_CARDS = [
     "en": "Taste",
     "ja": "センス",
     "example": "I really like your taste in music. Can you share me your playlist?",
-    "promptJa": "日本語: 『センス』",
+    "promptJa": "『センス』",
     "nuance": "tasteは本来「味」を意味しますが、「趣味」や「好み」という意味もあり、何かに対して見る目があったり、センスがある事を表す状況で使われます。"
   },
   {
@@ -922,7 +922,7 @@ window.HAPA_CARDS = [
     "en": "Use to someone’s advantage",
     "ja": "人に有利になるよう利用する",
     "example": "I want to use my English to my advantage and work for a foreign company.",
-    "promptJa": "日本語: 『人に有利になるよう利用する』",
+    "promptJa": "『人に有利になるよう利用する』",
     "nuance": "advantageは「有益」や「好都合」を意味することから、use to someone’s advantageは、何かを人に有利になるように利用することを意味します。"
   },
   {
@@ -932,7 +932,7 @@ window.HAPA_CARDS = [
     "en": "Let loose",
     "ja": "羽目を外す",
     "example": "Let’s let loose tonight and have fun.",
-    "promptJa": "日本語: 『羽目を外す』",
+    "promptJa": "『羽目を外す』",
     "nuance": "let looseはリラックスして思いっきり楽しんだり、羽目を外したりなど、周りを気にせずに自由に振る舞って楽しむ意味合いとして使われます。"
   },
   {
@@ -942,7 +942,7 @@ window.HAPA_CARDS = [
     "en": "Malicious",
     "ja": "悪意のある",
     "example": "What he did was malicious, and he needs to be punished.",
-    "promptJa": "日本語: 『悪意のある』",
+    "promptJa": "『悪意のある』",
     "nuance": "maliciousは人に嫌な思いをさせたり、傷つけようとしたり、恥をかかせようとする意思があることを表し、「悪意のある」を意味します。"
   },
   {
@@ -952,7 +952,7 @@ window.HAPA_CARDS = [
     "en": "Take it personally",
     "ja": "個人攻撃と捉える",
     "example": "Don’t take it personally. It’s just business.",
-    "promptJa": "日本語: 『個人攻撃と捉える』",
+    "promptJa": "『個人攻撃と捉える』",
     "nuance": "takeは「取る」、personallyは「個人」を意味することから、この表現は「個人攻撃と捉える」を意味します。"
   },
   {
@@ -962,7 +962,7 @@ window.HAPA_CARDS = [
     "en": "Be over the moon",
     "ja": "すごく嬉しい",
     "example": "I was over the moon when Japan beat Germany!",
-    "promptJa": "日本語: 『すごく嬉しい』",
+    "promptJa": "『すごく嬉しい』",
     "nuance": "直訳で「月を超える」となるこの表現は「月を超えるほど嬉しい状態」を表し、嬉しくてたまらなかったり、すごく幸せであることを意味します。"
   },
   {
@@ -1036,7 +1036,7 @@ window.HAPA_CARDS = [
     "en": "Hold someone accountable",
     "ja": "人に責任を取らせる",
     "example": "If we want to accomplish this goal, we need to hold each other accountable.",
-    "promptJa": "日本語: 『人に責任を取らせる』",
+    "promptJa": "『人に責任を取らせる』",
     "nuance": "hold someone accountableはhold someone responsibleと同じような意味を持ち、「誰かに責任を負わせる」ことを意味します。"
   },
   {
@@ -1046,7 +1046,7 @@ window.HAPA_CARDS = [
     "en": "Get carried away",
     "ja": "我を忘れる",
     "example": "I got carried away and said some things I shouldn’t have.",
-    "promptJa": "日本語: 『我を忘れる』",
+    "promptJa": "『我を忘れる』",
     "nuance": "carried awayは、我を忘れるほど何かに夢中になったり興奮したりすることを意味します。"
   },
   {
@@ -1056,7 +1056,7 @@ window.HAPA_CARDS = [
     "en": "For better or worse",
     "ja": "良くも悪くも",
     "example": "For better or worse, I’m moving back to Japan next month.",
-    "promptJa": "日本語: 『良くも悪くも』",
+    "promptJa": "『良くも悪くも』",
     "nuance": "for better or worseは「良くも悪くも」を意味する口語表現です。"
   },
   {
@@ -1066,7 +1066,7 @@ window.HAPA_CARDS = [
     "en": "Get away with",
     "ja": "許される",
     "example": "You didn’t get a speeding ticket? How did you get away with that?",
-    "promptJa": "日本語: 『許される』",
+    "promptJa": "『許される』",
     "nuance": "get away withは「許される」や「何の罰も受けないで済む」を意味します。"
   },
   {
@@ -1076,7 +1076,7 @@ window.HAPA_CARDS = [
     "en": "Two sides of the same coin",
     "ja": "別々の物に見えるけど実は同じ",
     "example": "The way I see it, crisis and opportunity are two sides of the same coin.",
-    "promptJa": "日本語: 『別々の物に見えるけど実は同じ』",
+    "promptJa": "『別々の物に見えるけど実は同じ』",
     "nuance": "直訳で「同じコインの二つの面」となるこの表現は、表面上は全く逆に見えても根本的には同じであることを意味します。"
   },
   {
@@ -1150,7 +1150,7 @@ window.HAPA_CARDS = [
     "en": "Touchy subject",
     "ja": "センシティブな話題",
     "example": "Religion is a touchy subject you should avoid in small talk.",
-    "promptJa": "日本語: 『センシティブな話題』",
+    "promptJa": "『センシティブな話題』",
     "nuance": "気を遣わなければならないようなセンシティブな話題を、英語でtouchy subjectと表します。"
   },
   {
@@ -1160,7 +1160,7 @@ window.HAPA_CARDS = [
     "en": "Quick to",
     "ja": "すぐに〜する",
     "example": "He is always quick to make decisions.",
-    "promptJa": "日本語: 『すぐに〜する』",
+    "promptJa": "『すぐに〜する』",
     "nuance": "quick toは「すぐに〜する」を意味する日常表現です。"
   },
   {
@@ -1170,7 +1170,7 @@ window.HAPA_CARDS = [
     "en": "Put pressure on",
     "ja": "プレッシャーをかける",
     "example": "It seems like the company is putting pressure on him to resign.",
-    "promptJa": "日本語: 『プレッシャーをかける』",
+    "promptJa": "『プレッシャーをかける』",
     "nuance": "put pressure onは「プレッシャーをかける」ことを意味する表現です。"
   },
   {
@@ -1180,7 +1180,7 @@ window.HAPA_CARDS = [
     "en": "Go on a rant",
     "ja": "暴言を吐く",
     "example": "John went on a rant about inflation in the U.S.",
-    "promptJa": "日本語: 『暴言を吐く』",
+    "promptJa": "『暴言を吐く』",
     "nuance": "rantは大声で怒りをあらわにした話し方をすることを意味し、特に理不尽な文句を言う意味合いがあります。"
   },
   {
@@ -1190,7 +1190,7 @@ window.HAPA_CARDS = [
     "en": "Remorse",
     "ja": "深い後悔、反省",
     "example": "He apologized and showed remorse for his action.",
-    "promptJa": "日本語: 『深い後悔、反省』",
+    "promptJa": "『深い後悔、反省』",
     "nuance": "remorseは自分の行動や発言を深く後悔したり、別の結果を望む意味を持つ単語です。"
   },
   {
@@ -1240,7 +1240,7 @@ window.HAPA_CARDS = [
     "en": "Less of",
     "ja": "控える",
     "example": "Is there anything you want to do less of this year?",
-    "promptJa": "日本語: 『控える』",
+    "promptJa": "『控える』",
     "nuance": "lessは「より少ない」を意味することから、less ofは日常会話では「減らす」や「控える」の意味として使われます。"
   },
   {
@@ -1250,7 +1250,7 @@ window.HAPA_CARDS = [
     "en": "Drain",
     "ja": "消耗する",
     "example": "I need to cut down on watching YouTube. It really drains my time.",
-    "promptJa": "日本語: 『消耗する』",
+    "promptJa": "『消耗する』",
     "nuance": "drainは容器の中の液体を空になるまで流し出す意味があることから、日常会話では時間やエネルギーを消耗させる意味で使われます。"
   },
   {
@@ -1260,7 +1260,7 @@ window.HAPA_CARDS = [
     "en": "Time consumer",
     "ja": "時間を浪費するもの",
     "example": "TikTok is great, but it’s a time consumer.",
-    "promptJa": "日本語: 『時間を浪費するもの』",
+    "promptJa": "『時間を浪費するもの』",
     "nuance": "consumeは本来、商品やサービスを消費することを意味しますが、timeと組み合わせて使うと、時間を浪費することを意味します。"
   },
   {
@@ -1270,7 +1270,7 @@ window.HAPA_CARDS = [
     "en": "Crazy cat lady",
     "ja": "猫が大好きな女性",
     "example": "There’s a crazy cat lady that lives in my neighborhood.",
-    "promptJa": "日本語: 『猫が大好きな女性』",
+    "promptJa": "『猫が大好きな女性』",
     "nuance": "直訳で「猫狂いの女性」となるこの表現は、猫が大好きな女性を表すフレーズで、猫を何匹も飼っているような猫が異常に好きな女性を指します。"
   },
   {
@@ -1280,7 +1280,7 @@ window.HAPA_CARDS = [
     "en": "Strongly disagree",
     "ja": "猛反対",
     "example": "I strongly disagree with your suggestion.",
-    "promptJa": "日本語: 『猛反対』",
+    "promptJa": "『猛反対』",
     "nuance": "stronglyは「強く」、disagreeは「反対」を意味することから、strongly disagreeは「強く反対する」や「猛反対する」ことを意味します。"
   },
   {
@@ -1322,7 +1322,7 @@ window.HAPA_CARDS = [
     "en": "Hearty",
     "ja": "ボリュームのある",
     "example": "I’m still full because I ate a hearty breakfast this morning.",
-    "promptJa": "日本語: 『ボリュームのある』",
+    "promptJa": "『ボリュームのある』",
     "nuance": "heartyは「ボリュームのある」を意味し、ボリュームたっぷりで満足するような食事に対して使われます。"
   },
   {
@@ -1332,7 +1332,7 @@ window.HAPA_CARDS = [
     "en": "Veg",
     "ja": "野菜",
     "example": "What kind of veg do you put in your soup?",
-    "promptJa": "日本語: 『野菜』",
+    "promptJa": "『野菜』",
     "nuance": "vegはvegetableを略した言い方で、「野菜」を意味します。"
   },
   {
@@ -1342,7 +1342,7 @@ window.HAPA_CARDS = [
     "en": "It’s got to be",
     "ja": "〜でないといけない",
     "example": "When it comes to chocolate, it’s got to be dark.",
-    "promptJa": "日本語: 『〜でないといけない』",
+    "promptJa": "『〜でないといけない』",
     "nuance": "it’s got to beは「〜でないといけない」や「絶対に〜だ」を意味します。"
   },
   {
@@ -1352,7 +1352,7 @@ window.HAPA_CARDS = [
     "en": "Pointless",
     "ja": "無意味な",
     "example": "It’s pointless to argue about what already happened.",
-    "promptJa": "日本語: 『無意味な』",
+    "promptJa": "『無意味な』",
     "nuance": "pointは「点」を意味する単語ですが、日常会話では「意味」を表す表現としても使われます。"
   },
   {
@@ -1362,7 +1362,7 @@ window.HAPA_CARDS = [
     "en": "Foodwise",
     "ja": "食べ物に関しては",
     "example": "What do you like foodwise?",
-    "promptJa": "日本語: 『食べ物に関しては』",
+    "promptJa": "『食べ物に関しては』",
     "nuance": "-wiseは「〜に関しては」を意味する口語表現で、名詞の後に加えます。"
   },
   {
@@ -1412,7 +1412,7 @@ window.HAPA_CARDS = [
     "en": "Think back to",
     "ja": "〜を振り返る",
     "example": "When I think back to my childhood, I was a very shy kid.",
-    "promptJa": "日本語: 『〜を振り返る』",
+    "promptJa": "『〜を振り返る』",
     "nuance": "“think back to ~”は「〜を振り返る」を意味する表現で、過去の体験や出来事について思い返す時に使われます。"
   },
   {
@@ -1422,7 +1422,7 @@ window.HAPA_CARDS = [
     "en": "Get away with",
     "ja": "〜が許される、何とかなる",
     "example": "When I lived in the U.S., I got away with my broken English.",
-    "promptJa": "日本語: 『〜が許される、何とかなる』",
+    "promptJa": "『〜が許される、何とかなる』",
     "nuance": "get away withは本来、「〜が許される」や「〜で済む」を意味する日常表現です。"
   },
   {
@@ -1432,7 +1432,7 @@ window.HAPA_CARDS = [
     "en": "Break out",
     "ja": "ニキビが大量にできる",
     "example": "A few hours after I used this lotion, I started breaking out.",
-    "promptJa": "日本語: 『ニキビが大量にできる』",
+    "promptJa": "『ニキビが大量にできる』",
     "nuance": "break outは状況に応じてさまざまな意味になる表現ですが、今日の会話ではニキビが大量にできてしまうことを意味します。"
   },
   {
@@ -1442,7 +1442,7 @@ window.HAPA_CARDS = [
     "en": "Doll up",
     "ja": "おめかしする",
     "example": "She is getting dolled up for the party.",
-    "promptJa": "日本語: 『おめかしする』",
+    "promptJa": "『おめかしする』",
     "nuance": "doll upはお洒落したり、化粧したりすることを意味する日常表現です。"
   },
   {
@@ -1452,7 +1452,7 @@ window.HAPA_CARDS = [
     "en": "Festive",
     "ja": "華やかな",
     "example": "I love the Christmas decorations in your office. It’s so festive!",
-    "promptJa": "日本語: 『華やかな』",
+    "promptJa": "『華やかな』",
     "nuance": "festiveは 「華やかな」や「お祭り気分の」を意味する単語です。"
   },
   {
@@ -1510,7 +1510,7 @@ window.HAPA_CARDS = [
     "en": "I’m not going to lie",
     "ja": "正直言うと、ぶっちゃけ",
     "example": "I’m not going to lie. I was on the verge of giving up.",
-    "promptJa": "日本語: 『正直言うと、ぶっちゃけ』",
+    "promptJa": "『正直言うと、ぶっちゃけ』",
     "nuance": "直訳で「嘘はつきません」となるこの表現は、「正直言うと」を意味し、響きは日本語の「ぶっちゃけ」とよく似ています。"
   },
   {
@@ -1520,7 +1520,7 @@ window.HAPA_CARDS = [
     "en": "I’m begging you",
     "ja": "お願いだから",
     "example": "I’m begging you. Don’t confront him. It’s not worth it.",
-    "promptJa": "日本語: 『お願いだから』",
+    "promptJa": "『お願いだから』",
     "nuance": "beg は「せがむ」や「懇願する」を意味することから、 “I’m begging you.”は誰かに強くお願いする状況で使われ、「お願いだから！」や「頼むから！」を意味します。"
   },
   {
@@ -1530,7 +1530,7 @@ window.HAPA_CARDS = [
     "en": "Blood is thicker than water",
     "ja": "血は水よりも濃い",
     "example": "I don’t care how busy you are with work. Family always comes first. Blood is thicker than water.",
-    "promptJa": "日本語: 『血は水よりも濃い』",
+    "promptJa": "『血は水よりも濃い』",
     "nuance": "blood is thicker than waterは「血は水よりも濃い」を意味することわざです。"
   },
   {
@@ -1540,7 +1540,7 @@ window.HAPA_CARDS = [
     "en": "Burn one’s bridges",
     "ja": "関係を壊す",
     "example": "He burned his bridges with his boss by insulting her in front of everyone.",
-    "promptJa": "日本語: 『関係を壊す』",
+    "promptJa": "『関係を壊す』",
     "nuance": "直訳で「自分の橋を燃やす」となるこの表現は、元に戻れない状況を作ることを意味します。"
   },
   {
@@ -1550,7 +1550,7 @@ window.HAPA_CARDS = [
     "en": "At all times",
     "ja": "いつも",
     "example": "I carry my wallet, smartphone, and keys at all times.",
-    "promptJa": "日本語: 『いつも』",
+    "promptJa": "『いつも』",
     "nuance": "at all timesは「いつも」や「常に」を意味する表現です。"
   },
   {
@@ -1624,7 +1624,7 @@ window.HAPA_CARDS = [
     "en": "19 going on 20",
     "ja": "19歳",
     "example": "I was 20 going on 21 when I studied abroad.",
-    "promptJa": "日本語: 『19歳』",
+    "promptJa": "『19歳』",
     "nuance": "直訳で「19歳から20歳になる時」となるこの表現は、「19歳」であることを意味します。"
   },
   {
@@ -1634,7 +1634,7 @@ window.HAPA_CARDS = [
     "en": "Use the term loosely",
     "ja": "ある言葉を漠然と使う",
     "example": "He is a successful businessman, and when I say successful, I’m using the term loosely.",
-    "promptJa": "日本語: 『ある言葉を漠然と使う』",
+    "promptJa": "『ある言葉を漠然と使う』",
     "nuance": "直訳で「ゆるく使う」となるこの表現は、ある言葉を広い意味で使うことを強調したい時に使われます。"
   },
   {
@@ -1644,7 +1644,7 @@ window.HAPA_CARDS = [
     "en": "Acquaintance",
     "ja": "知り合い",
     "example": "John is an acquaintance I met while I was traveling in Europe.",
-    "promptJa": "日本語: 『知り合い』",
+    "promptJa": "『知り合い』",
     "nuance": "acquaintanceは「知り合い」を意味する単語です。"
   },
   {
@@ -1654,7 +1654,7 @@ window.HAPA_CARDS = [
     "en": "Gobsmacked",
     "ja": "非常に驚いた",
     "example": "I was gobsmacked when I heard the news.",
-    "promptJa": "日本語: 『非常に驚いた』",
+    "promptJa": "『非常に驚いた』",
     "nuance": "gobsmackedは「すごく驚いた」を意味するイギリスで使われる口語表現です。"
   },
   {
@@ -1664,7 +1664,7 @@ window.HAPA_CARDS = [
     "en": "Who knows?",
     "ja": "誰にもわからない",
     "example": "Who knows? You won’t know until you try it, so just give it a shot.",
-    "promptJa": "日本語: 『誰にもわからない』",
+    "promptJa": "『誰にもわからない』",
     "nuance": "“Who knows?”は「誰にも分からない」を意味する表現で、使う状況によって「どうだろうね」や「さあね」、「そんなの知らないよ」を意味します。"
   },
   {
@@ -1714,7 +1714,7 @@ window.HAPA_CARDS = [
     "en": "Beat down",
     "ja": "打ちのめされる",
     "example": "My new job is really stressful and it’s beating me down.",
-    "promptJa": "日本語: 『打ちのめされる』",
+    "promptJa": "『打ちのめされる』",
     "nuance": "本来、beat downは人を殴ったり、何かを叩いたりして打ち倒すことを意味しますが、日常会話では、比喩的に精神的な苦痛を受ける意味としても使われ、「打ちのめされる」ことを表します。"
   },
   {
@@ -1724,7 +1724,7 @@ window.HAPA_CARDS = [
     "en": "Dis/Diss",
     "ja": "批判する",
     "example": "I’m upset because he dissed me in front of all of my friends.",
-    "promptJa": "日本語: 『批判する』",
+    "promptJa": "『批判する』",
     "nuance": "disはdisrespectを略した口語表現で、人を小馬鹿にしたり、侮辱したり、悪口を言うことを意味します。"
   },
   {
@@ -1734,7 +1734,7 @@ window.HAPA_CARDS = [
     "en": "Nonstop",
     "ja": "常に",
     "example": "I don’t like being around Brian because he complains nonstop.",
-    "promptJa": "日本語: 『常に』",
+    "promptJa": "『常に』",
     "nuance": "nonstopは「常に」や「ずっと」を意味する日常表現です。"
   },
   {
@@ -1744,7 +1744,7 @@ window.HAPA_CARDS = [
     "en": "Put one’s best foot forward",
     "ja": "できるだけ良い印象を与えようとする",
     "example": "I visited my girlfriend’s parents yesterday and tried to put my best foot forward.",
-    "promptJa": "日本語: 『できるだけ良い印象を与えようとする』",
+    "promptJa": "『できるだけ良い印象を与えようとする』",
     "nuance": "直訳で、「ベストな足を前に出す」となるこの表現は、相手にできるだけ良い印象を与えるように頑張ることを意味します。"
   },
   {
@@ -1754,7 +1754,7 @@ window.HAPA_CARDS = [
     "en": "Keeping up with the Joneses",
     "ja": "隣人と張り合う",
     "example": "He bought another car? He’s really trying to keep up with the Joneses.",
-    "promptJa": "日本語: 『隣人と張り合う』",
+    "promptJa": "『隣人と張り合う』",
     "nuance": "直訳で「ジョーンズ一家」となるthe Joneses は隣人や知人、友人を意味し、keeping up with the Joneses は隣人と張り合うことを意味します。"
   },
   {
@@ -1812,7 +1812,7 @@ window.HAPA_CARDS = [
     "en": "Run wild",
     "ja": "暴れ回る",
     "example": "I saw a bunch of chickens running wild in Hawaii.",
-    "promptJa": "日本語: 『暴れ回る』",
+    "promptJa": "『暴れ回る』",
     "nuance": "直訳で「ワイルドに走る」となるこの表現は、人や動物が暴れ回ることを表します。"
   },
   {
@@ -1822,7 +1822,7 @@ window.HAPA_CARDS = [
     "en": "On top of that",
     "ja": "それに加えて",
     "example": "It’s really hot today. On top of that, it’s humid.",
-    "promptJa": "日本語: 『それに加えて』",
+    "promptJa": "『それに加えて』",
     "nuance": "on top of thatは「それに加えて」や「その上」を意味する日常表現です。"
   },
   {
@@ -1832,7 +1832,7 @@ window.HAPA_CARDS = [
     "en": "Spot",
     "ja": "見つける",
     "example": "If you spot a bathroom around here, let me know.",
-    "promptJa": "日本語: 『見つける』",
+    "promptJa": "『見つける』",
     "nuance": "spotは状況に応じて様々な意味を持つ単語ですが、今日の会話では何かを見つけたり、人や物に気づくという意味で用いられています。"
   },
   {
@@ -1842,7 +1842,7 @@ window.HAPA_CARDS = [
     "en": "Bookworm",
     "ja": "読書家",
     "example": "I’ve been a bookworm ever since I was a kid.",
-    "promptJa": "日本語: 『読書家』",
+    "promptJa": "『読書家』",
     "nuance": "日本語でも本が大好きな人のことを「本の虫」と表現しますが、英語では読書するのが大好きな人をbookwormといいます。"
   },
   {
@@ -1852,7 +1852,7 @@ window.HAPA_CARDS = [
     "en": "Tell to someone’s face",
     "ja": "人に面と向かって言う",
     "example": "If his attitude is bothering you so much, why don’t you just tell it to his face?",
-    "promptJa": "日本語: 『人に面と向かって言う』",
+    "promptJa": "『人に面と向かって言う』",
     "nuance": "tell to someone’s faceは人に面と向かって、率直な意見や気持ちなど、何かを伝えることを意味します。"
   },
   {
@@ -1894,7 +1894,7 @@ window.HAPA_CARDS = [
     "en": "Reserved",
     "ja": "控えめな",
     "example": "I used to be reserved and quiet when I was a kid.",
-    "promptJa": "日本語: 『控えめな』",
+    "promptJa": "『控えめな』",
     "nuance": "reserved は「控えめな」を意味し、主に控えめな性格を表す時に使われます。"
   },
   {
@@ -1904,7 +1904,7 @@ window.HAPA_CARDS = [
     "en": "Go out of one’s way",
     "ja": "わざわざ〜する",
     "example": "My coworker went out of her way to take me to the airport.",
-    "promptJa": "日本語: 『わざわざ〜する』",
+    "promptJa": "『わざわざ〜する』",
     "nuance": "直訳で「自分の道から逸れて回り道をする」となるこの表現は、ある目的を果たすために格別な努力をすることを表し、「わざわざ〜する」を意味します。"
   },
   {
@@ -1914,7 +1914,7 @@ window.HAPA_CARDS = [
     "en": "Leave someone alone",
     "ja": "放っておく",
     "example": "I’m trying to study for my test. Leave me alone.",
-    "promptJa": "日本語: 『放っておく』",
+    "promptJa": "『放っておく』",
     "nuance": "leave someone aloneは誰かを独りにしておくことを意味し、状況に応じて「放っておく」や「そっとしておく」を意味します。"
   },
   {
@@ -1924,7 +1924,7 @@ window.HAPA_CARDS = [
     "en": "Where was I going with this?",
     "ja": "何を言おうとしていたんだっけ？",
     "example": "Why am I talking about cats? Where was I going with this?",
-    "promptJa": "日本語: 『何を言おうとしていたんだっけ？』",
+    "promptJa": "『何を言おうとしていたんだっけ？』",
     "nuance": "直訳で「どこに行こうと思っていたんだろう？」となるこの表現は、話の要点や肝心な部分が分からなくなってきた時に使われます。"
   },
   {
@@ -1934,7 +1934,7 @@ window.HAPA_CARDS = [
     "en": "Go off on a tangent",
     "ja": "話が脱線する",
     "example": "Sorry, I have a bad habit of going off on a tangent.",
-    "promptJa": "日本語: 『話が脱線する』",
+    "promptJa": "『話が脱線する』",
     "nuance": "“go off”は「〜から外れる」、“tangent”は数学の授業で勉強した三角関数の「タンジェント（接線）」を指し、直訳で「タンジェントから外れる」となるこの表現は「話が脱線する」ことを意味します。"
   },
   {
@@ -1976,7 +1976,7 @@ window.HAPA_CARDS = [
     "en": "Out of",
     "ja": "〜の中",
     "example": "Out of all the places you’ve traveled to, which country is your favorite?",
-    "promptJa": "日本語: 『〜の中』",
+    "promptJa": "『〜の中』",
     "nuance": "out ofは状況によって様々な意味になる表現ですが、今日の会話では「ある数の中から〜」や「ある数のうち〜」を意味します。"
   },
   {
@@ -1986,7 +1986,7 @@ window.HAPA_CARDS = [
     "en": "The story behind",
     "ja": "〜の裏話",
     "example": "What’s the story behind this scandal?",
-    "promptJa": "日本語: 『〜の裏話』",
+    "promptJa": "『〜の裏話』",
     "nuance": "直訳で「話の後ろ」となるこの表現は、ある事情や物語の背景やバックグラウンド、過去の出来事を表す時に使われます。"
   },
   {
@@ -1996,7 +1996,7 @@ window.HAPA_CARDS = [
     "en": "Live in fear",
     "ja": "恐れて暮らす",
     "example": "She lives in fear and anxiety.",
-    "promptJa": "日本語: 『恐れて暮らす』",
+    "promptJa": "『恐れて暮らす』",
     "nuance": "live in fearは「恐れて暮らす」ことを意味し、常にビクビクして日々を過ごすことを表します。"
   },
   {
@@ -2006,7 +2006,7 @@ window.HAPA_CARDS = [
     "en": "There is more to the story",
     "ja": "その話にはまだ続きがある",
     "example": "That’s not the end of it. Actually, there’s more to the story.",
-    "promptJa": "日本語: 『その話にはまだ続きがある』",
+    "promptJa": "『その話にはまだ続きがある』",
     "nuance": "直訳で「話にはもっとある」となるこの表現は、ある話を述べている時に、「実はこの話にはまだ続きがあるんだ」とそのストーリーが終わっていないことを強調する時に使われます。"
   },
   {
@@ -2016,7 +2016,7 @@ window.HAPA_CARDS = [
     "en": "Keep away",
     "ja": "近づけない",
     "example": "I’m on a diet right now. Keep those cookies away from me.",
-    "promptJa": "日本語: 『近づけない』",
+    "promptJa": "『近づけない』",
     "nuance": "直訳で「離れた場所で保つ」となるこの表現は「〜を近づけない」を意味し、人や物から距離をおく状態を表します。"
   },
   {
@@ -2058,7 +2058,7 @@ window.HAPA_CARDS = [
     "en": "Go on a trip",
     "ja": "旅行する",
     "example": "Let’s go on a trip during Golden Week.",
-    "promptJa": "日本語: 『旅行する』",
+    "promptJa": "『旅行する』",
     "nuance": "go on a tripは 週末の旅行や日帰り旅行、または数週間に渡る海外旅行など、「どこかへ旅行する」と言う時に使われる一般的な表現です。"
   },
   {
@@ -2068,7 +2068,7 @@ window.HAPA_CARDS = [
     "en": "Picturesque",
     "ja": "絵のように美しい",
     "example": "The view of the ocean was picturesque.",
-    "promptJa": "日本語: 『絵のように美しい』",
+    "promptJa": "『絵のように美しい』",
     "nuance": "pictureは「絵」、 esque は「〜のような」を意味することから、picturesqueはある風景や景色などがあまりにも美しく、「まるで絵のように美しい」という意味になります。"
   },
   {
@@ -2078,7 +2078,7 @@ window.HAPA_CARDS = [
     "en": "Set",
     "ja": "〜を舞台とした",
     "example": "This Japanese movie is set in the Edo period.",
-    "promptJa": "日本語: 『〜を舞台とした』",
+    "promptJa": "『〜を舞台とした』",
     "nuance": "setは本来「設定する」を意味することから、物語の「舞台」の意味として使われます。"
   },
   {
@@ -2088,7 +2088,7 @@ window.HAPA_CARDS = [
     "en": "Spoiler",
     "ja": "ネタバレ",
     "example": "This article contains a few spoilers about the movie.",
-    "promptJa": "日本語: 『ネタバレ』",
+    "promptJa": "『ネタバレ』",
     "nuance": "spoilerは「ネタバレ」を意味する単語です。"
   },
   {
@@ -2098,7 +2098,7 @@ window.HAPA_CARDS = [
     "en": "Indoors-y",
     "ja": "インドア派",
     "example": "These french fries are so cheesy and garlicky. I love it!",
-    "promptJa": "日本語: 『インドア派』",
+    "promptJa": "『インドア派』",
     "nuance": "名詞の語尾に y を加えると、「〜っぽい」や「〜のような」を意味します。"
   },
   {
@@ -2132,7 +2132,7 @@ window.HAPA_CARDS = [
     "en": "Talk away",
     "ja": "話し続ける",
     "example": "John was talking away about his job.",
-    "promptJa": "日本語: 『話し続ける』",
+    "promptJa": "『話し続ける』",
     "nuance": "talk awayは「話し続ける」ことを意味する口語表現です。"
   },
   {
@@ -2142,7 +2142,7 @@ window.HAPA_CARDS = [
     "en": "A good",
     "ja": "少なくとも",
     "example": "With traffic, it’ll take a good hour to get to the airport.",
-    "promptJa": "日本語: 『少なくとも』",
+    "promptJa": "『少なくとも』",
     "nuance": "a goodは「少なくとも〜」や「最低でも〜」などのように、何かしらの（合計の）数量を強調する役割としても使われます。"
   },
   {
@@ -2152,7 +2152,7 @@ window.HAPA_CARDS = [
     "en": "That’s so sweet",
     "ja": "それは素敵だね",
     "example": "That’s so sweet. What a wonderful story.",
-    "promptJa": "日本語: 『それは素敵だね』",
+    "promptJa": "『それは素敵だね』",
     "nuance": "that is sweetはthat is niceやthat is kindと似たような意味を持ち、心がキュンとするような素敵な話を聞いた後に使われる相槌フレーズです。"
   },
   {
@@ -2162,7 +2162,7 @@ window.HAPA_CARDS = [
     "en": "Out of the blue",
     "ja": "突然",
     "example": "Out of the blue, Mike said he was moving to New York.",
-    "promptJa": "日本語: 『突然』",
+    "promptJa": "『突然』",
     "nuance": "out of the blueは「突然」や「思いがけなく」を意味する口語表現です。"
   },
   {
@@ -2172,7 +2172,7 @@ window.HAPA_CARDS = [
     "en": "Startled",
     "ja": "びっくりする",
     "example": "We were all startled when the fire alarm suddenly went off.",
-    "promptJa": "日本語: 『びっくりする』",
+    "promptJa": "『びっくりする』",
     "nuance": "startledは 「びっくりする」や「驚く」を意味する単語です。"
   },
   {
@@ -2262,7 +2262,7 @@ window.HAPA_CARDS = [
     "en": "Self-conscious",
     "ja": "人目を気にする",
     "example": "He’s very self-conscious and cares a lot about what others think of him.",
-    "promptJa": "日本語: 『人目を気にする』",
+    "promptJa": "『人目を気にする』",
     "nuance": "self-consciousは「自意識が強い」や「人目を気にする」を意味する単語です。"
   },
   {
@@ -2272,7 +2272,7 @@ window.HAPA_CARDS = [
     "en": "Adorable",
     "ja": "かわいい",
     "example": "Your baby is so adorable. How old is she?",
-    "promptJa": "日本語: 『かわいい』",
+    "promptJa": "『かわいい』",
     "nuance": "adorableは「かわいい」を意味し、cuteと同じ意味ですが、特に小さくてかわいい赤ちゃんや子供、動物に対して使われることが多いです。"
   },
   {
@@ -2282,7 +2282,7 @@ window.HAPA_CARDS = [
     "en": "Hand someone something",
     "ja": "手渡す",
     "example": "I handed the documents to John.",
-    "promptJa": "日本語: 『手渡す』",
+    "promptJa": "『手渡す』",
     "nuance": "handは人に何かを手渡すことを意味します。"
   },
   {
@@ -2292,7 +2292,7 @@ window.HAPA_CARDS = [
     "en": "Stick in one’s mind",
     "ja": "忘れられない",
     "example": "Is there any particular memory from living abroad that sticks in your mind?",
-    "promptJa": "日本語: 『忘れられない』",
+    "promptJa": "『忘れられない』",
     "nuance": "stickは「くっつく」、mindは「心」を意味することから、stick in one’s mind は心に強く残るものを意味し、忘れられないことや印象に残る思い出などを表します。"
   },
   {
@@ -2302,7 +2302,7 @@ window.HAPA_CARDS = [
     "en": "Attention to detail",
     "ja": "細心の注意",
     "example": "I was impressed by their hospitality and attention to detail.",
-    "promptJa": "日本語: 『細心の注意』",
+    "promptJa": "『細心の注意』",
     "nuance": "attention to detailは「細心の注意」や「細心の配慮」を意味します。"
   },
   {
@@ -2336,7 +2336,7 @@ window.HAPA_CARDS = [
     "en": "In general",
     "ja": "一般的に",
     "example": "In general, Japanese cars are reliable.",
-    "promptJa": "日本語: 『一般的に』",
+    "promptJa": "『一般的に』",
     "nuance": "“in general”は「一般的に」を意味する表現です。"
   },
   {
@@ -2346,7 +2346,7 @@ window.HAPA_CARDS = [
     "en": "Oftentimes",
     "ja": "しばしば",
     "example": "Oftentimes, my cat wakes me up at 4 AM.",
-    "promptJa": "日本語: 『しばしば』",
+    "promptJa": "『しばしば』",
     "nuance": "“oftentimes”は何かが頻繁に起こることを表し、「しばしば」を意味します。"
   },
   {
@@ -2356,7 +2356,7 @@ window.HAPA_CARDS = [
     "en": "Make someone ~",
     "ja": "人を〜の状態にする",
     "example": "Our teacher is funny and always makes us laugh.",
-    "promptJa": "日本語: 『人を〜の状態にする』",
+    "promptJa": "『人を〜の状態にする』",
     "nuance": "“make someone~”は人を幸せな気持ちにさせたり、悲しませたり、怒らせたり、笑わせたりするなど、相手の気持ちやムードを変化させる時に使われます。"
   },
   {
@@ -2366,7 +2366,7 @@ window.HAPA_CARDS = [
     "en": "Some kind of",
     "ja": "ある種の",
     "example": "I’m not exactly sure what I ate, but it was some kind of fish.",
-    "promptJa": "日本語: 『ある種の』",
+    "promptJa": "『ある種の』",
     "nuance": "“some kind of”は「ある種の」や「何かしら」を意味し、あることについて詳しく知らない時や漠然としたことを表す時に使われます。"
   },
   {
@@ -2376,7 +2376,7 @@ window.HAPA_CARDS = [
     "en": "Be hooked on",
     "ja": "〜にハマっている",
     "example": "I’ve been hooked on dark chocolate lately.",
-    "promptJa": "日本語: 『〜にハマっている』",
+    "promptJa": "『〜にハマっている』",
     "nuance": "“hooked”は、もともと麻薬などに対する「中毒」を表す場合に使われていましたが、現在では「〜にハマっている」や「～の虜になる」を意味する口語的な表現として使われます。"
   },
   {
@@ -2466,7 +2466,7 @@ window.HAPA_CARDS = [
     "en": "Not function",
     "ja": "機能できない",
     "example": "I’m out of it today. My brain is not functioning.",
-    "promptJa": "日本語: 『機能できない』",
+    "promptJa": "『機能できない』",
     "nuance": "functionは本来、テレビやパソコンなどの機器が「機能する」ことを表します。"
   },
   {
@@ -2476,7 +2476,7 @@ window.HAPA_CARDS = [
     "en": "Nerd",
     "ja": "オタク",
     "example": "I was a nerdy kid growing up.",
-    "promptJa": "日本語: 『オタク』",
+    "promptJa": "『オタク』",
     "nuance": "nerdは本来「オタク」や「マニア」を意味する表現で、一つのジャンルに非常に興味を持っていたり、特定の分野に限っては異常なほど詳しい人を指します。"
   },
   {
@@ -2486,7 +2486,7 @@ window.HAPA_CARDS = [
     "en": "Starve to death",
     "ja": "お腹ぺこぺこ",
     "example": "I haven’t eaten anything all day. I’m starving to death.",
-    "promptJa": "日本語: 『お腹ぺこぺこ』",
+    "promptJa": "『お腹ぺこぺこ』",
     "nuance": "starve to deathは「餓死する」ことを意味します。"
   },
   {
@@ -2496,7 +2496,7 @@ window.HAPA_CARDS = [
     "en": "Handle",
     "ja": "対処する",
     "example": "How should we handle this situation?",
-    "promptJa": "日本語: 『対処する』",
+    "promptJa": "『対処する』",
     "nuance": "handleは状況に応じて様々な意味を持つ単語ですが、一般的に「対処する」や「処理する」の意味を持ちます。"
   },
   {
@@ -2506,7 +2506,7 @@ window.HAPA_CARDS = [
     "en": "Now that you mention it",
     "ja": "そういえば",
     "example": "Now that you mention it, I do vaguely remember meeting John.",
-    "promptJa": "日本語: 『そういえば』",
+    "promptJa": "『そういえば』",
     "nuance": "mentionは「述べる」を意味することから、now that you mention itは相手が何かを言った後に何かを思い出したり、何かに気づいた時に使われ、「そういえば」や「そう言われてみると」を意味します。"
   },
   {
@@ -2540,7 +2540,7 @@ window.HAPA_CARDS = [
     "en": "So far",
     "ja": "今のところ",
     "example": "How is your year going so far?",
-    "promptJa": "日本語: 『今のところ』",
+    "promptJa": "『今のところ』",
     "nuance": "so farは「今のところ〜」を意味します。"
   },
   {
@@ -2550,7 +2550,7 @@ window.HAPA_CARDS = [
     "en": "Humorous",
     "ja": "面白い",
     "example": "It’s a humorous story about a foreigner living in Japan.",
-    "promptJa": "日本語: 『面白い』",
+    "promptJa": "『面白い』",
     "nuance": "humorousは humor（ユーモア）の形容詞で、「面白い」を意味します。"
   },
   {
@@ -2560,7 +2560,7 @@ window.HAPA_CARDS = [
     "en": "Happen to",
     "ja": "たまたま〜である",
     "example": "I got lucky. I happen to be in the right place at the right time.",
-    "promptJa": "日本語: 『たまたま〜である』",
+    "promptJa": "『たまたま〜である』",
     "nuance": "happen toは「たまたま〜」や「偶然にも〜である」を意味する表現です。"
   },
   {
@@ -2570,7 +2570,7 @@ window.HAPA_CARDS = [
     "en": "Say a lot about",
     "ja": "〜をよく物語る",
     "example": "How people react in difficult times says a lot about who they really are.",
-    "promptJa": "日本語: 『〜をよく物語る』",
+    "promptJa": "『〜をよく物語る』",
     "nuance": "say a lot aboutは「〜をよく物語っている」や「〜をよく表している」を意味します。"
   },
   {
@@ -2580,7 +2580,7 @@ window.HAPA_CARDS = [
     "en": "Mess up",
     "ja": "しくじる",
     "example": "I added too much salt and messed up the pasta.",
-    "promptJa": "日本語: 『しくじる』",
+    "promptJa": "『しくじる』",
     "nuance": "mess upはしくじることや失敗をすること、間違えることを意味し、make a mistakeの代わりに使われる口語表現です。"
   },
   {
@@ -2630,7 +2630,7 @@ window.HAPA_CARDS = [
     "en": "In the vicinity",
     "ja": "〜の近くに",
     "example": "There are a few Japanese restaurants in the vicinity.",
-    "promptJa": "日本語: 『〜の近くに』",
+    "promptJa": "『〜の近くに』",
     "nuance": "vicinityは「近く」や「周辺」を意味する単語です。"
   },
   {
@@ -2640,7 +2640,7 @@ window.HAPA_CARDS = [
     "en": "Wide-open",
     "ja": "広々とした",
     "example": "He lives in a beautiful home with a wide-open kitchen space.",
-    "promptJa": "日本語: 『広々とした』",
+    "promptJa": "『広々とした』",
     "nuance": "wideは「広い」、openは「開いている」を意味することから、wide-openは「広々とした」を意味します。"
   },
   {
@@ -2650,7 +2650,7 @@ window.HAPA_CARDS = [
     "en": "Soak in",
     "ja": "味わう",
     "example": "The Grand Canyon was beautiful, and I soaked in the breathtaking view.",
-    "promptJa": "日本語: 『味わう』",
+    "promptJa": "『味わう』",
     "nuance": "soak inは本来、水などに浸かることを意味し、例えば「お風呂に浸かる」は“soak in a bath”と言います。"
   },
   {
@@ -2660,7 +2660,7 @@ window.HAPA_CARDS = [
     "en": "Or anything",
     "ja": "とかそういこと",
     "example": "Do you need help cleaning the house or anything?",
-    "promptJa": "日本語: 『とかそういこと』",
+    "promptJa": "『とかそういこと』",
     "nuance": "or anythingは「〜とかそういうこと」や「〜や何か」を意味し、一般的に文末で使われます。"
   },
   {
@@ -2670,7 +2670,7 @@ window.HAPA_CARDS = [
     "en": "Take someone back somewhere",
     "ja": "連れ戻す",
     "example": "I wasn’t feeling well, and my friend took me back home.",
-    "promptJa": "日本語: 『連れ戻す』",
+    "promptJa": "『連れ戻す』",
     "nuance": "take someone back somewhereは人をある場所に連れ戻すことを意味します。"
   },
   {
@@ -2744,7 +2744,7 @@ window.HAPA_CARDS = [
     "en": "Take notes",
     "ja": "メモする",
     "example": "I always take notes when I watch American TV shows.",
-    "promptJa": "日本語: 『メモする』",
+    "promptJa": "『メモする』",
     "nuance": "take notesは「メモする」ことを意味します。"
   },
   {
@@ -2754,7 +2754,7 @@ window.HAPA_CARDS = [
     "en": "If you ever have a chance",
     "ja": "もし機会があれば",
     "example": "If you ever have a chance, you should visit In-N-Out.",
-    "promptJa": "日本語: 『もし機会があれば』",
+    "promptJa": "『もし機会があれば』",
     "nuance": "if you ever have a chanceは 「もし機会があれば」や「もし時間があれば」を意味する日常表現です。"
   },
   {
@@ -2764,7 +2764,7 @@ window.HAPA_CARDS = [
     "en": "Theme park",
     "ja": "テーマパーク",
     "example": "What is your favorite theme park in Japan?",
-    "promptJa": "日本語: 『テーマパーク』",
+    "promptJa": "『テーマパーク』",
     "nuance": "「テーマパーク」は英語でtheme parkと言います。"
   },
   {
@@ -2774,7 +2774,7 @@ window.HAPA_CARDS = [
     "en": "When I say ~ I mean ~",
     "ja": "本当に〜だ",
     "example": "The cakes in the U.S. are sweet. And when I say sweet, I mean sweet.",
-    "promptJa": "日本語: 『本当に〜だ』",
+    "promptJa": "『本当に〜だ』",
     "nuance": "直訳で「私が〜と言ったら、〜と言うことだ」となるこの表現は、何かが本当であることを強調したり、伝えようとしていることが真剣である意味合いが込められています。"
   },
   {
@@ -2784,7 +2784,7 @@ window.HAPA_CARDS = [
     "en": "Any kind of ~ you can imagine",
     "ja": "想像できるあらゆる",
     "example": "That wine shop offers any kind of wine you can imagine.",
-    "promptJa": "日本語: 『想像できるあらゆる』",
+    "promptJa": "『想像できるあらゆる』",
     "nuance": "直訳で「想像できるあらゆる種類の〜」となるこの表現は、考えられるすべてのバリエーションや種類があることを強調する表現です。"
   },
   {
@@ -2834,7 +2834,7 @@ window.HAPA_CARDS = [
     "en": "Nice and",
     "ja": "いい感じに〜",
     "example": "I like this restaurant because it’s nice and quiet.",
-    "promptJa": "日本語: 『いい感じに〜』",
+    "promptJa": "『いい感じに〜』",
     "nuance": "nice and ~は、andの後に続く形容詞の意味を強調する役割を果たすことから、「nice and + 形容詞」で「いい感じに〜だ」や「いい具合に〜だ」のように何かがちょうど良い具合であることを表します。"
   },
   {
@@ -2844,7 +2844,7 @@ window.HAPA_CARDS = [
     "en": "And whatnot",
     "ja": "などなど",
     "example": "I went to the grocery store to pick up eggs, milk, and whatnot.",
-    "promptJa": "日本語: 『などなど』",
+    "promptJa": "『などなど』",
     "nuance": "and whatnotは「〜など」を意味し、and things like thatと似たような意味を持ちますが、より口語的な響きがあります。"
   },
   {
@@ -2854,7 +2854,7 @@ window.HAPA_CARDS = [
     "en": "Minimize",
     "ja": "最小限に評価する",
     "example": "He’s a humble person that always minimizes himself and gives credit to others.",
-    "promptJa": "日本語: 『最小限に評価する』",
+    "promptJa": "『最小限に評価する』",
     "nuance": "minimizeは「最小限に抑える」と「最小限に評価する」の二つの意味を持ち、今日の会話では「最小限に評価する」の意味で使われており、特に何かの重要性を軽視する意味合いが含まれます。"
   },
   {
@@ -2864,7 +2864,7 @@ window.HAPA_CARDS = [
     "en": "Put up something",
     "ja": "掲示する",
     "example": "Can you help me put up these decorations?",
-    "promptJa": "日本語: 『掲示する』",
+    "promptJa": "『掲示する』",
     "nuance": "put up somethingは「掲示する」や「掲げる」を意味します。"
   },
   {
@@ -2874,7 +2874,7 @@ window.HAPA_CARDS = [
     "en": "Circle of friends",
     "ja": "友達の輪",
     "example": "Come to the party, and I’ll introduce you to my circle of friends.",
-    "promptJa": "日本語: 『友達の輪』",
+    "promptJa": "『友達の輪』",
     "nuance": "直訳で「友達の輪」となるこの表現は、ある人が持つ、友人や親しい関係のグループを指します。"
   },
   {
@@ -2916,7 +2916,7 @@ window.HAPA_CARDS = [
     "en": "Have a love-hate relationship",
     "ja": "大好きでもあり大嫌いでもある",
     "example": "I have a love-hate relationship with learning a foreign language.",
-    "promptJa": "日本語: 『大好きでもあり大嫌いでもある』",
+    "promptJa": "『大好きでもあり大嫌いでもある』",
     "nuance": "love-hate relationshipは、「愛憎関係」を意味する日常表現です。"
   },
   {
@@ -2926,7 +2926,7 @@ window.HAPA_CARDS = [
     "en": "There is nothing like",
     "ja": "〜のようなものはない、〜は最高だ",
     "example": "The manga cafes in Japan are unique. There is nothing like manga cafes in the U.S.",
-    "promptJa": "日本語: 『〜のようなものはない、〜は最高だ』",
+    "promptJa": "『〜のようなものはない、〜は最高だ』",
     "nuance": "there is nothing likeには二つの意味合いがあります。"
   },
   {
@@ -2936,7 +2936,7 @@ window.HAPA_CARDS = [
     "en": "Make the jump",
     "ja": "思い切って〜する",
     "example": "I made the jump and started my own cafe.",
-    "promptJa": "日本語: 『思い切って〜する』",
+    "promptJa": "『思い切って〜する』",
     "nuance": "直訳で「ジャンプする」となるこの表現は、思い切って行動を起こすことを意味します。"
   },
   {
@@ -2946,7 +2946,7 @@ window.HAPA_CARDS = [
     "en": "Bathing suit",
     "ja": "水着",
     "example": "Don’t forget to bring sunblock and your bathing suit.",
-    "promptJa": "日本語: 『水着』",
+    "promptJa": "『水着』",
     "nuance": "Bathing suitは「水着」を意味します。"
   },
   {
@@ -2956,7 +2956,7 @@ window.HAPA_CARDS = [
     "en": "Get over",
     "ja": "乗り越える、克服する",
     "example": "I need to get over my fear of speaking in public.",
-    "promptJa": "日本語: 『乗り越える、克服する』",
+    "promptJa": "『乗り越える、克服する』",
     "nuance": "get overは状況に応じて様々な意味を持ちますが、今日の会話では不安感や恐怖心を克服する意味として使われています。"
   },
   {
@@ -2998,7 +2998,7 @@ window.HAPA_CARDS = [
     "en": "Pure",
     "ja": "全くの",
     "example": "The wedding was filled with pure happiness and joy.",
-    "promptJa": "日本語: 『全くの』",
+    "promptJa": "『全くの』",
     "nuance": "本来、pureは「純粋な」を意味しますが、日常会話では「全くの〜」を表し強調の意味として使われます。"
   },
   {
@@ -3008,7 +3008,7 @@ window.HAPA_CARDS = [
     "en": "Struggle",
     "ja": "苦戦する、苦労する",
     "example": "Since I started learning English, I always struggled with grammar.",
-    "promptJa": "日本語: 『苦戦する、苦労する』",
+    "promptJa": "『苦戦する、苦労する』",
     "nuance": "struggleは「苦戦する」や「苦労する」を意味する単語です。"
   },
   {
@@ -3018,7 +3018,7 @@ window.HAPA_CARDS = [
     "en": "Come across",
     "ja": "偶然見つける",
     "example": "I came across my high school diary when I was cleaning my room.",
-    "promptJa": "日本語: 『偶然見つける』",
+    "promptJa": "『偶然見つける』",
     "nuance": "come acrossは、何かを偶然見つけることを意味します。"
   },
   {
@@ -3028,7 +3028,7 @@ window.HAPA_CARDS = [
     "en": "That’s fine",
     "ja": "大丈夫だよ",
     "example": "Yeah, that’s fine. I don’t mind waiting an hour.",
-    "promptJa": "日本語: 『大丈夫だよ』",
+    "promptJa": "『大丈夫だよ』",
     "nuance": "that’s fineは相手が提案したことに対して 「それだったら大丈夫だよ」や「それで大丈夫だよ」 を意味する表現です。"
   },
   {
@@ -3038,7 +3038,7 @@ window.HAPA_CARDS = [
     "en": "Grown-up",
     "ja": "大人",
     "example": "When I was a kid, I couldn’t wait to become a grown-up.",
-    "promptJa": "日本語: 『大人』",
+    "promptJa": "『大人』",
     "nuance": "grow upは「成長する」や「大人になる」を意味する動詞表現ですが、grown-upは「大人」や「成人」を意味する名詞です。"
   },
   {
@@ -3072,7 +3072,7 @@ window.HAPA_CARDS = [
     "en": "Gray area",
     "ja": "曖昧な",
     "example": "The rules about using smartphones in school can be a gray area.",
-    "promptJa": "日本語: 『曖昧な』",
+    "promptJa": "『曖昧な』",
     "nuance": "gray areaは黒でも白でもない中間の灰色を指し、物事の中間領域や、曖昧な領域を意味する言葉です。"
   },
   {
@@ -3082,7 +3082,7 @@ window.HAPA_CARDS = [
     "en": "Police",
     "ja": "規制する",
     "example": "We are going to hire security guards to police the event.",
-    "promptJa": "日本語: 『規制する』",
+    "promptJa": "『規制する』",
     "nuance": "policeと聞くと真っ先に「警察」が思い浮かぶと思いますが、policeが動詞で使われる場合は、「規制する」を意味します。"
   },
   {
@@ -3092,7 +3092,7 @@ window.HAPA_CARDS = [
     "en": "Turn out",
     "ja": "結局〜になる",
     "example": "To my surprise, the movie turned out to be really good!",
-    "promptJa": "日本語: 『結局〜になる』",
+    "promptJa": "『結局〜になる』",
     "nuance": "turn outは状況に応じて様々な意味を持つ表現ですが、今日の会話では、「〜の結果になる」や「結局〜になる」を意味し、物事が最終的にどうなるか、どうなったかと結果を伝える時に使われます。"
   },
   {
@@ -3102,7 +3102,7 @@ window.HAPA_CARDS = [
     "en": "Addicted to",
     "ja": "〜の中毒になる",
     "example": "I’m addicted to caffeine. I drink 4 to 5 cups of coffee every day.",
-    "promptJa": "日本語: 『〜の中毒になる』",
+    "promptJa": "『〜の中毒になる』",
     "nuance": "addicted toは「〜の中毒になる」を意味し、元々は麻薬に対する中毒を表す時に使われていました。"
   },
   {
@@ -3112,7 +3112,7 @@ window.HAPA_CARDS = [
     "en": "Wishy-washy",
     "ja": "どっちつかずの、優柔不断な",
     "example": "He gave me a wishy-washy answer when I asked if he could come to the event.",
-    "promptJa": "日本語: 『どっちつかずの、優柔不断な』",
+    "promptJa": "『どっちつかずの、優柔不断な』",
     "nuance": "wishy-washyは「優柔不断な」や「曖昧な」、「どっちつかずの」を意味する口語的な言い方です。"
   },
   {
@@ -3186,7 +3186,7 @@ window.HAPA_CARDS = [
     "en": "But then again",
     "ja": "とは言え",
     "example": "I want to try out that new restaurant, but then again, I don’t want to wait in line.",
-    "promptJa": "日本語: 『とは言え』",
+    "promptJa": "『とは言え』",
     "nuance": "but then againは、自分が発言したことに対して反対のことを言ったり、異なる側面を紹介する時に使われ、「とは言え」や「一方で」を意味します。"
   },
   {
@@ -3196,7 +3196,7 @@ window.HAPA_CARDS = [
     "en": "Catfish",
     "ja": "なりすまし",
     "example": "The person I was talking to on IG turned out to be a catfish.",
-    "promptJa": "日本語: 『なりすまし』",
+    "promptJa": "『なりすまし』",
     "nuance": "catfishは「ナマズ」を指しますが、インターネット上では、ニセのプロフィールや写真を使って「なりすまし」行為をする人を指す口語表現です。"
   },
   {
@@ -3206,7 +3206,7 @@ window.HAPA_CARDS = [
     "en": "Con artist",
     "ja": "詐欺師",
     "example": "I almost got tricked by a con artist today.",
-    "promptJa": "日本語: 『詐欺師』",
+    "promptJa": "『詐欺師』",
     "nuance": "conは「詐欺」、artistは「芸術家」を意味することから、con artistは「詐欺師」を意味します。"
   },
   {
@@ -3216,7 +3216,7 @@ window.HAPA_CARDS = [
     "en": "Count on",
     "ja": "〜を頼りにする",
     "example": "You can count on Adam. He’s the most reliable person I know.",
-    "promptJa": "日本語: 『〜を頼りにする』",
+    "promptJa": "『〜を頼りにする』",
     "nuance": "count onは「〜を頼りにする」や「〜を当てにする」を意味し、rely onに置き換えて使える日常表現です。"
   },
   {
@@ -3226,7 +3226,7 @@ window.HAPA_CARDS = [
     "en": "On purpose",
     "ja": "わざと",
     "example": "My cat always knocks things off the table on purpose.",
-    "promptJa": "日本語: 『わざと』",
+    "promptJa": "『わざと』",
     "nuance": "on purposeは「わざと」や「故意に」を意味する日常表現です。"
   },
   {
@@ -3324,7 +3324,7 @@ window.HAPA_CARDS = [
     "en": "Consider oneself",
     "ja": "〜と考える",
     "example": "I consider myself an introvert, but my friends don’t think so.",
-    "promptJa": "日本語: 『〜と考える』",
+    "promptJa": "『〜と考える』",
     "nuance": "considerは「〜と考える」や「〜と見なす」を意味することから、“I consider myself ~”は「自分自身を〜と考える」を意味します。"
   },
   {
@@ -3334,7 +3334,7 @@ window.HAPA_CARDS = [
     "en": "That’s a good question",
     "ja": "それはいい質問ですね",
     "example": "That’s a good question. Nobody has asked me that before.",
-    "promptJa": "日本語: 『それはいい質問ですね』",
+    "promptJa": "『それはいい質問ですね』",
     "nuance": "“That’s a good question.”は二通りの意味と使い方があります。"
   },
   {
@@ -3344,7 +3344,7 @@ window.HAPA_CARDS = [
     "en": "Get something done",
     "ja": "何かを終わらせる",
     "example": "Let’s try to get all the cleaning done before lunch.",
-    "promptJa": "日本語: 『何かを終わらせる』",
+    "promptJa": "『何かを終わらせる』",
     "nuance": "get something doneは何かを終わらせたり、完了させたりすることを意味する口語的な表現です。"
   },
   {
@@ -3354,7 +3354,7 @@ window.HAPA_CARDS = [
     "en": "I would like to think that",
     "ja": "〜であると考えたい",
     "example": "I would like to think that all people are inherently good.",
-    "promptJa": "日本語: 『〜であると考えたい』",
+    "promptJa": "『〜であると考えたい』",
     "nuance": "I would like to think thatは自分の意見を述べるときに使われる表現で、「真相はわからないけど、〜であって欲しい」のようなニュアンスとして使われます。"
   },
   {
@@ -3364,7 +3364,7 @@ window.HAPA_CARDS = [
     "en": "As ~ as can be",
     "ja": "できる限り〜",
     "example": "I like having my desk as organized as can be.",
-    "promptJa": "日本語: 『できる限り〜』",
+    "promptJa": "『できる限り〜』",
     "nuance": "この表現は「できる限り〜である」を意味します。"
   },
   {
@@ -3414,7 +3414,7 @@ window.HAPA_CARDS = [
     "en": "Authentic",
     "ja": "本物の",
     "example": "That store sells authentic kimonos from Japan.",
-    "promptJa": "日本語: 『本物の』",
+    "promptJa": "『本物の』",
     "nuance": "authenticは何かが偽物や複製でないことを意味する単語で、「本物の」や「信頼できる」を意味します。"
   },
   {
@@ -3424,7 +3424,7 @@ window.HAPA_CARDS = [
     "en": "Put something out into the world",
     "ja": "〜を世に送り出す",
     "example": "I decided to put my songs out into the world.",
-    "promptJa": "日本語: 『〜を世に送り出す』",
+    "promptJa": "『〜を世に送り出す』",
     "nuance": "put something out into the worldは何かを他の人や世界と共有することを表し、「〜を世に送り出す」を意味します。"
   },
   {
@@ -3434,7 +3434,7 @@ window.HAPA_CARDS = [
     "en": "Perfect",
     "ja": "完全なものにする",
     "example": "I want to perfect my English pronunciation.",
-    "promptJa": "日本語: 『完全なものにする』",
+    "promptJa": "『完全なものにする』",
     "nuance": "perfectは一般的に「完璧な」や「完全な」を意味する形容詞として使われますが、日常会話では「完全なものにする」という意味の動詞としても使われ、欠点や不足しているスキルを補って完全なものにするというニュアンスがあります。"
   },
   {
@@ -3444,7 +3444,7 @@ window.HAPA_CARDS = [
     "en": "Can’t have one’s cake and eat it too",
     "ja": "いいとこ取りはできない",
     "example": "I want to travel and save money at the same time, but I know I can’t have my cake and eat it too.",
-    "promptJa": "日本語: 『いいとこ取りはできない』",
+    "promptJa": "『いいとこ取りはできない』",
     "nuance": "“can’t have one’s cake and eat it too”は直訳で「ケーキを所有しながら食べることはできない」を意味することから、「2つを同時に手に入れることはできない」や「いいとこ取りはできない」という意味で使われます。"
   },
   {
@@ -3454,7 +3454,7 @@ window.HAPA_CARDS = [
     "en": "Have the courage to",
     "ja": "〜する勇気がある",
     "example": "I’m trying to have the courage to talk to people in English.",
-    "promptJa": "日本語: 『〜する勇気がある』",
+    "promptJa": "『〜する勇気がある』",
     "nuance": "have the courage toは「〜する勇気がある」や「勇気を出して〜する」を意味します。"
   },
   {
@@ -3528,7 +3528,7 @@ window.HAPA_CARDS = [
     "en": "Not there yet",
     "ja": "〜に達していない",
     "example": "I want to work for a foreign company, but my English is not there yet.",
-    "promptJa": "日本語: 『〜に達していない』",
+    "promptJa": "『〜に達していない』",
     "nuance": "直訳で「まだ辿り着いていない」となるこの表現は、スキルや能力、レベルなどがまだ目標レベルに達していないことを表します。"
   },
   {
@@ -3538,7 +3538,7 @@ window.HAPA_CARDS = [
     "en": "Give someone the green light",
     "ja": "〜に許可を与える",
     "example": "My manager gave me the green light to plan the event.",
-    "promptJa": "日本語: 『〜に許可を与える』",
+    "promptJa": "『〜に許可を与える』",
     "nuance": "直訳で「〜に青信号を与える」となるこの表現は、車が青信号で発車する様子を比喩的に表現し、誰かに何かをする許可を与えたり、ゴーサインを出すことを意味します。"
   },
   {
@@ -3548,7 +3548,7 @@ window.HAPA_CARDS = [
     "en": "Rattle off",
     "ja": "スラスラと言う",
     "example": "He rattled off all 47 prefectures in Japan.",
-    "promptJa": "日本語: 『スラスラと言う』",
+    "promptJa": "『スラスラと言う』",
     "nuance": "rattleは本来、「ガタガタ音を立てる」ことを意味し、連続したノックやタッピングの音を速く出す意味合いがあります。"
   },
   {
@@ -3558,7 +3558,7 @@ window.HAPA_CARDS = [
     "en": "Brush up on",
     "ja": "〜の能力を磨き直す",
     "example": "I’m going to LA next month, so I need to brush up on my English.",
-    "promptJa": "日本語: 『〜の能力を磨き直す』",
+    "promptJa": "『〜の能力を磨き直す』",
     "nuance": "brush up onはある知識やスキル、能力を磨き直すことを意味します。"
   },
   {
@@ -3568,7 +3568,7 @@ window.HAPA_CARDS = [
     "en": "Be out and about",
     "ja": "あちこち出歩く",
     "example": "Since it was a beautiful day yesterday, I was out and about.",
-    "promptJa": "日本語: 『あちこち出歩く』",
+    "promptJa": "『あちこち出歩く』",
     "nuance": "この表現はあちこち出歩いたり、アクティブに動き回って活動していることを意味します。"
   },
   {
@@ -3626,7 +3626,7 @@ window.HAPA_CARDS = [
     "en": "Chore",
     "ja": "家事",
     "example": "I’m going to study English and do some chores today.",
-    "promptJa": "日本語: 『家事』",
+    "promptJa": "『家事』",
     "nuance": "choreは「雑用」を意味する単語で、本来は日常生活や仕事でやりたくない面倒な作業を意味します。"
   },
   {
@@ -3636,7 +3636,7 @@ window.HAPA_CARDS = [
     "en": "Squeaky clean",
     "ja": "ピカピカの",
     "example": "Thanks for mopping the floor. It’s squeaky clean.",
-    "promptJa": "日本語: 『ピカピカの』",
+    "promptJa": "『ピカピカの』",
     "nuance": "直訳で「キュッキュと音するほど綺麗」となるこの表現は何かがすごく綺麗だったり清潔であることを意味します。"
   },
   {
@@ -3646,7 +3646,7 @@ window.HAPA_CARDS = [
     "en": "A hassle",
     "ja": "面倒なこと",
     "example": "Sorting trash in Japan is a hassle.",
-    "promptJa": "日本語: 『面倒なこと』",
+    "promptJa": "『面倒なこと』",
     "nuance": "hassleは「面倒な」を意味する表現です。"
   },
   {
@@ -3656,7 +3656,7 @@ window.HAPA_CARDS = [
     "en": "Shed",
     "ja": "換毛する",
     "example": "My dog is shedding now, and his fur is everywhere.",
-    "promptJa": "日本語: 『換毛する』",
+    "promptJa": "『換毛する』",
     "nuance": "shedは状況に応じて様々な意味を持つ単語ですが、今日の会話では動物の毛が抜けること、「換毛する」ことを意味します。"
   },
   {
@@ -3666,7 +3666,7 @@ window.HAPA_CARDS = [
     "en": "Ordeal",
     "ja": "試練",
     "example": "Going through security at the airport can sometimes feel like an ordeal.",
-    "promptJa": "日本語: 『試練』",
+    "promptJa": "『試練』",
     "nuance": "ordealは「試練」や「苦戦」を意味する単語で、大変な状況や困難な出来事に直面する時に使われます。"
   },
   {

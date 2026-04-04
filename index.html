@@ -126,7 +126,7 @@
                 <span id="session-progress-bar"></span>
               </div>
               <p class="support-copy">
-                Space: 答えを見る / ←: もう一度 / →: できた
+                カードをタップ / Space: 答えを見る / ←: もう一度 / →: できた
               </p>
             </section>
 
@@ -144,20 +144,16 @@
               <h3 class="flashcard__front" id="card-front">
                 設定を決めると、ここに Question が表示されます。
               </h3>
+              <p class="flashcard__tap-hint" id="card-tap-hint" hidden>
+                カードをタップして答えを見る
+              </p>
               <div class="flashcard__answer" id="card-answer" hidden>
                 <p class="flashcard__label">回答</p>
                 <div class="answer-stack" id="card-back"></div>
               </div>
 
               <div class="flashcard__controls">
-                <button
-                  class="button button--ghost button--reveal"
-                  type="button"
-                  id="reveal-button"
-                >
-                  答えを見る
-                </button>
-                <div class="flashcard__action-row">
+                <div class="flashcard__action-row" id="flashcard-action-row">
                   <button class="button button--again" type="button" id="again-button">
                     もう一度
                   </button>
@@ -165,7 +161,7 @@
                     できた
                   </button>
                 </div>
-                <div class="flashcard__swipe-hint">
+                <div class="flashcard__swipe-hint" id="flashcard-swipe-hint">
                   <span>← もう一度</span>
                   <span>できた →</span>
                 </div>
@@ -196,13 +192,6 @@
 
       <div class="mobile-action-bar mobile-action-bar--study" id="study-mobile-bar">
         <p class="mobile-action-bar__meta" id="study-mobile-meta"></p>
-        <button
-          class="button button--ghost button--reveal"
-          type="button"
-          id="sticky-reveal-button"
-        >
-          答えを見る
-        </button>
         <div class="mobile-action-bar__actions" id="study-mobile-actions">
           <button class="button button--again" type="button" id="sticky-again-button">
             もう一度

@@ -1,7 +1,7 @@
 import test from "node:test";
 import assert from "node:assert/strict";
 
-import { buildCatalog } from "../src/review-data.js";
+import { buildCatalog, buildJapanesePrompt } from "../src/review-data.js";
 import { getCardsForConfig } from "../src/review-filters.js";
 import {
   applyProgressDelta,
@@ -96,4 +96,21 @@ test("createRetryStudySession keeps only again cards in original order", () => {
   assert.deepEqual(retryStudy.cards.map((card) => card.id), [
     studyCards[0].id
   ]);
+});
+
+test("buildJapanesePrompt strips the language prefix from ja prompts", () => {
+  assert.equal(
+    buildJapanesePrompt({
+      ja: "最後までやり切る",
+      promptJa: "日本語: 『最後までやり切る』"
+    }),
+    "『最後までやり切る』"
+  );
+
+  assert.equal(
+    buildJapanesePrompt({
+      ja: "感覚が合う"
+    }),
+    "『感覚が合う』"
+  );
 });
