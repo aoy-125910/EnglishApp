@@ -9,125 +9,66 @@
     <meta name="theme-color" content="#cb6d3d" />
     <title>Hapa Study Companion</title>
 
-    <!-- PWA manifest -->
     <link rel="manifest" href="./manifest.json" />
 
-    <!-- iOS PWA -->
     <meta name="apple-mobile-web-app-capable" content="yes" />
     <meta name="apple-mobile-web-app-status-bar-style" content="default" />
     <meta name="apple-mobile-web-app-title" content="Hapa Study" />
+    <link rel="icon" href="./icons/icon-192.png" />
     <link rel="apple-touch-icon" href="./icons/icon-180.png" />
     <link rel="apple-touch-icon" sizes="152x152" href="./icons/icon-152.png" />
     <link rel="apple-touch-icon" sizes="167x167" href="./icons/icon-167.png" />
     <link rel="apple-touch-icon" sizes="180x180" href="./icons/icon-180.png" />
 
-    <!-- Google Fonts -->
     <link rel="preconnect" href="https://fonts.googleapis.com" />
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
-    <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@400;600;700&family=DM+Sans:wght@300;400;500;700&display=swap" rel="stylesheet" />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@400;600;700&family=DM+Sans:wght@300;400;500;700&display=swap"
+      rel="stylesheet"
+    />
 
     <link rel="stylesheet" href="./styles.css" />
   </head>
   <body>
-    <div class="app-shell">
+    <div class="app-shell" id="app-shell">
       <header class="hero">
-        <p class="eyebrow">Hapa English Listening Companion</p>
+        <div class="hero__copy">
+          <p class="eyebrow">Hapa Review Focus</p>
+          <h1>設定して、そのまま復習。</h1>
+          <p class="support-copy">
+            一覧と内容確認を外して、復習条件の設定とカード学習だけに絞りました。
+          </p>
+        </div>
         <div class="hero__stats" id="summary-stats"></div>
       </header>
 
       <main class="screens">
-        <section class="screen is-active" id="screen-library">
+        <section class="screen is-active" id="screen-setup">
           <section class="panel">
             <div class="panel__header">
               <div>
-                <h2>Episode Library</h2>
+                <h2>設定</h2>
+                <p class="support-copy">
+                  今回回したい Episode 範囲と出題条件だけを決めます。
+                </p>
               </div>
             </div>
-
-            <label class="search-field" for="episode-search">
-              <span class="visually-hidden">Episode search</span>
-              <input
-                id="episode-search"
-                type="search"
-                placeholder="Episode番号・タイトル・テーマで検索"
-                autocomplete="off"
-              />
-            </label>
-
-            <p class="support-copy" id="library-count"></p>
-            <div class="episode-list" id="library-list"></div>
-
-            <details class="template-details">
-              <summary>Data Template</summary>
-              <p class="support-copy">
-                新しいエピソードを追加するときは、このテンプレートに沿って
-                `data.js` へ追記します。
-              </p>
-              <pre class="code-block" id="template-block"></pre>
-            </details>
-          </section>
-        </section>
-
-        <section class="screen" id="screen-episode">
-          <section class="panel">
-            <div class="panel__header panel__header--split">
-              <div>
-                <h2 id="episode-title">Episode</h2>
-              </div>
-              <button class="button" type="button" id="go-setup-button">
-                この回で復習設定
-              </button>
-            </div>
-
-            <div class="episode-meta" id="episode-meta"></div>
-            <div class="episode-source" id="episode-source"></div>
-            <div class="overview-grid" id="episode-overview"></div>
-
-            <div class="section-grid">
-              <article class="section-card section-card--phrase">
-                <div class="section-card__header">
-                  <h3>Today's Phrases</h3>
-                  <span>英作文と会話の核になる表現</span>
-                </div>
-                <div class="stack-list" id="phrases-section"></div>
-              </article>
-
-              <article class="section-card section-card--vocabulary">
-                <div class="section-card__header">
-                  <h3>Vocabulary</h3>
-                  <span>単語の意味と使い方を定着</span>
-                </div>
-                <div class="stack-list" id="vocabulary-section"></div>
-              </article>
-
-              <article class="section-card section-card--expression">
-                <div class="section-card__header">
-                  <h3>Expressions</h3>
-                  <span>まとまり表現を別枠で整理</span>
-                </div>
-                <div class="stack-list" id="expressions-section"></div>
-              </article>
-            </div>
-          </section>
-        </section>
-
-        <section class="screen" id="screen-setup">
-          <section class="panel">
-            <div class="panel__header panel__header--split">
-              <div>
-                <h2>Review Setup</h2>
-              </div>
-              <button class="button button--ghost" type="button" id="use-current-button">
-                選択中の回に合わせる
-              </button>
-            </div>
-
-            <div class="setup-summary" id="setup-summary"></div>
 
             <div class="setup-groups">
               <div class="filter-group">
-                <span>学習範囲</span>
-                <div class="chip-group" id="scope-filters"></div>
+                <span>Episode範囲</span>
+                <div class="chip-group" id="episode-mode-filters"></div>
+                <div class="range-fields" id="episode-range-fields" hidden>
+                  <label class="number-field" for="episode-start">
+                    <span>開始Episode</span>
+                    <input id="episode-start" type="number" inputmode="numeric" />
+                  </label>
+                  <label class="number-field" for="episode-end">
+                    <span>終了Episode</span>
+                    <input id="episode-end" type="number" inputmode="numeric" />
+                  </label>
+                </div>
+                <p class="support-copy" id="range-hint"></p>
               </div>
 
               <div class="filter-group">
@@ -151,7 +92,7 @@
               </div>
             </div>
 
-            <div class="preview-grid" id="setup-preview"></div>
+            <div class="setup-summary" id="setup-summary"></div>
 
             <div class="action-row action-row--bottom">
               <button class="button" type="button" id="start-study-button">
@@ -165,10 +106,17 @@
           <section class="panel">
             <div class="panel__header panel__header--split">
               <div>
-                <h2>Study Session</h2>
+                <h2>学習</h2>
+                <p class="support-copy">
+                  Episode番号だけを手がかりに、Question と回答確認へ集中します。
+                </p>
               </div>
-              <button class="button button--ghost" type="button" id="back-to-setup-button">
-                設定へ戻る
+              <button
+                class="button button--ghost"
+                type="button"
+                id="back-to-setup-button"
+              >
+                設定に戻る
               </button>
             </div>
 
@@ -184,90 +132,98 @@
 
             <div class="flashcard">
               <div class="flashcard__meta">
-                <span id="card-badge">Ready</span>
+                <span class="card-badge card-badge--neutral" id="card-badge"
+                  >Ready</span
+                >
                 <span id="card-progress">0 / 0</span>
               </div>
               <div class="flashcard__progress">
                 <span id="card-progress-bar"></span>
               </div>
-              <p class="flashcard__label">Context</p>
-              <p class="flashcard__context" id="card-context">
-                まずは復習条件を選んで学習を始めてください。
-              </p>
-              <p class="flashcard__label">Question</p>
+              <p class="flashcard__eyebrow" id="card-episode">Episode -</p>
               <h3 class="flashcard__front" id="card-front">
-                日英または英日を選んで、思い出してから答えを開きましょう。
+                設定を決めると、ここに Question が表示されます。
               </h3>
               <div class="flashcard__answer" id="card-answer" hidden>
                 <p class="flashcard__label">Answer</p>
-                <div id="card-back"></div>
+                <div class="answer-stack" id="card-back"></div>
               </div>
+
               <div class="flashcard__controls">
-                <button class="button button--ghost button--reveal" type="button" id="reveal-button">
+                <button
+                  class="button button--ghost button--reveal"
+                  type="button"
+                  id="reveal-button"
+                >
                   答えを見る
                 </button>
                 <div class="flashcard__action-row">
                   <button class="button button--again" type="button" id="again-button">
                     もう一度
                   </button>
-                  <button class="button button--good" type="button" id="good-button">できた</button>
+                  <button class="button button--good" type="button" id="good-button">
+                    できた
+                  </button>
                 </div>
                 <div class="flashcard__swipe-hint">
                   <span>← もう一度</span>
                   <span>できた →</span>
                 </div>
               </div>
+
               <div class="session-actions" id="session-actions" hidden>
                 <button class="button" type="button" id="retry-missed-button">
                   Againのカードだけ再出題
                 </button>
               </div>
             </div>
-
-            <details class="queue-details">
-              <summary>Study Queue</summary>
-              <div class="queue-list" id="study-queue"></div>
-            </details>
           </section>
         </section>
       </main>
 
+      <div class="mobile-action-bar mobile-action-bar--setup" id="setup-mobile-bar">
+        <p class="mobile-action-bar__meta" id="setup-mobile-meta"></p>
+        <button class="button" type="button" id="sticky-start-study-button">
+          この条件で学習開始
+        </button>
+      </div>
+
+      <div class="mobile-action-bar mobile-action-bar--study" id="study-mobile-bar">
+        <button
+          class="button button--ghost button--reveal"
+          type="button"
+          id="sticky-reveal-button"
+        >
+          答えを見る
+        </button>
+        <div class="mobile-action-bar__actions" id="study-mobile-actions">
+          <button class="button button--again" type="button" id="sticky-again-button">
+            もう一度
+          </button>
+          <button class="button button--good" type="button" id="sticky-good-button">
+            できた
+          </button>
+        </div>
+      </div>
+
       <nav class="bottom-nav" aria-label="Primary navigation">
-        <button class="bottom-nav__button is-active" type="button" data-screen="library">
+        <button class="bottom-nav__button is-active" type="button" data-screen="setup">
           <svg viewBox="0 0 24 24" aria-hidden="true">
-            <rect x="3" y="3" width="7" height="7" rx="1.5"/>
-            <rect x="14" y="3" width="7" height="7" rx="1.5"/>
-            <rect x="3" y="14" width="7" height="7" rx="1.5"/>
-            <rect x="14" y="14" width="7" height="7" rx="1.5"/>
-          </svg>
-          一覧
-        </button>
-        <button class="bottom-nav__button" type="button" data-screen="episode">
-          <svg viewBox="0 0 24 24" aria-hidden="true">
-            <path d="M4 19.5A2.5 2.5 0 0 1 6.5 17H20"/>
-            <path d="M6.5 2H20v20H6.5A2.5 2.5 0 0 1 4 19.5v-15A2.5 2.5 0 0 1 6.5 2z"/>
-            <line x1="9" y1="8" x2="15" y2="8"/>
-            <line x1="9" y1="12" x2="15" y2="12"/>
-          </svg>
-          内容
-        </button>
-        <button class="bottom-nav__button" type="button" data-screen="setup">
-          <svg viewBox="0 0 24 24" aria-hidden="true">
-            <line x1="4" y1="6" x2="20" y2="6"/>
-            <line x1="4" y1="12" x2="20" y2="12"/>
-            <line x1="4" y1="18" x2="20" y2="18"/>
-            <circle cx="9" cy="6" r="2.5" fill="currentColor" stroke="none"/>
-            <circle cx="15" cy="12" r="2.5" fill="currentColor" stroke="none"/>
-            <circle cx="9" cy="18" r="2.5" fill="currentColor" stroke="none"/>
+            <line x1="4" y1="6" x2="20" y2="6" />
+            <line x1="4" y1="12" x2="20" y2="12" />
+            <line x1="4" y1="18" x2="20" y2="18" />
+            <circle cx="9" cy="6" r="2.5" fill="currentColor" stroke="none" />
+            <circle cx="15" cy="12" r="2.5" fill="currentColor" stroke="none" />
+            <circle cx="9" cy="18" r="2.5" fill="currentColor" stroke="none" />
           </svg>
           設定
         </button>
         <button class="bottom-nav__button" type="button" data-screen="study">
           <svg viewBox="0 0 24 24" aria-hidden="true">
-            <rect x="2" y="5" width="20" height="14" rx="3"/>
-            <line x1="2" y1="10" x2="22" y2="10"/>
-            <line x1="7" y1="15" x2="10" y2="15"/>
-            <line x1="13" y1="15" x2="17" y2="15"/>
+            <rect x="2" y="5" width="20" height="14" rx="3" />
+            <line x1="2" y1="10" x2="22" y2="10" />
+            <line x1="7" y1="15" x2="10" y2="15" />
+            <line x1="13" y1="15" x2="17" y2="15" />
           </svg>
           学習
         </button>
