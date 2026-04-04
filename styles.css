@@ -557,7 +557,19 @@ button {
 }
 
 .session-actions {
+  display: grid;
+  gap: 12px;
   margin-top: 18px;
+}
+
+.session-actions__copy {
+  margin: 0;
+}
+
+.session-actions__buttons {
+  display: grid;
+  gap: 10px;
+  grid-template-columns: repeat(auto-fit, minmax(180px, 1fr));
 }
 
 .app-shell[data-active-screen="setup"] .mobile-action-bar--study,

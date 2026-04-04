@@ -133,7 +133,7 @@
             <div class="flashcard">
               <div class="flashcard__meta">
                 <span class="card-badge card-badge--neutral" id="card-badge"
-                  >Ready</span
+                  >待機中</span
                 >
                 <span id="card-progress">0 / 0</span>
               </div>
@@ -145,7 +145,7 @@
                 設定を決めると、ここに Question が表示されます。
               </h3>
               <div class="flashcard__answer" id="card-answer" hidden>
-                <p class="flashcard__label">Answer</p>
+                <p class="flashcard__label">回答</p>
                 <div class="answer-stack" id="card-back"></div>
               </div>
 
@@ -171,11 +171,17 @@
                 </div>
               </div>
 
-              <div class="session-actions" id="session-actions" hidden>
-                <button class="button" type="button" id="retry-missed-button">
-                  Againのカードだけ再出題
-                </button>
-              </div>
+            <div class="session-actions" id="session-actions" hidden>
+                <p class="support-copy session-actions__copy" id="session-actions-copy"></p>
+                <div class="session-actions__buttons">
+                  <button class="button" type="button" id="retry-missed-button">
+                    Againだけ復習
+                  </button>
+                  <button class="button button--ghost" type="button" id="finish-setup-button">
+                    設定を見直す
+                  </button>
+                </div>
+            </div>
             </div>
           </section>
         </section>
@@ -189,6 +195,7 @@
       </div>
 
       <div class="mobile-action-bar mobile-action-bar--study" id="study-mobile-bar">
+        <p class="mobile-action-bar__meta" id="study-mobile-meta"></p>
         <button
           class="button button--ghost button--reveal"
           type="button"
@@ -231,7 +238,7 @@
     </div>
 
     <script src="./data.js"></script>
-    <script src="./app.js"></script>
+    <script type="module" src="./app.js"></script>
     <script>
       if ("serviceWorker" in navigator) {
         window.addEventListener("load", () => {

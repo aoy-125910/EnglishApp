@@ -6,6 +6,10 @@ const ASSETS = [
   "./styles.css",
   "./app.js",
   "./data.js",
+  "./src/review-data.js",
+  "./src/review-filters.js",
+  "./src/review-session.js",
+  "./src/review-render.js",
   "./manifest.json",
   "./icons/icon-192.png",
   "./icons/icon-512.png",
@@ -44,8 +48,7 @@ function isNetworkFirstRequest(requestUrl) {
   return (
     pathname === "/" ||
     pathname.endsWith("/index.html") ||
-    pathname.endsWith("/app.js") ||
-    pathname.endsWith("/data.js") ||
+    pathname.endsWith(".js") ||
     pathname.endsWith("/styles.css") ||
     pathname.endsWith("/manifest.json")
   );
