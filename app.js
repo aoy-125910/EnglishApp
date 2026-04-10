@@ -24,6 +24,10 @@ import {
 } from "./src/review-render.js";
 
 const STORAGE_KEY = "hapa-review-focus-progress-v1";
+const STAGE_ENTRANCE_MS = 820;
+const CARD_ADVANCE_MS = 440;
+const REVEAL_ANIMATION_MS = 560;
+const OUTCOME_ANIMATION_MS = 320;
 const catalog = buildCatalog(window.HAPA_CARDS || []);
 
 const state = {
@@ -87,8 +91,137 @@ const elements = {
   sessionActionsCopy: document.getElementById("session-actions-copy"),
   retryMissedButton: document.getElementById("retry-missed-button"),
   finishSetupButton: document.getElementById("finish-setup-button"),
+  flashcardOuter: document.getElementById("flashcard-outer"),
   flashcard: document.querySelector(".flashcard")
 };
+
+const animationTimers = {
+  stageEntrance: 0,
+  cardAdvance: 0,
+  reveal: 0,
+  outcome: 0
+};
+
+let isResolvingOutcome = false;
+
+function clearAnimationTimer(name) {
+  if (!animationTimers[name]) {
+    return;
+  }
+
+  window.clearTimeout(animationTimers[name]);
+  animationTimers[name] = 0;
+}
+
+function restartAnimationClass(element, className) {
+  if (!element) {
+    return;
+  }
+
+  element.classList.remove(className);
+  void element.offsetWidth;
+  element.classList.add(className);
+}
+
+function clearOutcomeClasses() {
+  if (elements.flashcard) {
+    elements.flashcard.classList.remove(
+      "is-resolving",
+      "is-outcome-good",
+      "is-outcome-again"
+    );
+  }
+
+  [
+    elements.againButton,
+    elements.goodButton,
+    elements.stickyAgainButton,
+    elements.stickyGoodButton
+  ].forEach((button) => {
+    button?.classList.remove("is-outcome-active");
+  });
+}
+
+function clearStudyTransientAnimations() {
+  clearAnimationTimer("stageEntrance");
+  clearAnimationTimer("cardAdvance");
+  clearAnimationTimer("reveal");
+
+  elements.flashcardOuter?.classList.remove("is-stage-entering");
+  elements.flashcard?.classList.remove("is-card-advancing", "is-revealing-answer");
+  clearOutcomeClasses();
+
+  if (!animationTimers.outcome) {
+    isResolvingOutcome = false;
+  }
+}
+
+function triggerStudyEntrance() {
+  if (
+    state.activeScreen !== "study" ||
+    !elements.flashcardOuter ||
+    !state.study.cards.length
+  ) {
+    return;
+  }
+
+  clearAnimationTimer("stageEntrance");
+  restartAnimationClass(elements.flashcardOuter, "is-stage-entering");
+  animationTimers.stageEntrance = window.setTimeout(() => {
+    elements.flashcardOuter?.classList.remove("is-stage-entering");
+    animationTimers.stageEntrance = 0;
+  }, STAGE_ENTRANCE_MS);
+}
+
+function triggerCardAdvance() {
+  if (
+    state.activeScreen !== "study" ||
+    !elements.flashcard ||
+    !state.study.cards.length ||
+    state.study.completed
+  ) {
+    return;
+  }
+
+  clearAnimationTimer("cardAdvance");
+  restartAnimationClass(elements.flashcard, "is-card-advancing");
+  animationTimers.cardAdvance = window.setTimeout(() => {
+    elements.flashcard?.classList.remove("is-card-advancing");
+    animationTimers.cardAdvance = 0;
+  }, CARD_ADVANCE_MS);
+}
+
+function triggerRevealAnimation() {
+  if (!elements.flashcard) {
+    return;
+  }
+
+  clearAnimationTimer("reveal");
+  restartAnimationClass(elements.flashcard, "is-revealing-answer");
+  animationTimers.reveal = window.setTimeout(() => {
+    elements.flashcard?.classList.remove("is-revealing-answer");
+    animationTimers.reveal = 0;
+  }, REVEAL_ANIMATION_MS);
+}
+
+function triggerOutcomeAnimation(kind) {
+  if (!elements.flashcard) {
+    return;
+  }
+
+  clearOutcomeClasses();
+  elements.flashcard.classList.add(
+    "is-resolving",
+    kind === "good" ? "is-outcome-good" : "is-outcome-again"
+  );
+
+  [
+    kind === "good" ? elements.goodButton : elements.againButton,
+    kind === "good" ? elements.stickyGoodButton : elements.stickyAgainButton
+  ].forEach((button) => {
+    button?.classList.add("is-outcome-active");
+  });
+}
 
 function loadProgress() {
   try {
@@ -117,6 +250,11 @@ function updateCardProgress(cardId, delta) {
 }
 
 function startStudySession() {
+  if (isResolvingOutcome) {
+    return;
+  }
+
+  clearStudyTransientAnimations();
   const previewCards = getPreviewCards();
   state.study = createStudySession(
     previewCards,
@@ -124,10 +262,16 @@ function startStudySession() {
   );
   state.activeScreen = "study";
   render();
+  triggerStudyEntrance();
   scrollToTop();
 }
 
 function restartMissedSession() {
+  if (isResolvingOutcome) {
+    return;
+  }
+
+  clearStudyTransientAnimations();
   const retryStudy = createRetryStudySession(state.study);
   if (!retryStudy) {
     return;
@@ -136,10 +280,15 @@ function restartMissedSession() {
   state.study = retryStudy;
   state.activeScreen = "study";
   render();
+  triggerStudyEntrance();
   scrollToTop();
 }
 
 function setScreen(screenName) {
+  if (screenName !== "study") {
+    clearStudyTransientAnimations();
+  }
+
   state.activeScreen = screenName;
   render();
   scrollToTop();
@@ -170,18 +319,33 @@ function render() {
 }
 
 function handleStudyOutcome(kind) {
+  if (isResolvingOutcome) {
+    return;
+  }
+
   const result = resolveStudyOutcome(state.study, kind);
   if (!result) {
     return;
   }
 
-  state.study = result.study;
-  updateCardProgress(result.currentCardId, result.progressDelta);
-  render();
+  isResolvingOutcome = true;
+  triggerOutcomeAnimation(kind);
 
-  if (!state.study.completed) {
-    scrollStudyCardIntoView();
-  }
+  clearAnimationTimer("outcome");
+  animationTimers.outcome = window.setTimeout(() => {
+    clearOutcomeClasses();
+    state.study = result.study;
+    updateCardProgress(result.currentCardId, result.progressDelta);
+    render();
+
+    if (!state.study.completed) {
+      scrollStudyCardIntoView();
+      triggerCardAdvance();
+    }
+
+    animationTimers.outcome = 0;
+    isResolvingOutcome = false;
+  }, OUTCOME_ANIMATION_MS);
 }
 
 function scrollToTop() {
@@ -203,7 +367,12 @@ function bindButtonGroup(buttons, handler) {
 }
 
 function revealStudyAnswer() {
-  if (!state.study.cards.length || state.study.revealAnswer || state.study.completed) {
+  if (
+    !state.study.cards.length ||
+    state.study.revealAnswer ||
+    state.study.completed ||
+    isResolvingOutcome
+  ) {
     return;
   }
 
@@ -212,6 +381,7 @@ function revealStudyAnswer() {
     revealAnswer: true
   };
   render();
+  triggerRevealAnimation();
 }
 
 function bindEvents() {

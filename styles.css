@@ -429,6 +429,7 @@ button {
 
 /* ── BUTTONS ── */
 .button {
+  position: relative;
   display: inline-flex;
   align-items: center;
   justify-content: center;
@@ -443,14 +444,69 @@ button {
   font-weight: 700;
   font-style: italic;
   letter-spacing: 0.05em;
+  text-shadow: 0 1px 0 rgba(34, 20, 8, 0.18);
   cursor: pointer;
+  overflow: hidden;
+  isolation: isolate;
   box-shadow: 0 5px 18px rgba(184, 136, 32, 0.30);
-  transition: all 220ms cubic-bezier(0.22, 1, 0.36, 1);
+  transition:
+    transform 220ms cubic-bezier(0.22, 1, 0.36, 1),
+    box-shadow 220ms cubic-bezier(0.22, 1, 0.36, 1),
+    filter 220ms cubic-bezier(0.22, 1, 0.36, 1),
+    border-color 220ms ease;
+}
+
+.button::before,
+.button::after {
+  content: "";
+  position: absolute;
+  pointer-events: none;
+}
+
+.button::before {
+  inset: -18%;
+  background: linear-gradient(
+    120deg,
+    transparent 16%,
+    rgba(255, 248, 228, 0.05) 34%,
+    rgba(255, 248, 228, 0.28) 48%,
+    transparent 66%
+  );
+  opacity: 0.72;
+  transform: translateX(-145%) skewX(-22deg);
+  transition: transform 520ms cubic-bezier(0.22, 1, 0.36, 1), opacity 220ms ease;
+}
+
+.button::after {
+  inset: 1px;
+  border-radius: inherit;
+  background:
+    radial-gradient(circle at 22% 18%, rgba(255, 248, 228, 0.22) 0%, transparent 34%),
+    radial-gradient(circle at 80% 82%, rgba(255, 248, 228, 0.12) 0%, transparent 38%);
+  opacity: 0.7;
 }
 
 .button:hover {
-  transform: translateY(-2px);
+  transform: translateY(-2px) scale(1.012);
   box-shadow: 0 8px 24px rgba(184, 136, 32, 0.36);
+  filter: saturate(1.06);
+}
+
+.button:hover::before,
+.button:focus-visible::before {
+  transform: translateX(145%) skewX(-22deg);
+}
+
+.button:active {
+  transform: translateY(1px) scale(0.988);
+  box-shadow: 0 3px 12px rgba(106, 64, 32, 0.22);
+}
+
+.button:focus-visible {
+  outline: none;
+  box-shadow:
+    0 0 0 3px rgba(184, 136, 32, 0.18),
+    0 8px 24px rgba(184, 136, 32, 0.22);
 }
 
 .button:disabled {
@@ -458,6 +514,12 @@ button {
   opacity: 0.45;
   transform: none;
   box-shadow: none;
+  filter: none;
+}
+
+.button:disabled::before,
+.button:disabled::after {
+  opacity: 0;
 }
 
 .button--ghost {
@@ -493,6 +555,18 @@ button {
   box-shadow: 0 8px 24px rgba(90, 122, 72, 0.36);
 }
 
+.button.is-outcome-active {
+  animation: buttonRespond 320ms cubic-bezier(0.22, 1, 0.36, 1) both;
+}
+
+.button--again.is-outcome-active {
+  box-shadow: 0 0 0 1px rgba(184, 112, 96, 0.18), 0 10px 28px rgba(184, 112, 96, 0.34);
+}
+
+.button--good.is-outcome-active {
+  box-shadow: 0 0 0 1px rgba(90, 122, 72, 0.18), 0 10px 28px rgba(90, 122, 72, 0.34);
+}
+
 /* ── SESSION STRIP ── */
 .session-strip {
   display: grid;
@@ -508,26 +582,123 @@ button {
 
 .session-progress,
 .flashcard__progress {
+  position: relative;
   overflow: hidden;
-  height: 5px;
+  isolation: isolate;
+  height: 8px;
   border-radius: 999px;
-  background: rgba(184, 136, 32, 0.16);
+  background: linear-gradient(180deg, rgba(184, 136, 32, 0.08), rgba(184, 136, 32, 0.18));
+  box-shadow: inset 0 1px 2px rgba(106, 64, 32, 0.08);
+}
+
+.session-progress::before,
+.flashcard__progress::before {
+  content: "";
+  position: absolute;
+  inset: 1px 10px;
+  border-radius: inherit;
+  background:
+    radial-gradient(circle at 14% 55%, rgba(90, 122, 72, 0.2) 0%, transparent 18%),
+    radial-gradient(circle at 32% 36%, rgba(184, 136, 32, 0.18) 0%, transparent 18%),
+    radial-gradient(circle at 57% 62%, rgba(184, 112, 96, 0.18) 0%, transparent 18%),
+    radial-gradient(circle at 84% 40%, rgba(58, 112, 104, 0.2) 0%, transparent 18%);
+  opacity: 0.5;
+  pointer-events: none;
 }
 
 .session-progress span,
 .flashcard__progress span {
   display: block;
+  position: relative;
   width: 0;
   height: 100%;
   border-radius: inherit;
-  background: linear-gradient(90deg, var(--gold), var(--rose));
-  transition: width 180ms ease;
+  background:
+    radial-gradient(ellipse 13px 7px at 18% 62%, rgba(90, 122, 72, 0.92) 0%, transparent 56%),
+    radial-gradient(ellipse 11px 6px at 39% 34%, rgba(58, 112, 104, 0.82) 0%, transparent 58%),
+    radial-gradient(ellipse 10px 6px at 61% 68%, rgba(184, 136, 32, 0.88) 0%, transparent 58%),
+    radial-gradient(circle 10px at 88% 48%, rgba(255, 248, 228, 0.34) 0%, transparent 42%),
+    linear-gradient(90deg, var(--sage) 0%, var(--gold) 56%, var(--rose) 100%);
+  box-shadow: 0 0 14px rgba(184, 136, 32, 0.22);
+  transition: width 260ms ease, box-shadow 220ms ease, filter 220ms ease;
+}
+
+.session-progress span::after,
+.flashcard__progress span::after {
+  content: "";
+  position: absolute;
+  top: 50%;
+  right: -5px;
+  width: 18px;
+  height: 14px;
+  border-radius: 70% 35% 70% 35%;
+  background: linear-gradient(135deg, rgba(90, 122, 72, 0.96), rgba(184, 136, 32, 0.84));
+  box-shadow: 0 0 8px rgba(184, 136, 32, 0.26);
+  transform: translateY(-50%) rotate(-18deg);
+}
+
+.session-progress span[data-active="false"],
+.flashcard__progress span[data-active="false"] {
+  box-shadow: none;
+}
+
+.session-progress span[data-active="false"]::after,
+.flashcard__progress span[data-active="false"]::after {
+  opacity: 0;
 }
 
 /* ── FLASHCARD OUTER (corner ornament wrapper) ── */
 .flashcard-outer {
   position: relative;
+  isolation: isolate;
   animation: mUp 700ms 160ms cubic-bezier(0.22, 1, 0.36, 1) both;
+}
+
+.flashcard-outer::before,
+.flashcard-outer::after {
+  content: "";
+  position: absolute;
+  inset: 4% 8%;
+  border-radius: 50%;
+  pointer-events: none;
+  opacity: 0;
+}
+
+.flashcard-outer::before {
+  background: radial-gradient(
+    circle,
+    rgba(184, 136, 32, 0.22) 0%,
+    rgba(184, 136, 32, 0.08) 38%,
+    transparent 72%
+  );
+  filter: blur(4px);
+  transform: scale(0.78);
+}
+
+.flashcard-outer::after {
+  background:
+    radial-gradient(circle at 20% 42%, rgba(184, 112, 96, 0.22) 0 3px, transparent 4px),
+    radial-gradient(circle at 36% 22%, rgba(184, 136, 32, 0.24) 0 2.5px, transparent 3.5px),
+    radial-gradient(circle at 48% 72%, rgba(90, 122, 72, 0.24) 0 3px, transparent 4px),
+    radial-gradient(circle at 68% 26%, rgba(58, 112, 104, 0.24) 0 3px, transparent 4px),
+    radial-gradient(circle at 82% 58%, rgba(184, 136, 32, 0.24) 0 2.5px, transparent 3.5px);
+  transform: scale(1.06);
+}
+
+.flashcard-outer.is-stage-entering::before {
+  animation: stageHalo 820ms cubic-bezier(0.22, 1, 0.36, 1) both;
+}
+
+.flashcard-outer.is-stage-entering::after {
+  animation: stageDust 860ms cubic-bezier(0.22, 1, 0.36, 1) both;
+}
+
+.flashcard-outer.is-stage-entering .flashcard {
+  animation: cardStageEntrance 760ms cubic-bezier(0.16, 1, 0.3, 1) both;
+}
+
+.flashcard-outer.is-stage-entering .card-corner {
+  animation: cornerBloom 700ms cubic-bezier(0.22, 1, 0.36, 1) both;
 }
 
 .card-corner {
@@ -552,10 +723,48 @@ button {
   border: 1.5px solid rgba(184, 136, 32, 0.34);
   box-shadow: var(--shadow-lg), inset 0 0 0 7px rgba(184, 136, 32, 0.05);
   overflow: hidden;
+  transform-origin: center top;
+  transition: transform 240ms cubic-bezier(0.22, 1, 0.36, 1), box-shadow 240ms ease;
 }
 
 .flashcard.is-revealable {
   cursor: pointer;
+}
+
+.flashcard.is-card-advancing {
+  animation: cardAdvance 440ms cubic-bezier(0.22, 1, 0.36, 1) both;
+}
+
+.flashcard.is-resolving {
+  pointer-events: none;
+}
+
+.flashcard.is-outcome-good {
+  animation: flashcardGood 320ms cubic-bezier(0.22, 1, 0.36, 1) both;
+}
+
+.flashcard.is-outcome-again {
+  animation: flashcardAgain 320ms cubic-bezier(0.22, 1, 0.36, 1) both;
+}
+
+.flashcard.is-outcome-good::after,
+.flashcard.is-outcome-again::after {
+  content: "";
+  position: absolute;
+  inset: 14px;
+  border-radius: inherit;
+  pointer-events: none;
+  opacity: 0;
+}
+
+.flashcard.is-outcome-good::after {
+  background: radial-gradient(circle, rgba(255, 244, 196, 0.26) 0%, transparent 70%);
+  animation: outcomeGlow 320ms ease-out both;
+}
+
+.flashcard.is-outcome-again::after {
+  background: radial-gradient(circle, rgba(184, 112, 96, 0.18) 0%, transparent 70%);
+  animation: outcomeGlow 320ms ease-out both;
 }
 
 /* botanical dots along arched top */
@@ -592,8 +801,70 @@ button {
   pointer-events: none;
 }
 
+.flashcard-bloom {
+  position: absolute;
+  inset: 0;
+  z-index: 0;
+  overflow: hidden;
+  pointer-events: none;
+}
+
+.flashcard-bloom span {
+  position: absolute;
+  width: 12px;
+  height: 12px;
+  border-radius: 65% 35% 65% 35%;
+  background: linear-gradient(135deg, rgba(184, 136, 32, 0.94), rgba(255, 248, 228, 0.72));
+  box-shadow: 0 0 10px rgba(184, 136, 32, 0.18);
+  opacity: 0;
+}
+
+.flashcard-bloom span:nth-child(1) {
+  top: 20%;
+  left: 18%;
+}
+
+.flashcard-bloom span:nth-child(2) {
+  top: 14%;
+  left: 34%;
+}
+
+.flashcard-bloom span:nth-child(3) {
+  top: 16%;
+  right: 26%;
+}
+
+.flashcard-bloom span:nth-child(4) {
+  top: 28%;
+  right: 16%;
+}
+
+.flashcard-bloom span:nth-child(5) {
+  bottom: 22%;
+  left: 24%;
+}
+
+.flashcard-bloom span:nth-child(6) {
+  bottom: 18%;
+  right: 22%;
+}
+
+.flashcard-outer.is-stage-entering .flashcard-bloom span {
+  animation: bloomFloat 720ms cubic-bezier(0.22, 1, 0.36, 1) both;
+}
+
+.flashcard.is-outcome-good .flashcard-bloom span {
+  animation: bloomFloat 320ms cubic-bezier(0.22, 1, 0.36, 1) both;
+}
+
+.flashcard.is-outcome-again .flashcard-bloom span {
+  background: linear-gradient(135deg, rgba(184, 112, 96, 0.88), rgba(255, 240, 236, 0.74));
+  animation: inkFloat 320ms cubic-bezier(0.22, 1, 0.36, 1) both;
+}
+
 .flashcard__meta {
   position: relative;
+  z-index: 1;
   display: flex;
   justify-content: space-between;
   align-items: center;
@@ -624,6 +895,8 @@ button {
 }
 
 .flashcard__progress {
+  position: relative;
+  z-index: 1;
   margin-top: 6px;
 }
 
@@ -649,6 +922,7 @@ button {
 
 .flashcard__eyebrow {
   position: relative;
+  z-index: 1;
   margin: 14px 0 8px;
   font-size: 0.76rem;
   font-weight: 400;
@@ -660,6 +934,7 @@ button {
 
 .flashcard__front {
   position: relative;
+  z-index: 1;
   margin: 0;
   font-family: var(--font-display);
   font-size: clamp(1.9rem, 8.5vw, 3.5rem);
@@ -673,6 +948,7 @@ button {
 
 .flashcard__tap-hint {
   position: relative;
+  z-index: 1;
   margin: 16px 0 0;
   font-style: italic;
   color: var(--gold2);
@@ -696,10 +972,32 @@ button {
 }
 
 .flashcard__answer {
+  position: relative;
+  z-index: 1;
   margin-top: 0;
   padding-top: 0;
   border-top: none;
   animation: revealAnswer 220ms cubic-bezier(0.22, 1, 0.36, 1) both;
+}
+
+.flashcard.is-revealing-answer {
+  animation: cardRevealBend 560ms cubic-bezier(0.22, 1, 0.36, 1) both;
+}
+
+.flashcard.is-revealing-answer .flashcard__front {
+  animation: questionLift 380ms cubic-bezier(0.22, 1, 0.36, 1) both;
+}
+
+.flashcard.is-revealing-answer .flashcard__tap-hint {
+  animation: hintFade 240ms ease-out both;
+}
+
+.flashcard.is-revealing-answer .flashcard-divider svg {
+  animation: dividerBloom 420ms cubic-bezier(0.22, 1, 0.36, 1) both;
+}
+
+.flashcard.is-revealing-answer .flashcard__answer {
+  animation: answerFanOpen 560ms cubic-bezier(0.22, 1, 0.36, 1) both;
 }
 
 .flashcard__label {
@@ -748,6 +1046,8 @@ button {
 }
 
 .flashcard__controls {
+  position: relative;
+  z-index: 1;
   display: grid;
   gap: 12px;
   margin-top: 22px;
@@ -785,6 +1085,8 @@ button {
 
 /* ── SESSION ACTIONS ── */
 .session-actions {
+  position: relative;
+  z-index: 1;
   display: grid;
   gap: 12px;
   margin-top: 18px;
@@ -903,9 +1205,104 @@ button {
   to   { opacity: 1; transform: none; }
 }
 
+@keyframes buttonRespond {
+  0%   { transform: translateY(0) scale(1); }
+  40%  { transform: translateY(-2px) scale(1.04); }
+  100% { transform: translateY(0) scale(1); }
+}
+
+@keyframes stageHalo {
+  0%   { opacity: 0; transform: scale(0.72); }
+  35%  { opacity: 0.9; }
+  100% { opacity: 0; transform: scale(1.18); }
+}
+
+@keyframes stageDust {
+  0%   { opacity: 0; transform: scale(0.96) translateY(12px); }
+  35%  { opacity: 0.85; }
+  100% { opacity: 0; transform: scale(1.18) translateY(-16px); }
+}
+
+@keyframes cardStageEntrance {
+  0%   { opacity: 0; transform: translateY(28px) scale(0.96) rotateX(-10deg); }
+  55%  { opacity: 1; transform: translateY(-4px) scale(1.01) rotateX(1deg); }
+  100% { opacity: 1; transform: none; }
+}
+
+@keyframes cornerBloom {
+  0%   { opacity: 0; filter: blur(4px); }
+  55%  { opacity: 1; filter: blur(0); }
+  100% { opacity: 1; filter: none; }
+}
+
+@keyframes cardAdvance {
+  0%   { opacity: 0.3; transform: translateY(16px) scale(0.985); }
+  60%  { opacity: 1; transform: translateY(-2px) scale(1.003); }
+  100% { opacity: 1; transform: none; }
+}
+
+@keyframes flashcardGood {
+  0%   { transform: scale(1); box-shadow: var(--shadow-lg), inset 0 0 0 7px rgba(184, 136, 32, 0.05); }
+  40%  { transform: scale(1.012); box-shadow: 0 18px 50px rgba(184, 136, 32, 0.26), inset 0 0 0 7px rgba(184, 136, 32, 0.08); }
+  100% { transform: scale(1); box-shadow: var(--shadow-lg), inset 0 0 0 7px rgba(184, 136, 32, 0.05); }
+}
+
+@keyframes flashcardAgain {
+  0%   { transform: translateX(0); }
+  28%  { transform: translateX(-5px) rotate(-0.45deg); }
+  60%  { transform: translateX(3px) rotate(0.25deg); }
+  100% { transform: translateX(0); }
+}
+
+@keyframes outcomeGlow {
+  0%   { opacity: 0; transform: scale(0.92); }
+  30%  { opacity: 1; }
+  100% { opacity: 0; transform: scale(1.06); }
+}
+
+@keyframes bloomFloat {
+  0%   { opacity: 0; transform: translateY(12px) scale(0.7) rotate(0deg); }
+  35%  { opacity: 0.85; }
+  100% { opacity: 0; transform: translateY(-26px) scale(1.12) rotate(26deg); }
+}
+
+@keyframes inkFloat {
+  0%   { opacity: 0; transform: translateY(4px) scale(0.76) rotate(0deg); }
+  35%  { opacity: 0.8; }
+  100% { opacity: 0; transform: translateY(18px) scale(1.06) rotate(-18deg); }
+}
+
 @keyframes revealAnswer {
   from { opacity: 0; transform: translateY(8px) scale(0.99); }
   to   { opacity: 1; transform: translateY(0) scale(1); }
+}
+
+@keyframes cardRevealBend {
+  0%   { transform: perspective(1100px) rotateX(0deg); }
+  30%  { transform: perspective(1100px) rotateX(-7deg) translateY(-2px); }
+  100% { transform: perspective(1100px) rotateX(0deg); }
+}
+
+@keyframes questionLift {
+  0%   { opacity: 1; transform: translateY(0) scale(1); }
+  45%  { opacity: 0.4; transform: translateY(-8px) scale(0.985); }
+  100% { opacity: 1; transform: translateY(0) scale(1); }
+}
+
+@keyframes hintFade {
+  from { opacity: 1; transform: translateY(0); }
+  to   { opacity: 0; transform: translateY(-6px); }
+}
+
+@keyframes dividerBloom {
+  0%   { opacity: 0; transform: scaleX(0.84); }
+  100% { opacity: 1; transform: scaleX(1); }
+}
+
+@keyframes answerFanOpen {
+  0%   { opacity: 0; transform: translateY(18px) scale(0.985) rotateX(-8deg); }
+  50%  { opacity: 1; transform: translateY(-2px) scale(1.005) rotateX(1deg); }
+  100% { opacity: 1; transform: translateY(0) scale(1) rotateX(0deg); }
 }
 
 /* ── RESPONSIVE — wider layout ── */
@@ -989,5 +1386,16 @@ button {
 
   .session-strip .support-copy {
     font-size: 0.86rem;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  *,
+  *::before,
+  *::after {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+    scroll-behavior: auto !important;
   }
 }

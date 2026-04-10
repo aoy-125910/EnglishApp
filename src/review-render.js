@@ -153,6 +153,7 @@ export function renderStudyScreen({ elements, study, getCardState }) {
     `
   ).join("");
   elements.sessionProgressBar.style.width = `${sessionProgress}%`;
+  elements.sessionProgressBar.dataset.active = sessionProgress > 0 ? "true" : "false";
 
   if (!study.cards.length) {
     renderStudyEmptyState(elements);
@@ -182,6 +183,7 @@ export function renderStudyScreen({ elements, study, getCardState }) {
   elements.cardBadge.textContent = `${card.typeLabel} / ${card.directionLabel} / 定着度 ${cardState.score}`;
   elements.cardProgress.textContent = `${study.currentIndex + 1} / ${study.cards.length}`;
   elements.cardProgressBar.style.width = `${progressWidth}%`;
+  elements.cardProgressBar.dataset.active = progressWidth > 0 ? "true" : "false";
   elements.cardEpisode.textContent = `Episode ${card.episode}`;
   elements.cardFront.textContent = card.prompt;
   elements.cardTapHint.hidden = study.revealAnswer;
@@ -208,6 +210,7 @@ function renderStudyEmptyState(elements) {
   elements.cardBadge.textContent = "待機中";
   elements.cardProgress.textContent = "0 / 0";
   elements.cardProgressBar.style.width = "0%";
+  elements.cardProgressBar.dataset.active = "false";
   elements.cardEpisode.textContent = "Episode -";
   elements.cardFront.textContent =
     "設定タブで復習条件を決めると、ここに Question が表示されます。";
@@ -240,6 +243,7 @@ function renderStudyCompletedState({
   elements.cardBadge.textContent = "セッション完了";
   elements.cardProgress.textContent = `${study.cards.length} / ${study.cards.length}`;
   elements.cardProgressBar.style.width = "100%";
+  elements.cardProgressBar.dataset.active = "true";
   elements.cardEpisode.textContent = "今回の条件";
   elements.cardFront.textContent = "今回の復習はここまでです。";
   elements.cardTapHint.hidden = true;
