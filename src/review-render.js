@@ -1,7 +1,7 @@
 const SUMMARY_STATS = [
   { key: "episodeCount", label: "収録回" },
   { key: "itemCount", label: "学習項目" },
-  { key: "cardCount", label: "出題カード" },
+  { key: "cardCount", label: "出題数" },
   { key: "masteredCount", label: "習得済み" }
 ];
 
