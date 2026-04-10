@@ -6,7 +6,7 @@
       name="viewport"
       content="width=device-width, initial-scale=1.0, viewport-fit=cover"
     />
-    <meta name="theme-color" content="#cb6d3d" />
+    <meta name="theme-color" content="#b88820" />
     <title>Hapa Study Companion</title>
 
     <link rel="manifest" href="./manifest.json" />
@@ -23,7 +23,7 @@
     <link rel="preconnect" href="https://fonts.googleapis.com" />
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
     <link
-      href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@400;600;700&family=DM+Sans:wght@300;400;500;700&display=swap"
+      href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,400;0,600;0,700;1,400;1,600;1,700&family=Libre+Baskerville:ital,wght@0,400;0,700;1,400&display=swap"
       rel="stylesheet"
     />
 
@@ -33,7 +33,24 @@
     <div class="app-shell" id="app-shell">
       <header class="hero">
         <div class="hero__copy">
+          <p class="eyebrow">Hapa English Listening Companion</p>
           <h1>Hapa Review</h1>
+          <div class="hero-vine" aria-hidden="true">
+            <svg viewBox="0 0 340 28" fill="none">
+              <path d="M10,14 Q50,4 85,14 Q120,24 155,14 Q190,4 225,14 Q260,24 295,14 Q315,8 330,14" stroke="#b88820" stroke-width="1" fill="none" opacity=".7"/>
+              <ellipse cx="50"  cy="10" rx="7" ry="3.5" fill="#5a7a48" opacity=".65" transform="rotate(-25 50 10)"/>
+              <ellipse cx="120" cy="18" rx="7" ry="3.5" fill="#5a7a48" opacity=".65" transform="rotate(20 120 18)"/>
+              <ellipse cx="170" cy="9"  rx="7" ry="3.5" fill="#5a7a48" opacity=".65" transform="rotate(-10 170 9)"/>
+              <ellipse cx="220" cy="19" rx="7" ry="3.5" fill="#5a7a48" opacity=".65" transform="rotate(15 220 19)"/>
+              <ellipse cx="290" cy="10" rx="7" ry="3.5" fill="#5a7a48" opacity=".65" transform="rotate(-30 290 10)"/>
+              <circle cx="85"  cy="14" r="3.5" fill="#b87060" opacity=".7"/>
+              <circle cx="85"  cy="14" r="1.5" fill="#fff0e0" opacity=".9"/>
+              <circle cx="255" cy="14" r="3.5" fill="#b88820" opacity=".7"/>
+              <circle cx="255" cy="14" r="1.5" fill="#fff0e0" opacity=".9"/>
+              <circle cx="170" cy="14" r="4"   fill="#b87060" opacity=".6"/>
+              <circle cx="170" cy="14" r="2"   fill="#fff8e8" opacity=".9"/>
+            </svg>
+          </div>
         </div>
         <div class="hero__stats" id="summary-stats"></div>
       </header>
@@ -126,54 +143,112 @@
               </p>
             </section>
 
-            <div class="flashcard">
-              <div class="flashcard__meta">
-                <span class="card-badge card-badge--neutral" id="card-badge"
-                  >待機中</span
-                >
-                <span id="card-progress">0 / 0</span>
+            <div class="flashcard-outer">
+              <!-- corner ornaments -->
+              <div class="card-corner card-corner--tl" aria-hidden="true">
+                <svg viewBox="0 0 70 70" fill="none">
+                  <path d="M8,62 C8,38 32,8 62,8" stroke="#b88820" stroke-width="1.4" opacity=".6"/>
+                  <ellipse cx="22" cy="38" rx="9" ry="4" fill="#5a7a48" opacity=".6" transform="rotate(-40 22 38)"/>
+                  <ellipse cx="38" cy="22" rx="9" ry="4" fill="#5a7a48" opacity=".55" transform="rotate(-65 38 22)"/>
+                  <circle cx="62" cy="8" r="5" fill="#b87060" opacity=".65"/>
+                  <circle cx="62" cy="8" r="2.5" fill="#fff0e0" opacity=".9"/>
+                  <circle cx="8"  cy="62" r="4" fill="#b88820" opacity=".55"/>
+                  <ellipse cx="52" cy="16" rx="6" ry="3" fill="#3a7068" opacity=".5" transform="rotate(-55 52 16)"/>
+                </svg>
               </div>
-              <div class="flashcard__progress">
-                <span id="card-progress-bar"></span>
+              <div class="card-corner card-corner--tr" aria-hidden="true">
+                <svg viewBox="0 0 70 70" fill="none">
+                  <path d="M8,62 C8,38 32,8 62,8" stroke="#b88820" stroke-width="1.4" opacity=".6"/>
+                  <ellipse cx="22" cy="38" rx="9" ry="4" fill="#5a7a48" opacity=".6" transform="rotate(-40 22 38)"/>
+                  <ellipse cx="38" cy="22" rx="9" ry="4" fill="#5a7a48" opacity=".55" transform="rotate(-65 38 22)"/>
+                  <circle cx="62" cy="8" r="5" fill="#b87060" opacity=".65"/>
+                  <circle cx="62" cy="8" r="2.5" fill="#fff0e0" opacity=".9"/>
+                  <circle cx="8"  cy="62" r="4" fill="#b88820" opacity=".55"/>
+                  <ellipse cx="52" cy="16" rx="6" ry="3" fill="#3a7068" opacity=".5" transform="rotate(-55 52 16)"/>
+                </svg>
               </div>
-              <p class="flashcard__eyebrow" id="card-episode">Episode -</p>
-              <h3 class="flashcard__front" id="card-front">
-                設定を決めると、ここに Question が表示されます。
-              </h3>
-              <p class="flashcard__tap-hint" id="card-tap-hint" hidden>
-                カードをタップして答えを見る
-              </p>
-              <div class="flashcard__answer" id="card-answer" hidden>
-                <p class="flashcard__label">回答</p>
-                <div class="answer-stack" id="card-back"></div>
+              <div class="card-corner card-corner--bl" aria-hidden="true">
+                <svg viewBox="0 0 70 70" fill="none">
+                  <path d="M8,62 C8,38 32,8 62,8" stroke="#b88820" stroke-width="1.4" opacity=".6"/>
+                  <ellipse cx="22" cy="38" rx="9" ry="4" fill="#5a7a48" opacity=".6" transform="rotate(-40 22 38)"/>
+                  <ellipse cx="38" cy="22" rx="9" ry="4" fill="#5a7a48" opacity=".55" transform="rotate(-65 38 22)"/>
+                  <circle cx="62" cy="8" r="5" fill="#b87060" opacity=".65"/>
+                  <circle cx="62" cy="8" r="2.5" fill="#fff0e0" opacity=".9"/>
+                  <ellipse cx="52" cy="16" rx="6" ry="3" fill="#3a7068" opacity=".5" transform="rotate(-55 52 16)"/>
+                </svg>
+              </div>
+              <div class="card-corner card-corner--br" aria-hidden="true">
+                <svg viewBox="0 0 70 70" fill="none">
+                  <path d="M8,62 C8,38 32,8 62,8" stroke="#b88820" stroke-width="1.4" opacity=".6"/>
+                  <ellipse cx="22" cy="38" rx="9" ry="4" fill="#5a7a48" opacity=".6" transform="rotate(-40 22 38)"/>
+                  <ellipse cx="38" cy="22" rx="9" ry="4" fill="#5a7a48" opacity=".55" transform="rotate(-65 38 22)"/>
+                  <circle cx="62" cy="8" r="5" fill="#b87060" opacity=".65"/>
+                  <circle cx="62" cy="8" r="2.5" fill="#fff0e0" opacity=".9"/>
+                  <ellipse cx="52" cy="16" rx="6" ry="3" fill="#3a7068" opacity=".5" transform="rotate(-55 52 16)"/>
+                </svg>
               </div>
 
-              <div class="flashcard__controls">
-                <div class="flashcard__action-row" id="flashcard-action-row">
-                  <button class="button button--again" type="button" id="again-button">
-                    もう一度
-                  </button>
-                  <button class="button button--good" type="button" id="good-button">
-                    できた
-                  </button>
+              <div class="flashcard">
+                <div class="flashcard-halo" aria-hidden="true"></div>
+
+                <div class="flashcard__meta">
+                  <span class="card-badge card-badge--neutral" id="card-badge">待機中</span>
+                  <span id="card-progress">0 / 0</span>
                 </div>
-                <div class="flashcard__swipe-hint" id="flashcard-swipe-hint">
-                  <span>← もう一度</span>
-                  <span>できた →</span>
+                <div class="flashcard__progress">
+                  <span id="card-progress-bar"></span>
+                </div>
+                <p class="flashcard__eyebrow" id="card-episode">Episode -</p>
+                <h3 class="flashcard__front" id="card-front">
+                  設定を決めると、ここに Question が表示されます。
+                </h3>
+                <p class="flashcard__tap-hint" id="card-tap-hint" hidden>
+                  カードをタップして答えを見る
+                </p>
+                <div class="flashcard__answer" id="card-answer" hidden>
+                  <div class="flashcard-divider" aria-hidden="true">
+                    <svg viewBox="0 0 300 22" fill="none">
+                      <path d="M20,11 Q75,3 150,11 Q225,19 280,11" stroke="#b88820" stroke-width="1" opacity=".6"/>
+                      <ellipse cx="70"  cy="7"  rx="8" ry="3.5" fill="#5a7a48" opacity=".55" transform="rotate(-20 70 7)"/>
+                      <ellipse cx="150" cy="11" rx="8" ry="3.5" fill="#5a7a48" opacity=".55"/>
+                      <ellipse cx="230" cy="15" rx="8" ry="3.5" fill="#5a7a48" opacity=".55" transform="rotate(20 230 15)"/>
+                      <circle cx="110" cy="9"  r="3.5" fill="#b87060" opacity=".65"/>
+                      <circle cx="110" cy="9"  r="1.5" fill="#fff0e0" opacity=".9"/>
+                      <circle cx="190" cy="13" r="3.5" fill="#b88820" opacity=".65"/>
+                      <circle cx="190" cy="13" r="1.5" fill="#fff8e0" opacity=".9"/>
+                    </svg>
+                  </div>
+                  <p class="flashcard__label">回答</p>
+                  <div class="answer-stack" id="card-back"></div>
+                </div>
+
+                <div class="flashcard__controls">
+                  <div class="flashcard__action-row" id="flashcard-action-row">
+                    <button class="button button--again" type="button" id="again-button">
+                      もう一度
+                    </button>
+                    <button class="button button--good" type="button" id="good-button">
+                      できた
+                    </button>
+                  </div>
+                  <div class="flashcard__swipe-hint" id="flashcard-swipe-hint">
+                    <span>← もう一度</span>
+                    <span>できた →</span>
+                  </div>
+                </div>
+
+                <div class="session-actions" id="session-actions" hidden>
+                  <p class="support-copy session-actions__copy" id="session-actions-copy"></p>
+                  <div class="session-actions__buttons">
+                    <button class="button" type="button" id="retry-missed-button">
+                      Againだけ復習
+                    </button>
+                    <button class="button button--ghost" type="button" id="finish-setup-button">
+                      設定を見直す
+                    </button>
+                  </div>
                 </div>
               </div>
-
-            <div class="session-actions" id="session-actions" hidden>
-                <p class="support-copy session-actions__copy" id="session-actions-copy"></p>
-                <div class="session-actions__buttons">
-                  <button class="button" type="button" id="retry-missed-button">
-                    Againだけ復習
-                  </button>
-                  <button class="button button--ghost" type="button" id="finish-setup-button">
-                    設定を見直す
-                  </button>
-                </div>
-            </div>
             </div>
           </section>
         </section>
